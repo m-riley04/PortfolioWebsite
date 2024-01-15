@@ -1,0 +1,12 @@
+.card {
+    background-color: #121212;
+    padding: 20px; 
+    border-radius: 20px;
+    cursor: pointer;
+    margin: auto;
+    text-align: center;
+}
+
+.card:hover {
+    background-color: #1a1a1a;
+}
