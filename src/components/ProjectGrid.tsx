@@ -1,6 +1,6 @@
 import "./ProjectGrid.css"
 import ProjectCard from './ProjectCard'
-import Project from '../Project';
+import Project from '../classes/Project';
 
 function ProjectGrid( {projects} : {projects:Array<Project>} ) {
 
