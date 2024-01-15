@@ -1,7 +1,8 @@
 import './components/ProjectCard'
 import ProjectGrid from './components/ProjectGrid';
-import Project from './Project';
-import Navigation from "./components/Navigation";
+import Project from './classes/Project';
+import NavigationBar from "./components/NavigationBar";
+import ProjectList from './components/ProjectList';
 
 // Test data and projects
 const testproject = new Project("Project 1", "This is a test project!", "https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fhuman&psig=AOvVaw2IwAZ477AIlNpviSfh4nwC&ust=1705374546489000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCKCKoqW13oMDFQAAAAAdAAAAABAQ");
@@ -19,9 +20,14 @@ const projects = [testproject, testproject2, testproject3, testproject4, testpro
 function App() {
   return (
     <div className="bg-primary">
-      <Navigation></Navigation>
-      <h1 className="">Projects</h1>
-      <ProjectGrid projects={projects}/>
+      <NavigationBar></NavigationBar>
+      <div className="main-container">
+        <ProjectList projects={projects}></ProjectList>
+        <div className="container">
+          <h1>Projects</h1>
+          <ProjectGrid projects={projects}/>
+        </div>
+      </div>
     </div>
   );
 }
