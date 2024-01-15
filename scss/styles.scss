@@ -1,0 +1,19 @@
+// Make changes to variables
+$primary: #1c1c21;
+$secondary: #282830;
+
+// THEN import bootstrap
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+.container.card {
+    background-color: #121212;
+    padding: 20px; 
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 10px;
+    text-align: center;
+}
+
+.container.card:hover {
+    background-color: #1a1a1a;
+}
