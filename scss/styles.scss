@@ -1,19 +1,79 @@
-// Make changes to variables
-$primary: #1c1c21;
-$secondary: #282830;
+//=== OVERRIDE VARIABLES
+// Text
+$body-color: #fcfcfc;
 
-// THEN import bootstrap
+// Theme
+$primary: #1c1c21;
+$secondary: #2f2e33;
+
+//=== NEW VARIABLES
+$navbar-color: #2f2e33;
+$sidebar-bg: #141417;
+
+//=== IMPORTS
 @import "../node_modules/bootstrap/scss/bootstrap";
 
+//=== ELEMENT STYLES
+.main-container {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100vh;
+    max-height: 100vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+//=== OVERRIDE BOOTSTRAP CLASS STYLES
+.navbar {
+    background-color: $navbar-color;
+}
+
+.navbar-brand {
+    color: $body-color;
+}
+
+//=== CUSTOM CLASS STYLES
 .container.card {
     background-color: #121212;
     padding: 20px; 
     border-radius: 20px;
     cursor: pointer;
-    margin: 10px;
+    margin: auto;
     text-align: center;
 }
 
 .container.card:hover {
     background-color: #1a1a1a;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    padding: $spacer;
+    width: 20vw;
+    max-width: 50vw;
+    min-height: 100vh;
+    background-color: $sidebar-bg;
+}
+
+.project-list-item {
+    background-color: $primary;
+    padding: 5px;
+    margin-bottom: 10px;
+    min-width: 75%;
+    display: flex;
+}
+.project-list-item:hover {
+    background-color: $secondary;
+    cursor: pointer;
+}
+
+.project-list-item-title {
+    color: $body-color;
+    padding: 5px
 }
