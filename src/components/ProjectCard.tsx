@@ -9,8 +9,8 @@ Parameters:
 function ProjectCard({title="Project Name", description="This is the project description.", image=""}) {
     return (
         <div className="container card">
-            <img src={image} width="200px" height="200px"></img>
-            <h3>{title}</h3>
+            <img className="img-responsive" src={image}></img>
+            <h2>{title}</h2>
             <p>{description}</p>
         </div>
     );
