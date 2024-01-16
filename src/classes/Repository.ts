@@ -1,4 +1,4 @@
-class Project {
+class Repository {
     name:string;
     description:string;
     author:string;
@@ -47,4 +47,4 @@ class Project {
     }
 }
 
-export default Project;
+export default Repository;

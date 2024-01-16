@@ -5,7 +5,7 @@ Properties:
     - title: The title of the project
     - thumbnail: The thumbnail of the project
 */
-function ProjectListItem({
+function RepositoryListItem({
   title = "title",
   thumbnail = "",
 }: {
@@ -13,11 +13,11 @@ function ProjectListItem({
   thumbnail: string;
 }) {
   return (
-    <li className="list-group-item project-list-item">
+    <li className="list-group-item repo-list-item">
         <img className="img-thumbnail" src={thumbnail} style={{minWidth:"25px", minHeight:"25px"}}></img>
-        <h4 className="project-list-item-title">{title}</h4>
+        <h4 className="repo-list-item-title">{title}</h4>
     </li>
   );
 }
 
-export default ProjectListItem;
+export default RepositoryListItem;

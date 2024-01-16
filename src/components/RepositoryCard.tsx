@@ -6,7 +6,7 @@ Parameters:
     - description: A short description of the project
     - image: A thumbnail/logo of the project
 */
-function ProjectCard({title="Project Name", description="This is the project description.", image=""}) {
+function RepositoryCard({title="Project Name", description="This is the project description.", image=""}) {
     return (
         <div className="card">
             <img className="" src={image} width="200px" height="200px"></img>
@@ -16,4 +16,4 @@ function ProjectCard({title="Project Name", description="This is the project des
     );
 }
 
-export default ProjectCard;
+export default RepositoryCard;
