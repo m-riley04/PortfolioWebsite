@@ -40,18 +40,22 @@ A navigation element that redirects the user to my LinkedIn profile.
 - Fully resizable for most modern web-browsers and cellphones
 
 # Tools and Development Notes
+
+## Environments
+- [NodeJS](https://nodejs.org/en)
+
+## Libraries and Dependencies
+- [Bootstrap](https://getbootstrap.com/) 5.3.2
+- [eslint](https://eslint.org/) 8.55.0
+- [React](https://react.dev/) 18.2.0
+- [React Bootstrap](https://react-bootstrap.netlify.app/)
+- [SASS](https://sass-lang.com/) 1.69.7
+- [ViteJS](https://vitejs.dev/) 4.2.1
+
 ## Languages
 - [TypeScript](https://www.typescriptlang.org/) 5.2.2
 - [HTML5](https://html.com/html5/)
 - [CSS](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics)/SCSS
-## Environments
-- [NodeJS](https://nodejs.org/en)
-## Libraries and Dependencies
-- [React](https://react.dev/) 18.2.0
-- [ViteJS](https://vitejs.dev/) 4.2.1
-- [eslint](https://eslint.org/) 8.55.0
-- [Bootstrap](https://getbootstrap.com/) 5.3.2
-- [React Bootstrap](https://react-bootstrap.netlify.app/)
-- [SASS](https://sass-lang.com/) 1.69.7
+
 ## API
 - [GitHub REST](https://docs.github.com/en/rest?apiVersion=2022-11-28)
