@@ -1,8 +1,7 @@
-import './components/ProjectCard'
-import ProjectGrid from './components/ProjectGrid';
-import Project from './classes/Project'
+import RepositoryGrid from './components/RepositoryGrid';
+import Repository from './classes/Repository'
 import NavigationBar from "./components/NavigationBar";
-import ProjectList from './components/ProjectList';
+import RepositoryList from './components/RepositoryList';
 import {useEffect, useState} from 'react';
 
 /**
@@ -10,6 +9,7 @@ import {useEffect, useState} from 'react';
   * @param {object} json A json struct object with keys that relate to a GitHub repository (or Repository object)
   * @return {Repository}
  */
+function jsonToRepository(json:object) : Repository{
   // Create an array for the topics
   const topics = [];
   for (var i in json) {
@@ -17,7 +17,7 @@ import {useEffect, useState} from 'react';
   }
 
   // Create a new Project object with all the JSON data loaded into it
-  return new Project(
+  return new Repository(
     json["name"], 
     json["description"],
     json["created_at"],
@@ -33,10 +33,11 @@ import {useEffect, useState} from 'react';
  * @param {object} json A JSON struct object with keys that relate to a GitHub RestAPI array of repositories
  * @return {Repository} A Repository object containing the relevant JSON data
 */ 
+function parseGithubRepositories(json:object) : Repository[] {
   const projects = [];
   for (var i in json) {
     // Convert each JSON to a project object
-    const project = jsonToProject(json[i]);
+    const project = jsonToRepository(json[i]);
     projects.push(project);
   }
 
@@ -49,7 +50,7 @@ function App() {
   const [githubData, setGithubData] = useState([]);
   const [githubUser, setGithubUser] = useState("m-riley04");
   const [githubRepos, setGithubRepos] = useState([]);
-  const [projects, setProjects] = useState([]);
+  const [repositories, setRepositories] = useState([]);
 
   // Fetch a JSON object of GitHub repositories from a designated user 
   const fetchGithubRepositories = () => {
@@ -57,7 +58,7 @@ function App() {
       .then((response) => (response.json()))
       .then((data) => {
         setGithubRepos(data);
-        setProjects(parseGithubRepositories(data));
+        setRepositories(parseGithubRepositories(data));
       }).catch(() => {
         console.log("ERROR: Failed to fetch GitHub repositories.");
         return;
@@ -89,10 +90,10 @@ function App() {
       <NavigationBar />
       <button onClick={fetchGithubRepositories}>Fetch</button>
       <div className="main-container">
-        <ProjectList projects={projects} />
+        <RepositoryList repos={repositories} />
         <div className="container">
           <h1>Repositories</h1>
-          <ProjectGrid projects={projects}/>
+          <RepositoryGrid repos={repositories}/>
         </div>
       </div>
     </div>
