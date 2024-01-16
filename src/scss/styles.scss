@@ -8,8 +8,16 @@ $primary: #1c1c21;
 $secondary: #2f2e33;
 
 //=== NEW VARIABLES
+// Navigation
 $navbar-bg: #2f2e33;
+
+// Sidebar
 $sidebar-bg: #141417;
+
+// Card
+$card-bg: #121212;
+$card-bg-hover: #1a1a1a;
+$card-color: $body-color;
 
 //=== IMPORTS
 @import "../node_modules/bootstrap/scss/bootstrap";
@@ -63,7 +71,7 @@ $sidebar-bg: #141417;
 }
 
 .card {
-    background-color: #121212;
+    background-color: $card-bg;
     margin: auto;
     padding: 20px; 
     border-radius: 20px;
@@ -79,6 +87,7 @@ $sidebar-bg: #141417;
     aspect-ratio: .75;
 }
 .card * {
+    color: $card-color;
     width: 100%;
     height: 100%;
     min-width: 100%;
@@ -118,7 +127,7 @@ $sidebar-bg: #141417;
 }
 
 .card:hover {
-    background-color: #1a1a1a;
+    background-color: $card-bg-hover;
 }
 
 // Sidebar
