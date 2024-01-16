@@ -1,4 +1,4 @@
-# Portfolio Website - React JS
+# React Portfolio Website
 A custom portfolio website for all of my personal projects and other fun things I make for myself, my friends, or clients.
 
 # Table of Contents
