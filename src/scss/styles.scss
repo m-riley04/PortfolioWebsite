@@ -55,6 +55,13 @@ $sidebar-bg: #141417;
 }
 
 // Card Grid
+.grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    row-gap: 30px;
+    column-gap: 30px;
+}
+
 .card {
     background-color: #121212;
     padding: 20px; 
