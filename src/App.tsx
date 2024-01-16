@@ -5,22 +5,11 @@ import NavigationBar from "./components/NavigationBar";
 import ProjectList from './components/ProjectList';
 import {useEffect, useState} from 'react';
 
-/*
-// Project datatype
-interface Project {
-  name:         string;
-  description:  string;
-  dateCreated:  string;
-  dateUpdated:  string;
-  datePushed:   string;
-  language:     string;
-  topics:       string[];
-  url:          string;
-  image:        string;
-} */
-
-// Read a json value of a Github repository and turn it into a Project object
-function jsonToProject(json:object) : Project{
+/**
+  * Read a json value of a Github repository and turn it into a Repository object 
+  * @param {object} json A json struct object with keys that relate to a GitHub repository (or Repository object)
+  * @return {Repository}
+ */
   // Create an array for the topics
   const topics = [];
   for (var i in json) {
@@ -39,8 +28,11 @@ function jsonToProject(json:object) : Project{
     json["html_url"],
     "")
 }
-// Takes a JSON object of repositories and returns a list of Project objects
-function parseGithubRepositories(json:object) : Project[] {
+/** 
+ * Takes a JSON object of repositories and returns a list of Project objects
+ * @param {object} json A JSON struct object with keys that relate to a GitHub RestAPI array of repositories
+ * @return {Repository} A Repository object containing the relevant JSON data
+*/ 
   const projects = [];
   for (var i in json) {
     // Convert each JSON to a project object
