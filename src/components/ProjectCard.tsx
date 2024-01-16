@@ -8,7 +8,7 @@ Parameters:
 */
 function ProjectCard({title="Project Name", description="This is the project description.", image=""}) {
     return (
-        <div className="container card">
+        <div className="card">
             <img className="" src={image} width="200px" height="200px"></img>
             <h2>{title}</h2>
             <p>{description}</p>
