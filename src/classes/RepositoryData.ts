@@ -8,6 +8,7 @@ class RepositoryData {
     language:string;
     topics:Array<string>;
     url:string;
+    defaultBranch:string;
     image:string;
 
     constructor(
@@ -20,6 +21,7 @@ class RepositoryData {
         language:string="",
         topics:Array<string>=[],
         url:string="",
+        defaultBranch:string="main",
         image:string=""
         ) {
 
@@ -32,18 +34,36 @@ class RepositoryData {
         this.language       = language;
         this.topics         = topics;
         this.url            = url;
+        this.defaultBranch  = defaultBranch;
         this.image          = image;
     }
 
-    public getReleasesUrl() : string {
+    /**
+     * @return {string} The releases REST API URL of the repository
+    */
+    public getReleasesUrl() {
         return "https://api.github.com/repos/" + this.author + "/" + this.name + "/releases"
     }
 
-    /*
-    Returns the latest release URL of the project.
+    /**
+     * @return {string} The latest release REST API URL of the repository
     */
-    public getLatestReleaseUrl() : string {
+    public getLatestReleaseUrl() {
         return "https://api.github.com/repos/" + this.author + "/" + this.name + "/releases/latest"
+    }
+
+    /**
+     * @return {string} The collaborators REST API URL of the repository
+    */
+    public getCollaboratorsUrl() {
+        return "https://api.github.com/repos/" + this.author + "/" + this.name + "/collaborators"
+    }
+
+    /**
+     * @return {string} The README.md url of the repository from the default branch
+    */
+    public getReadmeUrl() {
+        return "https://raw.githubusercontent.com/" + this.author + "/" + this.name + "/" + this.defaultBranch + "/README.md";
     }
 }
 
