@@ -4,6 +4,7 @@ import NavigationBar from "./components/NavigationBar";
 import RepositoryList from './components/RepositoryList';
 import {useEffect, useState} from 'react';
 
+//#region App Functions
 /**
   * Read a json value of a Github repository and turn it into a Repository object 
   * @param {object} json A json struct object with keys that relate to a GitHub repository (or Repository object)
@@ -28,6 +29,7 @@ function jsonToRepository(json:object) : RepositoryData{
     json["html_url"],
     "")
 }
+
 /** 
  * Takes a JSON object of repositories and returns a list of Project objects
  * @param {object} json A JSON struct object with keys that relate to a GitHub RestAPI array of repositories
@@ -43,16 +45,24 @@ function parseGithubRepositories(json:object) : RepositoryData[] {
 
   return repos;
 }
+//#endregion
 
 function App() {
-  
-  // Initialize GitHub API
+  //#region STATES
+  // Pages
+  const [page, setPage] = useState(0);
+
+  // GitHub
   const [githubData, setGithubData] = useState([]);
   const [githubUser, setGithubUser] = useState("m-riley04");
   const [githubRepos, setGithubRepos] = useState([]);
-  const [repositories, setRepositories] = useState([]);
 
-  // Fetch a JSON object of GitHub repositories from a designated user 
+  // Data
+  const [repositories, setRepositories] = useState([]);
+  //#endregion
+  
+  //#region FETCHING
+  /** Fetch a JSON object of GitHub repositories from a designated user */
   const fetchGithubRepositories = () => {
       fetch(`https://api.github.com/users/${githubUser}/repos`)
       .then((response) => (response.json()))
@@ -66,7 +76,7 @@ function App() {
 
       console.log("GitHub repositories fetched successfully.")
   }
-  // Fetch the GitHub data from a designated user
+  /**  Fetch the GitHub data from a designated user */
   const fetchGithubData = () => {
       fetch(`https://api.github.com/users/${githubUser}`)
       .then((response) => response.json())
@@ -79,6 +89,7 @@ function App() {
 
       console.log("GitHub data fetched successfully.")
   }
+  //#endregion
 
   // Fetch the repository once on-render of the page
   useEffect(() => {
