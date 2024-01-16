@@ -1,5 +1,5 @@
 import RepositoryCard from './RepositoryCard'
-import RepositoryData from '../classes/RepositoryData';
+import RepositoryData from '../../classes/RepositoryData';
 
 
 function RepositoryGrid( {repos} : {repos:Array<RepositoryData>} ) {

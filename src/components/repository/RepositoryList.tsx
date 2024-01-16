@@ -1,5 +1,5 @@
 import RepositoryListItem from './RepositoryListItem';
-import RepositoryData from '../classes/RepositoryData';
+import RepositoryData from '../../classes/RepositoryData';
 
 function RepositoryList( { repos } : { repos:Array<RepositoryData>}) {
     return (
