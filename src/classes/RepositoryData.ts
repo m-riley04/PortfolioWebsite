@@ -1,4 +1,4 @@
-class Repository {
+class RepositoryData {
     name:string;
     description:string;
     author:string;
@@ -47,4 +47,4 @@ class Repository {
     }
 }
 
-export default Repository;
+export default RepositoryData;

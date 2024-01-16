@@ -1,8 +1,8 @@
 import RepositoryCard from './RepositoryCard'
-import Repository from '../classes/Repository';
+import RepositoryData from '../classes/RepositoryData';
 
 
-function RepositoryGrid( {repos} : {repos:Array<Repository>} ) {
+function RepositoryGrid( {repos} : {repos:Array<RepositoryData>} ) {
 
     const html = [];
     for (let i = 0; i < repos.length; i++) {

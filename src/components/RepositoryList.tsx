@@ -1,7 +1,7 @@
 import RepositoryListItem from './RepositoryListItem';
-import Repository from '../classes/Repository';
+import RepositoryData from '../classes/RepositoryData';
 
-function RepositoryList( { repos } : { repos:Array<Repository>}) {
+function RepositoryList( { repos } : { repos:Array<RepositoryData>}) {
     return (
         <ul className="list-group sidebar">
             {repos.map(repo => <RepositoryListItem title={repo.name}/>)}

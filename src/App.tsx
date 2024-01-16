@@ -1,5 +1,5 @@
 import RepositoryGrid from './components/RepositoryGrid';
-import Repository from './classes/Repository'
+import RepositoryData from './classes/RepositoryData'
 import NavigationBar from "./components/NavigationBar";
 import RepositoryList from './components/RepositoryList';
 import {useEffect, useState} from 'react';
@@ -9,7 +9,7 @@ import {useEffect, useState} from 'react';
   * @param {object} json A json struct object with keys that relate to a GitHub repository (or Repository object)
   * @return {Repository}
  */
-function jsonToRepository(json:object) : Repository{
+function jsonToRepository(json:object) : RepositoryData{
   // Create an array for the topics
   const topics = [];
   for (var i in json) {
@@ -33,15 +33,15 @@ function jsonToRepository(json:object) : Repository{
  * @param {object} json A JSON struct object with keys that relate to a GitHub RestAPI array of repositories
  * @return {Repository} A Repository object containing the relevant JSON data
 */ 
-function parseGithubRepositories(json:object) : Repository[] {
-  const projects = [];
+function parseGithubRepositories(json:object) : RepositoryData[] {
+  const repos = [];
   for (var i in json) {
     // Convert each JSON to a project object
     const project = jsonToRepository(json[i]);
-    projects.push(project);
+    repos.push(project);
   }
 
-  return projects;
+  return repos;
 }
 
 function App() {
