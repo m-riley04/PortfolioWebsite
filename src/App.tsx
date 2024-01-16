@@ -1,6 +1,6 @@
 import './components/ProjectCard'
 import ProjectGrid from './components/ProjectGrid';
-import Project from './classes/Project';
+import Project from './classes/Project'
 import NavigationBar from "./components/NavigationBar";
 import ProjectList from './components/ProjectList';
 import {useEffect, useState} from 'react';
@@ -57,18 +57,21 @@ function App() {
   const [githubData, setGithubData] = useState([]);
   const [githubUser, setGithubUser] = useState("m-riley04");
   const [githubRepos, setGithubRepos] = useState([]);
-  const [projects, setProjects] = useState([Project]);
+  const [projects, setProjects] = useState([]);
 
   // Fetch a JSON object of GitHub repositories from a designated user 
   const fetchGithubRepositories = () => {
       fetch(`https://api.github.com/users/${githubUser}/repos`)
       .then((response) => (response.json()))
       .then((data) => {
-      setGithubRepos(data);
-      setProjects(parseGithubRepositories(data));
+        setGithubRepos(data);
+        setProjects(parseGithubRepositories(data));
       }).catch(() => {
-        console.log("ERROR: Failed to fetch GitHub repositories.")
+        console.log("ERROR: Failed to fetch GitHub repositories.");
+        return;
       })
+
+      console.log("GitHub repositories fetched successfully.")
   }
   // Fetch the GitHub data from a designated user
   const fetchGithubData = () => {
@@ -76,9 +79,12 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
           setGithubData(data);
-          const reposUrl = githubData["repos_url"];
-          console.log(reposUrl);
+      }).catch(() => {
+        console.log("ERROR: Failed to fetch GitHub data.");
+        return;
       })
+
+      console.log("GitHub data fetched successfully.")
   }
 
   // Fetch the repository once on-render of the page
