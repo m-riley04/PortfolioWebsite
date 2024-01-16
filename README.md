@@ -13,7 +13,7 @@ A custom portfolio website for all of my personal projects and other fun things 
 - [Tools and Development Notes](#Tools-and-Development-Notes)
   - [Languages](#Languages)
   - [Environments](#Environments)
-  - [Libraries](#Libraries)
+  - [Libraries and Dependencies](#Libraries-and-Dependencies)
   - [Dependencies](#Dependencies)
   - [API](#API)
 
@@ -41,16 +41,15 @@ A navigation element that redirects the user to my LinkedIn profile.
 
 # Tools and Development Notes
 ## Languages
-- [TypeScript](https://www.typescriptlang.org/)/Javascript
-- HTML
-- CSS/SCSS
+- [TypeScript](https://www.typescriptlang.org/) 5.2.2
+- [HTML5](https://html.com/html5/)
+- [CSS](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics)/SCSS
 ## Environments
 - [NodeJS](https://nodejs.org/en)
-## Libraries
-- [React](https://react.dev/)
-  - Build: [ViteJS](https://vitejs.dev/) and TypeScript
-  - Lint: [eslint](https://eslint.org/)
-## Dependencies
+## Libraries and Dependencies
+- [React](https://react.dev/) 18.2.0
+- [ViteJS](https://vitejs.dev/) 4.2.1
+- [eslint](https://eslint.org/) 8.55.0
 - [Bootstrap](https://getbootstrap.com/) 5.3.2
 - [React Bootstrap](https://react-bootstrap.netlify.app/)
 - [SASS](https://sass-lang.com/) 1.69.7
