@@ -11,10 +11,10 @@ function NavigationBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Projects</Nav.Link>
-            <Nav.Link href="https://github.com/m-riley04" target="_blank">GitHub</Nav.Link>
-            <Nav.Link href="https://www.linkedin.com/in/riley-meyerkorth/" target="_blank">LinkedIn</Nav.Link>
-            <NavDropdown title="Debug" id="basic-nav-dropdown">
+            <Nav.Link href="#home" className="navbar-option">Projects</Nav.Link>
+            <Nav.Link href="https://github.com/m-riley04" target="_blank" className="navbar-option">GitHub</Nav.Link>
+            <Nav.Link href="https://www.linkedin.com/in/riley-meyerkorth/" target="_blank" className="navbar-option">LinkedIn</Nav.Link>
+            <NavDropdown title="Debug" id="basic-nav-dropdown" className="navbar-option navbar-dropdown">
               <NavDropdown.Item href="#action/add">Add New Project</NavDropdown.Item>
               <NavDropdown.Item href="#action/remove">Remove Project</NavDropdown.Item>
               <NavDropdown.Item href="#action/clear">Clear Projects</NavDropdown.Item>
