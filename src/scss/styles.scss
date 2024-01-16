@@ -134,7 +134,7 @@ $sidebar-bg: #141417;
 }
 
 // ProjectList
-.project-list-item {
+.repo-list-item {
     background-color: $primary;
     padding: 5px;
     margin-bottom: 10px;
@@ -143,12 +143,12 @@ $sidebar-bg: #141417;
     max-width: 100%;
     display: flex;
 }
-.project-list-item:hover {
+.repo-list-item:hover {
     background-color: $secondary;
     cursor: pointer;
 }
 
-.project-list-item-title {
+.repo-list-item-title {
     color: $body-color;
     padding: 5px;
     text-wrap: nowrap;
