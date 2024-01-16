@@ -1,13 +1,14 @@
 //=== OVERRIDE VARIABLES
 // Text
 $body-color: #fcfcfc;
+$body-secondary: #c9c9c9;
 
 // Theme
 $primary: #1c1c21;
 $secondary: #2f2e33;
 
 //=== NEW VARIABLES
-$navbar-color: #2f2e33;
+$navbar-bg: #2f2e33;
 $sidebar-bg: #141417;
 
 //=== IMPORTS
@@ -27,17 +28,37 @@ $sidebar-bg: #141417;
     box-sizing: border-box;
 }
 
-//=== OVERRIDE BOOTSTRAP CLASS STYLES
+//=== CLASS STYLES
+// Navbar
 .navbar {
-    background-color: $navbar-color;
+    background-color: $navbar-bg;
 }
 
-.navbar-brand {
+.navbar-brand, .navbar-brand:hover, .navbar-brand:focus {
+    color: $body-color;
+    font-weight: bold;
+}
+
+.navbar-option {
     color: $body-color;
 }
 
-//=== CUSTOM CLASS STYLES
-.container.card {
+.navbar-option:hover, .navbar-option:focus {
+    color: $body-secondary;
+}
+
+.navbar-dropdown * {
+    color: $body-color;
+    background-color: $navbar-bg;
+}
+
+.navbar-dropdown *:hover {
+    color: $body-secondary;
+    background-color: $navbar-bg;
+}
+
+// Card Grid
+.card {
     background-color: #121212;
     padding: 20px; 
     border-radius: 20px;
@@ -46,10 +67,11 @@ $sidebar-bg: #141417;
     text-align: center;
 }
 
-.container.card:hover {
+.card:hover {
     background-color: #1a1a1a;
 }
 
+// Sidebar
 .sidebar {
     display: flex;
     flex-direction: column;
@@ -61,6 +83,7 @@ $sidebar-bg: #141417;
     background-color: $sidebar-bg;
 }
 
+// ProjectList
 .project-list-item {
     background-color: $primary;
     padding: 5px;
