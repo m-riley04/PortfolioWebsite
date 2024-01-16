@@ -3,28 +3,97 @@ import ProjectGrid from './components/ProjectGrid';
 import Project from './classes/Project';
 import NavigationBar from "./components/NavigationBar";
 import ProjectList from './components/ProjectList';
+import {useEffect, useState} from 'react';
 
-// Test data and projects
-const testproject = new Project("Project 1", "This is a test project!", "https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fhuman&psig=AOvVaw2IwAZ477AIlNpviSfh4nwC&ust=1705374546489000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCKCKoqW13oMDFQAAAAAdAAAAABAQ");
-const testproject2 = new Project("Project 2", "This is a test project!", "https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fhuman&psig=AOvVaw2IwAZ477AIlNpviSfh4nwC&ust=1705374546489000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCKCKoqW13oMDFQAAAAAdAAAAABAQ");
-const testproject3 = new Project("Project 3", "This is a test project!", "https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fhuman&psig=AOvVaw2IwAZ477AIlNpviSfh4nwC&ust=1705374546489000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCKCKoqW13oMDFQAAAAAdAAAAABAQ");
-const testproject4 = new Project("Project 4", "This is a test project!", "https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fhuman&psig=AOvVaw2IwAZ477AIlNpviSfh4nwC&ust=1705374546489000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCKCKoqW13oMDFQAAAAAdAAAAABAQ");
-const testproject5 = new Project("Project 5", "This is a test project!", "https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fhuman&psig=AOvVaw2IwAZ477AIlNpviSfh4nwC&ust=1705374546489000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCKCKoqW13oMDFQAAAAAdAAAAABAQ");
-const testproject6 = new Project("Project 6", "This is a test project!", "https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fhuman&psig=AOvVaw2IwAZ477AIlNpviSfh4nwC&ust=1705374546489000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCKCKoqW13oMDFQAAAAAdAAAAABAQ");
-const testproject7 = new Project("Project 7", "This is a test project!", "https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fhuman&psig=AOvVaw2IwAZ477AIlNpviSfh4nwC&ust=1705374546489000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCKCKoqW13oMDFQAAAAAdAAAAABAQ");
-const testproject8 = new Project("Project 8", "This is a test project!", "https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fhuman&psig=AOvVaw2IwAZ477AIlNpviSfh4nwC&ust=1705374546489000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCKCKoqW13oMDFQAAAAAdAAAAABAQ");
-const testproject9 = new Project("Project 9", "This is a test project!", "https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fhuman&psig=AOvVaw2IwAZ477AIlNpviSfh4nwC&ust=1705374546489000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCKCKoqW13oMDFQAAAAAdAAAAABAQ");
+/*
+// Project datatype
+interface Project {
+  name:         string;
+  description:  string;
+  dateCreated:  string;
+  dateUpdated:  string;
+  datePushed:   string;
+  language:     string;
+  topics:       string[];
+  url:          string;
+  image:        string;
+} */
 
-const projects = [testproject, testproject2, testproject3, testproject4, testproject5, testproject6, testproject7, testproject8, testproject9];
+// Read a json value of a Github repository and turn it into a Project object
+function jsonToProject(json:object) : Project{
+  // Create an array for the topics
+  const topics = [];
+  for (var i in json) {
+    topics.push(json[i]);
+  }
+
+  // Create a new Project object with all the JSON data loaded into it
+  return new Project(
+    json["name"], 
+    json["description"],
+    json["created_at"],
+    json["updated_at"],
+    json["pushed_at"],
+    json["language"],
+    json["topics"],
+    json["html_url"],
+    "")
+}
+// Takes a JSON object of repositories and returns a list of Project objects
+function parseGithubRepositories(json:object) : Project[] {
+  const projects = [];
+  for (var i in json) {
+    // Convert each JSON to a project object
+    const project = jsonToProject(json[i]);
+    projects.push(project);
+  }
+
+  return projects;
+}
 
 function App() {
+  
+  // Initialize GitHub API
+  const [githubData, setGithubData] = useState([]);
+  const [githubUser, setGithubUser] = useState("m-riley04");
+  const [githubRepos, setGithubRepos] = useState([]);
+  const [projects, setProjects] = useState([Project]);
+
+  // Fetch a JSON object of GitHub repositories from a designated user 
+  const fetchGithubRepositories = () => {
+      fetch(`https://api.github.com/users/${githubUser}/repos`)
+      .then((response) => (response.json()))
+      .then((data) => {
+      setGithubRepos(data);
+      setProjects(parseGithubRepositories(data));
+      }).catch(() => {
+        console.log("ERROR: Failed to fetch GitHub repositories.")
+      })
+  }
+  // Fetch the GitHub data from a designated user
+  const fetchGithubData = () => {
+      fetch(`https://api.github.com/users/${githubUser}`)
+      .then((response) => response.json())
+      .then((data) => {
+          setGithubData(data);
+          const reposUrl = githubData["repos_url"];
+          console.log(reposUrl);
+      })
+  }
+
+  // Fetch the repository once on-render of the page
+  useEffect(() => {
+      fetchGithubRepositories();
+  }, []);
+
   return (
     <div className="bg-primary">
-      <NavigationBar></NavigationBar>
+      <NavigationBar />
+      <button onClick={fetchGithubRepositories}>Fetch</button>
       <div className="main-container">
-        <ProjectList projects={projects}></ProjectList>
+        <ProjectList projects={projects} />
         <div className="container">
-          <h1>Projects</h1>
+          <h1>Repositories</h1>
           <ProjectGrid projects={projects}/>
         </div>
       </div>
