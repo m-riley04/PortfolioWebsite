@@ -15,9 +15,12 @@ function RepositoryGrid( {repos} : {repos:Array<RepositoryData>} ) {
     }
 
     return (
+        <>
+            <h1>Repositories</h1>
         <div className="grid">
             {html}
         </div>
+        </>
     );
 }
 
