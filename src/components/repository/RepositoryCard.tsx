@@ -1,17 +1,15 @@
-/*
-The card that will be displayed within the ProjectGrid. Contains information about a portfolio project.
+import RepositoryData from "../../classes/RepositoryData";
 
-Parameters:
-    - title: The title of the project
-    - description: A short description of the project
-    - image: A thumbnail/logo of the project
+/**
+* The card that will be displayed within the RepositoryGrid
+* @param {RepositoryData} data The repository data, which contains information about a repository.
 */
-function RepositoryCard({title="Project Name", description="This is the project description.", image=""}) {
+function RepositoryCard({data, onClick} : {data:RepositoryData, onClick:(e:MouseEvent, data:RepositoryData) => void}) {
     return (
-        <div className="card">
+        <div className="card" onClick={(e) => onClick(e, data)}>
             <img src={data.image} hidden={!data.image}></img>
-            <h2>{title}</h2>
-            <p>{description}</p>
+            <h2>{data.name}</h2>
+            <p>{data.description}</p>
         </div>
     );
 }
