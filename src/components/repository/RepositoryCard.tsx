@@ -9,7 +9,7 @@ Parameters:
 function RepositoryCard({title="Project Name", description="This is the project description.", image=""}) {
     return (
         <div className="card">
-            <img className="" src={image} width="200px" height="200px"></img>
+            <img src={data.image} hidden={!data.image}></img>
             <h2>{title}</h2>
             <p>{description}</p>
         </div>
