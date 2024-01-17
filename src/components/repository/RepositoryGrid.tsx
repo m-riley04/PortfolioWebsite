@@ -1,6 +1,6 @@
 import RepositoryGridCard from './RepositoryGridCard'
 import RepositoryData from '../../classes/RepositoryData';
-
+import NavigationButton_App from '../navigation/NavigationButton_App'
 
 function RepositoryGrid( {repos, onCardClicked} : {repos:Array<RepositoryData>, onCardClicked:(e:MouseEvent, data:RepositoryData) => void} ) {
 
@@ -17,6 +17,7 @@ function RepositoryGrid( {repos, onCardClicked} : {repos:Array<RepositoryData>, 
     return (
         <>
             <h1>Repositories</h1>
+            <NavigationButton_App title="Home" target="#home"></NavigationButton_App>
             <div className="grid">
                 {html}
             </div>
