@@ -58,9 +58,6 @@ return repos;
 
 function RepositoryPage() {
     //#region STATES
-    
-
-
     // GitHub
     const [githubData, setGithubData] = useState([]);
     const [githubUser, setGithubUser] = useState(GITHUB_USERNAME);
@@ -68,16 +65,12 @@ function RepositoryPage() {
     
     // Data
     const [repositories, setRepositories] = useState([]);
-
     //#endregion
 
-    
-
     // Pages
-
-    // Initialize the contexts
     const [currentRepository, setCurrentRepository] = useState(new RepositoryData());
     const currentRepositoryValue = {currentRepository, setCurrentRepository};
+    
     /**
      * @type {string : JSX.Element} A map of the subpages within the RepositoryPage
      * @param {string} name A string of the page's target name
@@ -91,6 +84,7 @@ function RepositoryPage() {
         "#grid": <RepositoryGrid repos={repositories}/>,
         "#repository": <Repository data={currentRepository} />
     }
+
     const [page, setPage] = useState("#grid");
     const pageValue = {page, setPage}
     

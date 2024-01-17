@@ -3,7 +3,9 @@ import NavigationBar from "./components/navigation/NavigationBar";
 import RepositoryPage from './components/pages/RepositoryPage'
 import {useState} from 'react';
 import AppPageContext from './components/contexts/AppPageContext.ts';
-import AppPageSwitcher from './components/switchers/AppPageSwitcher.tsx';
+
+//=== CONSTANTS
+const PAGE_DEFAULT = "#repositories"
 
 function App() {
   //#region STATES
@@ -25,14 +27,8 @@ function App() {
     "#fun": <></>
   };
 
-  const pageDefault = "#repositories";
-  const [page, setPage] = useState(pageDefault);
+  const [page, setPage] = useState(PAGE_DEFAULT);
   const pageValue = {page, setPage}
-
-  const handleNavigation = (e:MouseEvent, pageName:string) => { 
-    // Set the current page name
-    setPage(pageName);
-  }
   //#endregion
 
   return (
@@ -40,8 +36,6 @@ function App() {
       <div className="bg-primary">
         <NavigationBar />
         <div className="main-container">
-          <AppPageSwitcher title="Home" target="#home"></AppPageSwitcher>
-          <AppPageSwitcher title="Repositories" target="#repositories"></AppPageSwitcher>
           {pages[page]}
         </div>
       </div>
