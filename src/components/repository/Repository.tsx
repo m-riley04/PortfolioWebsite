@@ -1,8 +1,6 @@
 import RepositoryData from "../../classes/RepositoryData";
 
 function Repository({ data } : { data:RepositoryData }) {
-
-
     return (
         <div className="container repo">
             <div className="row">
