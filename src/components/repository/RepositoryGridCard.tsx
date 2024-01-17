@@ -4,7 +4,7 @@ import RepositoryData from "../../classes/RepositoryData";
 * The card that will be displayed within the RepositoryGrid
 * @param {RepositoryData} data The repository data, which contains information about a repository.
 */
-function RepositoryGridCard({data, onClick} : {data:RepositoryData, onClick?:(e:MouseEvent, data:RepositoryData) => void}) {
+function RepositoryGridCard({data, onClick} : {data:RepositoryData, onClick:(e:MouseEvent, data:RepositoryData) => void}) {
     const DEFAULT_REPOSITORY = new RepositoryData();
     const [currentRepository, setCurrentRepository] = useState(DEFAULT_REPOSITORY);
     
@@ -13,7 +13,7 @@ function RepositoryGridCard({data, onClick} : {data:RepositoryData, onClick?:(e:
                 setCurrentRepository(data);
                 console.log(currentRepository)
             }}>
-                <img src={data.image} hidden={!data.image}></img>
+                <img src={data.image} hidden={!data.image} onClick={(e) => onClick(e, data)}></img>
                 <h2>{data.name}</h2>
                 <p>{data.description}</p>
             </div>
