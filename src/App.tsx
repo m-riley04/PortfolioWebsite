@@ -1,9 +1,9 @@
 import HomePage from "./components/pages/HomePage";
 import NavigationBar from "./components/navigation/NavigationBar";
 import RepositoryPage from './components/pages/RepositoryPage'
-import {useContext, useState} from 'react';
-import AppPageContext from './components/contexts/AppPageContext';
-import AppPageSwitcher from './components/switchers/AppPageSwitcher';
+import {useState} from 'react';
+import AppPageContext from './components/contexts/AppPageContext.ts';
+import AppPageSwitcher from './components/switchers/AppPageSwitcher.tsx';
 
 function App() {
   //#region STATES
