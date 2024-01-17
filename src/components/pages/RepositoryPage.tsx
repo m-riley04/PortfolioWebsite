@@ -1,8 +1,14 @@
-import RepositoryData from '../../classes/RepositoryData'
+import RepositoryData from '../../classes/RepositoryData';
 import RepositoryList from '../repository/RepositoryList';
 import {useEffect, useState} from 'react';
 import Repository from '../repository/Repository';
 import RepositoryGrid from '../repository/RepositoryGrid';
+import RepositoriesPageContext from '../contexts/RepositoriesPageContext';
+import RepositoriesPageSwitcher from '../switchers/RepositoriesPageSwitcher';
+import CurrentRepositoryContext from '../contexts/CurrentRepositoryContext.ts';
+
+// CONSTANTS
+const GITHUB_USERNAME = "m-riley04";
 
 //#region OVERHEAD FUNCTIONS
 /**
@@ -14,21 +20,21 @@ function jsonToRepository(json:object) : RepositoryData{
     // Create an array for the topics
     const topics = [];
     for (var i in json) {
-      topics.push(json[i]);
+      topics.push(json[i as keyof object]);
     }
   
     // Create a new Project object with all the JSON data loaded into it
     return new RepositoryData(
-      json["name"], 
-      json["description"],
-      json["author"],
-      json["created_at"],
-      json["updated_at"],
-      json["pushed_at"],
-      json["language"],
-      json["topics"],
-      json["html_url"],
-      json["default_branch"],
+      json["name" as keyof object], 
+      json["description" as keyof object],
+      json["author" as keyof object],
+      json["created_at" as keyof object],
+      json["updated_at" as keyof object],
+      json["pushed_at" as keyof object],
+      json["language" as keyof object],
+      json["topics" as keyof object],
+      json["html_url" as keyof object],
+      json["default_branch" as keyof object],
       ""
     );
 }
@@ -42,7 +48,7 @@ function parseGithubRepositories(json:object) : RepositoryData[] {
 const repos = [];
 for (var i in json) {
     // Convert each JSON to a project object
-    const repo = jsonToRepository(json[i]);
+    const repo = jsonToRepository(json[i as keyof object]);
     repos.push(repo);
 }
 
@@ -52,41 +58,41 @@ return repos;
 
 function RepositoryPage() {
     //#region STATES
-    // Pages
+    
 
-    /**
-     * The current page that the website is on.
-     * @type {number} An integer representing the current page/component:
-     * - 0: Repository Grid
-     * - 1: Repository Viewer
-     */
-    const [pageIndex, setPageIndex] = useState(0); 
 
     // GitHub
     const [githubData, setGithubData] = useState([]);
-    const [githubUser, setGithubUser] = useState("m-riley04");
+    const [githubUser, setGithubUser] = useState(GITHUB_USERNAME);
     const [githubRepos, setGithubRepos] = useState([]);
     
     // Data
     const [repositories, setRepositories] = useState([]);
-    const [currentRepository, setCurrentRepository] = useState(new RepositoryData);
-    const handleRepositoryCardClicked = (e:MouseEvent, data:RepositoryData) => {
-        // Set the current data of the repository
-        setCurrentRepository(data);
-        
-        // Set the page to repository viewer
-        setPageIndex(1);
-    }
 
     //#endregion
 
+    
+
+    // Pages
+
+    // Initialize the contexts
+    const [currentRepository, setCurrentRepository] = useState(new RepositoryData());
+    const currentRepositoryValue = {currentRepository, setCurrentRepository};
     /**
-     * The subpages that are available on the RepositoryPage
+     * @type {string : JSX.Element} A map of the subpages within the RepositoryPage
+     * @param {string} name A string of the page's target name
+     * @param {JSX.Element} value A JSX element that contains the page's info
+     * 
+     * Current pages:
+     * - #grid - the repository grid
+     * - #repository - the repository viewer
      */
-    const pages = [
-        <RepositoryGrid repos={repositories} onCardClicked={handleRepositoryCardClicked} />,
-        <Repository data={currentRepository} />
-    ]
+    const pages : {[name : string] : JSX.Element} = {
+        "#grid": <RepositoryGrid repos={repositories}/>,
+        "#repository": <Repository data={currentRepository} />
+    }
+    const [page, setPage] = useState("#grid");
+    const pageValue = {page, setPage}
     
     //#region TEMPORARY FUNCTIONS
     /** Fetch a JSON object of GitHub repositories from a designated user */
@@ -118,22 +124,6 @@ function RepositoryPage() {
 
         console.log("GitHub data fetched successfully.")
     }
-    /** Changes between pages for debugging */
-    const changePageIndex = () => {
-        if (pageIndex === 0) {
-            setPageIndex(1);
-        } else {
-            setPageIndex(0);
-        }
-    }
-    /** Changes to the RepositoryGrid page */
-    const changePageToGrid = () => {
-        setPageIndex(0);
-    }
-    /** Changes to the Repository page */
-    const changePageToRepository = () => {
-        setPageIndex(1);
-    }
     //#endregion
 
     // Fetch the repository once on-render of the page
@@ -142,14 +132,18 @@ function RepositoryPage() {
     }, []);
 
     return (
-        <div className="main-container">
-            <button onClick={changePageToGrid}>Back to Grid</button>
-            <RepositoryList repos={repositories} />
-            <div className="container">
-                <button onClick={fetchGithubRepositories}>Refresh</button>
-                {pages[pageIndex]}
-            </div>
-        </div>
+        <RepositoriesPageContext.Provider value={pageValue}>
+            <CurrentRepositoryContext.Provider value={currentRepositoryValue}>
+                <div className="main-container">
+                    <RepositoryList repos={repositories} />
+                    <div className="container">
+                        <button onClick={fetchGithubRepositories}>Refresh</button>
+                        <RepositoriesPageSwitcher title="Repository Grid" target="#grid" />
+                        {pages[pageValue.page]}
+                    </div>
+                </div>
+            </CurrentRepositoryContext.Provider>
+        </RepositoriesPageContext.Provider>
     );
 }
 
