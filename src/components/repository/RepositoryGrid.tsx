@@ -1,4 +1,4 @@
-import RepositoryCard from './RepositoryCard'
+import RepositoryGridCard from './RepositoryGridCard'
 import RepositoryData from '../../classes/RepositoryData';
 
 
@@ -8,7 +8,7 @@ function RepositoryGrid( {repos, onCardClicked} : {repos:Array<RepositoryData>, 
     for (let i = 0; i < repos.length; i++) {
         // Create the project's card component
         const repo = repos[i];
-        const repoCard = RepositoryCard({data: repo, onClick:(e, data) => onCardClicked(e, data)});
+        const repoCard = RepositoryGridCard({data: repo, onClick:(e, data) => onCardClicked(e, data)});
 
         // Push it to the html stack
         html.push(repoCard);
