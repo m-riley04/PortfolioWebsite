@@ -1,9 +1,10 @@
-import RepositoryGrid from '../components/repository/RepositoryGrid';
-import RepositoryData from '../classes/RepositoryData'
-import RepositoryList from '../components/repository/RepositoryList';
+import RepositoryData from '../../classes/RepositoryData'
+import RepositoryList from '../repository/RepositoryList';
 import {useEffect, useState} from 'react';
+import Repository from '../repository/Repository';
+import RepositoryGrid from '../repository/RepositoryGrid';
 
-//#region App Functions
+//#region OVERHEAD FUNCTIONS
 /**
   * Read a json value of a Github repository and turn it into a Repository object 
   * @param {object} json A json struct object with keys that relate to a GitHub repository (or Repository object)
@@ -20,12 +21,14 @@ function jsonToRepository(json:object) : RepositoryData{
     return new RepositoryData(
       json["name"], 
       json["description"],
+      json["author"],
       json["created_at"],
       json["updated_at"],
       json["pushed_at"],
       json["language"],
       json["topics"],
       json["html_url"],
+      json["default_branch"],
       ""
     );
 }
@@ -57,18 +60,35 @@ function RepositoryPage() {
      * - 0: Repository Grid
      * - 1: Repository Viewer
      */
-    const [page, setPage] = useState(0);
+    const [pageIndex, setPageIndex] = useState(0); 
 
     // GitHub
     const [githubData, setGithubData] = useState([]);
     const [githubUser, setGithubUser] = useState("m-riley04");
     const [githubRepos, setGithubRepos] = useState([]);
-
+    
     // Data
     const [repositories, setRepositories] = useState([]);
+    const [currentRepository, setCurrentRepository] = useState(new RepositoryData);
+    const handleRepositoryCardClicked = (e:MouseEvent, data:RepositoryData) => {
+        // Set the current data of the repository
+        setCurrentRepository(data);
+        
+        // Set the page to repository viewer
+        setPageIndex(1);
+    }
+
     //#endregion
+
+    /**
+     * The subpages that are available on the RepositoryPage
+     */
+    const pages = [
+        <RepositoryGrid repos={repositories} onCardClicked={handleRepositoryCardClicked} />,
+        <Repository data={currentRepository} />
+    ]
     
-    //#region FETCHING
+    //#region TEMPORARY FUNCTIONS
     /** Fetch a JSON object of GitHub repositories from a designated user */
     const fetchGithubRepositories = () => {
         fetch(`https://api.github.com/users/${githubUser}/repos`)
@@ -98,6 +118,22 @@ function RepositoryPage() {
 
         console.log("GitHub data fetched successfully.")
     }
+    /** Changes between pages for debugging */
+    const changePageIndex = () => {
+        if (pageIndex === 0) {
+            setPageIndex(1);
+        } else {
+            setPageIndex(0);
+        }
+    }
+    /** Changes to the RepositoryGrid page */
+    const changePageToGrid = () => {
+        setPageIndex(0);
+    }
+    /** Changes to the Repository page */
+    const changePageToRepository = () => {
+        setPageIndex(1);
+    }
     //#endregion
 
     // Fetch the repository once on-render of the page
@@ -107,11 +143,11 @@ function RepositoryPage() {
 
     return (
         <div className="main-container">
-            <button onClick={fetchGithubRepositories}>Fetch</button>
+            <button onClick={changePageToGrid}>Back to Grid</button>
             <RepositoryList repos={repositories} />
             <div className="container">
-                <h1>Repositories</h1>
-                <RepositoryGrid repos={repositories}/>
+                <button onClick={fetchGithubRepositories}>Refresh</button>
+                {pages[pageIndex]}
             </div>
         </div>
     );
