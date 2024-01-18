@@ -66,13 +66,27 @@ a:hover {
     background-color: $navbar-bg;
 }
 
-.navbar-brand, .navbar-brand:hover, .navbar-brand:focus {
+.navbar-brand, .navbar-brand:focus {
     color: $body-color;
     font-weight: bold;
+    transition-delay: 0s;
+    transition-duration: 0s;
 }
 
 .navbar-brand:hover {
-
+    transition-delay: 2s;
+    transition-duration: 2s;
+    color: white;
+    background-color: white;
+    background: -webkit-linear-gradient(
+        rgba(255,200,45,1) 20%, 
+        rgba(0,81,186,1) 30%, 
+        rgba(232,0,13,1) 100%) 0 0/100% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: a 2s linear infinite;
+    
 }
 
 .navbar-option {
