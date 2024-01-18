@@ -104,23 +104,9 @@ function RepositoryPage() {
 
         console.log("GitHub repositories fetched successfully.")
     }
-    /**  Fetch the GitHub data from a designated user */
-    const fetchGithubData = () => {
-        fetch(`https://api.github.com/users/${githubUser}`)
-        .then((response) => response.json())
-        .then((data) => {
-            setGithubData(data);
-        }).catch((e) => {
-            console.log("ERROR: Failed to fetch GitHub data.");
-            console.log(e.message);
-            return;
-        })
-
-        console.log("GitHub data fetched successfully.")
-    }
     //#endregion
 
-    // Fetch the repository once on-render of the page
+    // Fetch the repository once on-render of the app
     useEffect(() => {
         fetchGithubRepositories();
     }, []);
