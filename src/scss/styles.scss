@@ -22,11 +22,24 @@ $card-color: $body-color;
 //=== IMPORTS
 @import "../node_modules/bootstrap/scss/bootstrap";
 
+
 //=== ELEMENT STYLES
-.main-container {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+html, #root {
+    background-color: $primary;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    margin: $spacer;
+}
+
+a {
+    font-weight: 500;
+    color: #646cff;
+    text-decoration: inherit;
+  }
+
+a:hover {
+    color: #535bf2;
 }
 
 * {
@@ -34,6 +47,11 @@ $card-color: $body-color;
 }
 
 //=== CLASS STYLES
+.main-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
 // Navbar
 .navbar {
     background-color: $navbar-bg;
