@@ -11,6 +11,7 @@ function App() {
       <Router>
         <NavigationBar />
         <AnimatedRoutes/>
+        <Footer />
       </Router>
     </div>
   );
