@@ -1,4 +1,4 @@
-import NavigationBar from "./components/navigation/NavigationBar";
+import NavigationBar from "./components/NavigationBar";
 import AnimatedRoutes from "./components/AnimatedRoutes";
 import Footer from "./components/Footer";
 import {
