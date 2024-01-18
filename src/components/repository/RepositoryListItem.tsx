@@ -10,7 +10,7 @@ function RepositoryListItem({
   thumbnail = "",
 }: {
   title: string;
-  thumbnail: string;
+  thumbnail?: string;
 }) {
   return (
     <li className="list-group-item list-item">
