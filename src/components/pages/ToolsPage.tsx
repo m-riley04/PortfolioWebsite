@@ -1,8 +1,16 @@
+import { motion } from "framer-motion";
+
 function ToolsPage() {
     return (
-        <div className="page-container">
+        <motion.div 
+            className="page-container"
+            
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+        >
             <h1>Tools</h1>
-        </div>
+        </motion.div>
     );
 }
 

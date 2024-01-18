@@ -6,6 +6,7 @@ import RepositoryGrid from '../repository/RepositoryGrid';
 import RepositoriesPageContext from '../contexts/RepositoriesPageContext';
 import RepositoriesPageSwitcher from '../switchers/RepositoriesPageSwitcher.tsx';
 import CurrentRepositoryContext from '../contexts/CurrentRepositoryContext.ts';
+import { motion } from 'framer-motion';
 
 // CONSTANTS
 const GITHUB_USERNAME = "m-riley04";
@@ -114,14 +115,20 @@ function RepositoryPage() {
     return (
         <RepositoriesPageContext.Provider value={pageValue}>
             <CurrentRepositoryContext.Provider value={currentRepositoryValue}>
-                <div className="page-container">
+                <motion.div 
+                    className="page-container"
+                    
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    exit={{opacity: 0}}
+                >
                     <RepositoryList repos={repositories} />
                     <div className="container">
                         <button onClick={fetchGithubRepositories}>Refresh</button>
                         <RepositoriesPageSwitcher title="Repository Grid" target="#grid" />
                         {pages[pageValue.page]}
                     </div>
-                </div>
+                </motion.div>
             </CurrentRepositoryContext.Provider>
         </RepositoriesPageContext.Provider>
     );
