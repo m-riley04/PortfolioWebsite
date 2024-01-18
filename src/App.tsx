@@ -1,45 +1,27 @@
-import HomePage from "./components/pages/HomePage";
 import NavigationBar from "./components/navigation/NavigationBar";
-import RepositoryPage from './components/pages/RepositoryPage'
-import {useState} from 'react';
-import AppPageContext from './components/contexts/AppPageContext.ts';
 
-//=== CONSTANTS
-const PAGE_DEFAULT = "#repositories"
+import HomePage from "./components/pages/HomePage";
+import ToolsPage from "./components/pages/ToolsPage.tsx";
+import RepositoryPage from './components/pages/RepositoryPage'
+import NotFoundPage from './components/pages/NotFoundPage'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate
+} from "react-router-dom";
 
 function App() {
-  //#region STATES
-  // Pages
-  /**
-     * The map of availaible pages 
-     * @type {string : JSX.Element} A map of the main pages 
-     * - #home
-     * - #repositories
-     * - #projects
-     * - #tools
-     * - #fun
-     */
-  const pages : {[name : string] : JSX.Element} = {
-    "#home": <HomePage/>,
-    "#repositories": <RepositoryPage/>,
-    "#projects": <></>,
-    "#tools": <></>,
-    "#fun": <></>
-  };
-
-  const [page, setPage] = useState(PAGE_DEFAULT);
-  const pageValue = {page, setPage}
-  //#endregion
-
   return (
-    <AppPageContext.Provider value={pageValue}>
-      <div className="bg-primary">
-        <NavigationBar />
-        <div className="main-container">
-          {pages[page]}
-        </div>
-      </div>
-    </AppPageContext.Provider>
+    <Router>
+      <NavigationBar />
+      <Routes>
+        <Route path="/" element={<HomePage/>}></Route>
+        <Route path="/repositories" element={<RepositoryPage/>}></Route>
+        <Route path="/tools" element={<ToolsPage/>}></Route>
+        <Route path="*" element={<NotFoundPage/>}></Route>
+      </Routes>
+    </Router>
   );
 }
 

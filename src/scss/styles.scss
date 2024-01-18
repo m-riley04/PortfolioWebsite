@@ -6,6 +6,10 @@ $body-secondary: #c9c9c9;
 // Theme
 $primary: #1c1c21;
 $secondary: #2f2e33;
+$tertiary: #424047;
+
+// Animating
+$fade-duration: 0.2s;
 
 //=== NEW VARIABLES
 // Navigation
@@ -22,30 +26,72 @@ $card-color: $body-color;
 //=== IMPORTS
 @import "../node_modules/bootstrap/scss/bootstrap";
 
+//=== ANIMATIONS
+@keyframes a {
+    to {background-position:0 -200%}
+}
+
 //=== ELEMENT STYLES
-.main-container {
+* {
+    box-sizing: border-box;
+    transition: $fade-duration;
+}
+
+html, #root {
+    background-color: $primary;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    margin: $spacer;
+}
+
+a {
+    font-weight: 500;
+    color: #646cff;
+    text-decoration: inherit;
+  }
+
+a:hover {
+    color: #535bf2;
+}
+
+//=== CLASS STYLES
+.page-container {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
 }
-
-* {
-    box-sizing: border-box;
-}
-
-//=== CLASS STYLES
 // Navbar
 .navbar {
     background-color: $navbar-bg;
 }
 
-.navbar-brand, .navbar-brand:hover, .navbar-brand:focus {
+.navbar-brand, .navbar-brand:focus {
     color: $body-color;
     font-weight: bold;
+    transition-delay: 0s;
+    transition-duration: 0s;
+}
+
+.navbar-brand:hover {
+    transition-delay: 2s;
+    transition-duration: 2s;
+    color: white;
+    background-color: white;
+    background: -webkit-linear-gradient(
+        rgba(255,200,45,1) 20%, 
+        rgba(0,81,186,1) 30%, 
+        rgba(232,0,13,1) 100%) 0 0/100% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: a 2s linear infinite;
+    
 }
 
 .navbar-option {
     color: $body-color;
+    background-color: $tertiary;
 }
 
 .navbar-option:hover, .navbar-option:focus {
@@ -66,14 +112,14 @@ $card-color: $body-color;
 .grid {
     display: grid;
     grid-template-columns: auto auto auto auto;
-    row-gap: 30px;
-    column-gap: 30px;
+    row-gap: $spacer;
+    column-gap: $spacer;
 }
 
 .card {
     background-color: $card-bg;
     margin: auto;
-    padding: 20px; 
+    padding: $spacer; 
     border-radius: 20px;
     
     text-align: center;
@@ -87,6 +133,7 @@ $card-color: $body-color;
     aspect-ratio: .75;
 }
 .card * {
+    margin: auto;
     color: $card-color;
     width: 100%;
     height: 100%;
@@ -96,8 +143,8 @@ $card-color: $body-color;
     max-height: 100%;
 }
 .card p{
-    text-wrap: nowrap;
     overflow:auto;
+    text-wrap: nowrap;
     text-overflow: ellipsis;
     width: 100%;
     height: 15%;
@@ -107,8 +154,8 @@ $card-color: $body-color;
     max-height: 15%;
 }
 .card h2{
-    text-wrap: nowrap;
     overflow: hidden;
+    text-wrap: nowrap;
     text-overflow: ellipsis;
     width: 100%;
     height: 15%;
@@ -125,7 +172,6 @@ $card-color: $body-color;
     min-height: 65%;
     max-height: 65%;
 }
-
 .card:hover {
     background-color: $card-bg-hover;
 }
@@ -143,7 +189,7 @@ $card-color: $body-color;
 }
 
 // ProjectList
-.repo-list-item {
+.list-item {
     background-color: $primary;
     padding: 5px;
     margin-bottom: 10px;
@@ -152,12 +198,13 @@ $card-color: $body-color;
     max-width: 100%;
     display: flex;
 }
-.repo-list-item:hover {
+
+.list-item:hover {
     background-color: $secondary;
     cursor: pointer;
 }
 
-.repo-list-item-title {
+.list-item-title {
     color: $body-color;
     padding: 5px;
     text-wrap: nowrap;

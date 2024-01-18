@@ -114,7 +114,7 @@ function RepositoryPage() {
     return (
         <RepositoriesPageContext.Provider value={pageValue}>
             <CurrentRepositoryContext.Provider value={currentRepositoryValue}>
-                <div className="main-container">
+                <div className="page-container">
                     <RepositoryList repos={repositories} />
                     <div className="container">
                         <button onClick={fetchGithubRepositories}>Refresh</button>
