@@ -34,7 +34,7 @@ $card-color: $body-color;
 //=== ELEMENT STYLES
 * {
     box-sizing: border-box;
-    transition: $fade-duration;
+    //transition-duration: $fade-duration;
 }
 
 html, #root {
@@ -55,11 +55,20 @@ a:hover {
     color: #535bf2;
 }
 
+//=== ID STYLES
+#app {
+    display: block;
+}
+
 //=== CLASS STYLES
 .page-container {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
+}
+
+.clickable {
+    transition: $fade-duration;
 }
 // Navbar
 .navbar {
@@ -91,11 +100,12 @@ a:hover {
 
 .navbar-option {
     color: $body-color;
-    background-color: $tertiary;
+    background-color: $navbar-bg;
 }
 
 .navbar-option:hover, .navbar-option:focus {
     color: $body-secondary;
+    background-color: $tertiary;
 }
 
 .navbar-dropdown * {
