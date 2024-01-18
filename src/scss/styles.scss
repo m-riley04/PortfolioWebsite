@@ -6,6 +6,10 @@ $body-secondary: #c9c9c9;
 // Theme
 $primary: #1c1c21;
 $secondary: #2f2e33;
+$tertiary: #424047;
+
+// Animating
+$fade-duration: 0.2s;
 
 //=== NEW VARIABLES
 // Navigation
@@ -22,8 +26,17 @@ $card-color: $body-color;
 //=== IMPORTS
 @import "../node_modules/bootstrap/scss/bootstrap";
 
+//=== ANIMATIONS
+@keyframes a {
+    to {background-position:0 -200%}
+}
 
 //=== ELEMENT STYLES
+* {
+    box-sizing: border-box;
+    transition: $fade-duration;
+}
+
 html, #root {
     background-color: $primary;
 }
@@ -42,12 +55,8 @@ a:hover {
     color: #535bf2;
 }
 
-* {
-    box-sizing: border-box;
-}
-
 //=== CLASS STYLES
-.main-container {
+.page-container {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -62,8 +71,13 @@ a:hover {
     font-weight: bold;
 }
 
+.navbar-brand:hover {
+
+}
+
 .navbar-option {
     color: $body-color;
+    background-color: $tertiary;
 }
 
 .navbar-option:hover, .navbar-option:focus {
@@ -84,14 +98,14 @@ a:hover {
 .grid {
     display: grid;
     grid-template-columns: auto auto auto auto;
-    row-gap: 30px;
-    column-gap: 30px;
+    row-gap: $spacer;
+    column-gap: $spacer;
 }
 
 .card {
     background-color: $card-bg;
     margin: auto;
-    padding: 20px; 
+    padding: $spacer; 
     border-radius: 20px;
     
     text-align: center;
@@ -105,6 +119,7 @@ a:hover {
     aspect-ratio: .75;
 }
 .card * {
+    margin: auto;
     color: $card-color;
     width: 100%;
     height: 100%;
@@ -114,8 +129,8 @@ a:hover {
     max-height: 100%;
 }
 .card p{
-    text-wrap: nowrap;
     overflow:auto;
+    text-wrap: nowrap;
     text-overflow: ellipsis;
     width: 100%;
     height: 15%;
@@ -125,8 +140,8 @@ a:hover {
     max-height: 15%;
 }
 .card h2{
-    text-wrap: nowrap;
     overflow: hidden;
+    text-wrap: nowrap;
     text-overflow: ellipsis;
     width: 100%;
     height: 15%;
@@ -143,7 +158,6 @@ a:hover {
     min-height: 65%;
     max-height: 65%;
 }
-
 .card:hover {
     background-color: $card-bg-hover;
 }
@@ -161,7 +175,7 @@ a:hover {
 }
 
 // ProjectList
-.repo-list-item {
+.list-item {
     background-color: $primary;
     padding: 5px;
     margin-bottom: 10px;
@@ -170,12 +184,13 @@ a:hover {
     max-width: 100%;
     display: flex;
 }
-.repo-list-item:hover {
+
+.list-item:hover {
     background-color: $secondary;
     cursor: pointer;
 }
 
-.repo-list-item-title {
+.list-item-title {
     color: $body-color;
     padding: 5px;
     text-wrap: nowrap;
