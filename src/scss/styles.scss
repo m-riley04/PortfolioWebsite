@@ -10,6 +10,7 @@ $tertiary: #424047;
 
 // Animating
 $fade-duration: 0.2s;
+$hover-bg: #1a1a1a;
 
 //=== NEW VARIABLES
 // Navigation
@@ -34,7 +35,6 @@ $card-color: $body-color;
 //=== ELEMENT STYLES
 * {
     box-sizing: border-box;
-    //transition-duration: $fade-duration;
 }
 
 html, #root {
@@ -70,6 +70,12 @@ a:hover {
 .clickable {
     transition: $fade-duration;
 }
+
+.clickable:hover {
+    background-color: $hover-bg;
+    transition: $fade-duration;
+}
+
 // Navbar
 .navbar {
     background-color: $navbar-bg;

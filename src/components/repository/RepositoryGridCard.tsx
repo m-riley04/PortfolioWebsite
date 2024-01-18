@@ -13,8 +13,7 @@ function RepositoryGridCard({data} : {data:RepositoryData}) {
     const {page, setPage} = useContext(RepositoriesPageContext);
     
     return (
-        
-            <div className="card" onClick={() => {
+            <div className="card clickable" onClick={() => {
                 setCurrentRepository(data);
                 setPage("#repository");
                 console.log(data);
