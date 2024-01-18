@@ -13,9 +13,9 @@ function RepositoryListItem({
   thumbnail: string;
 }) {
   return (
-    <li className="list-group-item repo-list-item">
+    <li className="list-group-item list-item">
         <img className="img-thumbnail" src={thumbnail} style={{minWidth:"25px", minHeight:"25px"}}></img>
-        <h4 className="repo-list-item-title">{title}</h4>
+        <h4 className="list-item-title">{title}</h4>
     </li>
   );
 }
