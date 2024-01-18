@@ -9,21 +9,26 @@ function NavigationBar() {
   // Initialize hooks and references to pages and components
   const {page, setPage} = useContext(AppPageContext);
 
+  // Handle the navigation when a user clicks a navigation button
+  const handleNavigation = (target:string) => {
+    setPage(target);
+    console.log(`Navigating to: "${target}"`);
+  }
 
   return (
     <Navbar expand="lg" className="navbar">
       <Container>
         <Navbar.Brand href="#home" onClick={() => {
-          setPage("#home");
+          handleNavigation("#home");
         }}>Riley Meyerkorth</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link id="option-repositories" href="#repositories" className="navbar-option" onClick={() => {
-              setPage("#repositories");
+              handleNavigation("#repositories");
             }}>Repositories</Nav.Link>
             <Nav.Link id="option-projects" href="#projects" className="navbar-option" onClick={() => {
-              setPage("#projects");
+              handleNavigation("#projects");
             }}>Projects</Nav.Link>
             <NavDropdown title="Links" id="basic-nav-dropdown" className="navbar-option navbar-dropdown">
               <NavDropdown.Item href="https://github.com/m-riley04" target="_blank">GitHub</NavDropdown.Item>
