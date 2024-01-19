@@ -39,8 +39,9 @@ $card-color: $body-color;
     box-sizing: border-box;
 }
 
-html, #root {
+html, body, #root {
     background-color: $primary;
+    height: 100vh;
 }
 
 p, h1, h2, h3, h4, h5, h6 {
