@@ -28,7 +28,7 @@ function jsonToRepository(json:object) : RepositoryData{
     return new RepositoryData(
       json["name" as keyof object], 
       json["description" as keyof object],
-      json["author" as keyof object],
+      json["owner" as keyof object]["login" as keyof object],
       json["created_at" as keyof object],
       json["updated_at" as keyof object],
       json["pushed_at" as keyof object],
