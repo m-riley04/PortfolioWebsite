@@ -72,6 +72,16 @@ class RepositoryData {
     public getReadmeUrl() {
         return "https://raw.githubusercontent.com/" + this.author + "/" + this.name + "/" + this.defaultBranch + "/README.md";
     }
+    private parseJsonToArray(json:object) {
+        const contents:Array<object> = [];
+        for (var i in json) {
+            // Convert each JSON to a project object
+            const item = json[i as keyof object];
+            contents.push(item);
+        }
+        
+        return contents;
+    }
 }
 
 export default RepositoryData;
