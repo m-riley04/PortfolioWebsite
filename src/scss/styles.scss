@@ -267,7 +267,9 @@ a:hover {
 .list-item-title {
     color: $body-color;
     padding: 5px;
-    text-wrap: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: auto;
+    margin-bottom: auto;
 }
