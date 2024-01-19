@@ -4,7 +4,7 @@ import RepositoryData from '../../classes/RepositoryData';
 function RepositoryList( { repos } : { repos:Array<RepositoryData>}) {
     return (
         <ul className="list-group sidebar">
-            {repos.map(repo => <RepositoryListItem title={repo.name}/>)}
+            {repos.map((repo, index) => <RepositoryListItem key={index} title={repo.name}/>)}
         </ul>
     );
 }
