@@ -11,9 +11,11 @@ import RepositoryTagViewer from "./RepositoryTagViewer";
 function Repository({ data } : { data:RepositoryData }) {
     
     const [imageUrls, setImageUrls] = useState([]);
+    const [images, setImages] = useState([Element]);
 
     useEffect(() => {
-        //setImageUrls(data.getImageUrls("assets"));
+        setImageUrls(data.getImageUrls("assets"));
+        setImages(imageUrls.map((url, index) => <img src={url} alt="image" key={index}></img>))
     }, []);
 
     return (
@@ -37,6 +39,7 @@ function Repository({ data } : { data:RepositoryData }) {
                 </div>
                 <div className="col-4">
                     <h3>Images</h3>
+                    {images}
                     <RepositoryMediaViewer urls={imageUrls}/>
 
                     <h3>Collaborators</h3>
