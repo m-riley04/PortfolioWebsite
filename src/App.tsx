@@ -9,9 +9,9 @@ function App() {
   return (
     <div id="app">
       <Router>
-        <NavigationBar />
+        <NavigationBar/>
         <AnimatedRoutes/>
-        <Footer />
+        <Footer/>
       </Router>
     </div>
   );
