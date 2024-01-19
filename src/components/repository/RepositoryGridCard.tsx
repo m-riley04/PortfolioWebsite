@@ -11,12 +11,12 @@ function RepositoryGridCard({data} : {data:RepositoryData}) {
     // Get contexts of parent page and the currently selected repository
     const {currentRepository, setCurrentRepository} = useContext(CurrentRepositoryContext);
     const {page, setPage} = useContext(RepositoriesPageContext);
-    
+
     return (
             <div className="card clickable" onClick={() => {
                 setCurrentRepository(data);
                 setPage("#repository");
-                console.log(data);
+                console.log(`Selected Repository: ${data}`);
             }}>
                 <img src={data.image} hidden={!data.image}></img>
                 <h2>{data.name}</h2>
