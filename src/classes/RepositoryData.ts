@@ -60,6 +60,13 @@ class RepositoryData {
     }
 
     /**
+     * @return {string} The contents folder REST API URL of the repository
+    */
+    public getContentsUrl() {
+        return "https://api.github.com/repos/" + this.author + "/" + this.name + "/contents/"
+    }
+
+    /**
      * @return {string} The README.md url of the repository from the default branch
     */
     public getReadmeUrl() {
