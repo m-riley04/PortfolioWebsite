@@ -1,21 +1,15 @@
 /*
-An item in a ProjectList that contains information about a project
+An item in a RepositoryList that contains information about a repository
 
 Properties:
-    - title: The title of the project
-    - thumbnail: The thumbnail of the project
+    - name: The name of the repository
+    - thumbnail: The thumbnail of the repository
 */
-function RepositoryListItem({
-  title = "title",
-  thumbnail = "",
-}: {
-  title: string;
-  thumbnail?: string;
-}) {
+function RepositoryListItem({name = "", thumbnail = "",}: {name: string, thumbnail?: string}) {
   return (
     <li className="list-group-item list-item clickable">
-        <img className="img-thumbnail" src={thumbnail} style={{minWidth:"25px", minHeight:"25px"}}></img>
-        <h4 className="list-item-title">{title}</h4>
+        <img className="img-thumbnail" src={thumbnail}></img>
+        <h4 className="list-item-title">{name}</h4>
     </li>
   );
 }
