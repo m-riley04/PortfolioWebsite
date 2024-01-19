@@ -192,6 +192,27 @@ a:hover {
     background-color: $card-bg-hover;
 }
 
+// Repository Viewer
+.markdown-viewer {
+    overflow: scroll;
+    width: 100%;
+    height: 100%;
+    border: 1px solid $body-color;
+}
+
+.media-viewer {
+    width: 100%;
+    height: 100%;
+}
+
+.collaborator-viewer {
+    
+}
+
+.tag-viewer {
+    
+}
+
 // Sidebar
 .sidebar {
     display: flex;
