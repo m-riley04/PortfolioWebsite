@@ -72,6 +72,48 @@ class RepositoryData {
     public getReadmeUrl() {
         return "https://raw.githubusercontent.com/" + this.author + "/" + this.name + "/" + this.defaultBranch + "/README.md";
     }
+
+    /**
+     * @param {string} path The path of the folder that you would like to search in the repository. ex: "assets", "assets/images"
+     * @return {string[]} The image urls found in the path folder
+     */
+    public getImageUrls(path:string) {
+        // Build the folder URL from contents url and given path
+        const folderUrl = this.getContentsUrl() + path;
+
+        // Fetch the data of the contents
+        const urls:Array<string> = [];
+        fetch( folderUrl )
+        .then( (response) => {
+            if (!response.ok) {
+                throw new Error("ERROR: Could not fetch the image urls (response was not ok)")
+            }
+            return response.json() 
+        })
+        .then( (data) => {
+            // Put data into an array
+            const contents = this.parseJsonToArray(data);
+
+            // Iterate through the contents
+            for (let i = 0; i < contents.length; i++) {
+                const file:object = contents[i]
+                const url:string = file["download_url" as keyof object];
+
+                // Check if the file is an image
+                if (url.match(/\.(jpg|jpeg|png|gif)$/i)) {
+                    console.log(`Added url: ${url}`)
+                    urls.push(url);
+                } else {
+                    console.log(`Skipping file url: ${url}`)
+                }
+            }
+        })
+        .catch((err) => (console.error(err)))
+
+        // Return the array
+        return urls;
+    }
+
     private parseJsonToArray(json:object) {
         const contents:Array<object> = [];
         for (var i in json) {
