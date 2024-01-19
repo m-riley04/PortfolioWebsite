@@ -38,8 +38,6 @@ function Repository({ data } : { data:RepositoryData }) {
                 <div className="col-4">
                     <h3>Images</h3>
                     <RepositoryMediaViewer urls={imageUrls}/>
-                    {/*<Carousel className="media-viewer"></Carousel>*/}
-                    {/*imageUrls.map(url => <img src={url} key="" ></img>)*/}
 
                     <h3>Collaborators</h3>
                     <RepositoryCollaboratorViewer/>
