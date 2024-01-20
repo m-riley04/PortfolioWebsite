@@ -15,9 +15,9 @@ function AnimatedRoutes() {
     return (
         <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
-                <Route path="/" element={<HomePage/>}/>
-                <Route path="/repositories" element={<RepositoryPage/>}/>
-                <Route path="/tools" element={<ToolsPage/>}/>
+                <Route index element={<HomePage/>}/>
+                <Route path="repositories" element={<RepositoryPage/>}/>
+                <Route path="tools" element={<ToolsPage/>}/>
                 <Route path="*" element={<NotFoundPage/>}/>
             </Routes>
         </AnimatePresence>
