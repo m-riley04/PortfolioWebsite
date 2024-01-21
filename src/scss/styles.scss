@@ -56,12 +56,16 @@ html, body, #root {
 button {
     padding: $spacer;
     background-color: $button-bg;
+    color: $button-body;
     transition: $fade-duration;
+    border: white solid 2px;
+    border-radius: 10px;
 }
 
 button:hover {
     background-color: $hover-bg;
     transition: $fade-duration;
+    border-radius: 0;
 }
 
 p, h1, h2, h3, h4, h5, h6 {
@@ -95,8 +99,8 @@ a:hover {
 #cat-container img {
     object-fit: cover;
     overflow: hidden;
-    width: 50px;
-    height: 50px;
+    width: 250px;
+    height: 250px;
 }
 
 #banner {
@@ -140,7 +144,7 @@ a:hover {
 
 #home h1 {
     font-size: 10em;
-    padding: 3%;
+    padding: 2%;
     text-shadow: rgba(0, 0, 0, .5) 1px 0 10px;
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: black;
@@ -150,6 +154,10 @@ a:hover {
     display: block;
     margin: auto;
     text-align: center;
+}
+
+#coming-soon * {
+    margin: auto;
 }
 
 #coming-soon h1 {
