@@ -47,7 +47,7 @@ function ComingSoonPage() {
                 <p>In the meantime, here is a randomly generated cat using <a href="https://thecatapi.com/" target="_blank" rel="noreferrer">TheCatAPI</a>.</p>
                 <br></br>
 
-                <div id="#cat-container">
+                <div id="cat-container">
                     <img src={catSrc}></img>
                     <button className="clickable" onClick={() => {
                         fetchRandomCatImage();
