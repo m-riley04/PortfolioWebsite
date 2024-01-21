@@ -8,7 +8,7 @@ function NavigationGroup( { buttons } : { buttons:Array<Button> }) {
     return (
         <div className="navigation-group">
             {buttons.map((button, index) => <Link to={button.path} key={index} className="clickable navigation-group-button">{button.title}</Link>)}
-        </div>  
+        </div>
     );
 }
 
