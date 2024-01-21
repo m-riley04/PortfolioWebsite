@@ -8,6 +8,9 @@ $primary: #1c1c21;
 $secondary: #2f2e33;
 $tertiary: #424047;
 
+// Home
+$banner-image: "../assets/home_banner.png";
+
 // Animating
 $fade-duration: 0.2s;
 $hover-bg: #1a1a1a;
@@ -93,6 +96,13 @@ a:hover {
 
 .home h1 {
     font-size: 6em;
+    padding: 5%;
+}
+
+.home #banner {
+    margin-top: 0;
+    background-image: url($banner-image);
+    padding: 5%;
 }
 
 // Navigation
@@ -105,7 +115,7 @@ a:hover {
 
 .navigation-group-button {
     color: $body-color;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.3);
     border: white solid 2px;
     padding: $spacer;
     margin: auto;
@@ -118,9 +128,10 @@ a:hover {
 
 .navigation-group-button:hover {
     color: $body-color;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.2);
     border: white solid 5px;
-    width: 28%;
+    width: 30%;
+    font-size: 1.5em;
 }
 
 .navbar {
