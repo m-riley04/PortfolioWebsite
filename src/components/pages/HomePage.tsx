@@ -15,7 +15,7 @@ function HomePage() {
             animate={{opacity: 1}}
             exit={{opacity: 0}}
         >
-            <div>
+            <div id="banner">
                 <h1>Welcome to my page!</h1>
                 <NavigationGroup buttons={paths}></NavigationGroup>
             </div>
