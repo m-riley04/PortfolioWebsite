@@ -6,10 +6,12 @@ function HomePage() {
         {title: "Repositories", path: "repositories"},
         {title: "Projects", path: "projects"},
         {title: "Tools", path: "tools"},
+        {title: "Research", path: "research"},
     ]
 ;    return (
         <motion.div 
-            className="page-container home"
+            id="home"
+            className="page-container"
             
             initial={{opacity: 0}}
             animate={{opacity: 1}}
