@@ -1,7 +1,4 @@
 import RepositoryData from "../../classes/RepositoryData";
-import {
-    Carousel, CarouselItem
-} from "react-bootstrap"
 import RepositoryMarkdownViewer from "./RepositoryMarkdownViewer"
 import { useEffect, useState } from "react";
 import RepositoryMediaViewer from "./RepositoryMediaViewer";
