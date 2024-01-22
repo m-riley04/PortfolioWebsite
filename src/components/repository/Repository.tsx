@@ -8,7 +8,6 @@ import RepositoryTagViewer from "./RepositoryTagViewer";
 function Repository({ data } : { data:RepositoryData }) {
     
     const [imageUrls, setImageUrls] = useState([]);
-    const [images, setImages] = useState([Element]);
 
     // Override the back button to navigate to the repository grid
     useEffect(() => {
