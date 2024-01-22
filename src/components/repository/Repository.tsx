@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import RepositoryMediaViewer from "./RepositoryMediaViewer";
 import RepositoryCollaboratorViewer from "./RepositoryCollaboratorViewer";
 import RepositoryTagViewer from "./RepositoryTagViewer";
+import RepositoriesPageSwitcher from "../switchers/RepositoriesPageSwitcher";
 
 function Repository({ data } : { data:RepositoryData }) {
     
@@ -47,6 +48,7 @@ function Repository({ data } : { data:RepositoryData }) {
                     <p>{data.language}</p>
                 </div>
                 <div className="col">
+                    <RepositoriesPageSwitcher title="Back to Grid" target="grid" />
                 </div>
             </div>
             <div className="row">
