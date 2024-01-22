@@ -58,13 +58,7 @@ return repos;
 //#endregion
 
 function RepositoryPage() {
-    //#region STATES
-    // GitHub
-    const [githubRepos, setGithubRepos] = useState([]);
-    
-    // Data
     const [repositories, setRepositories] = useState([]);
-    //#endregion
 
     // Pages
     const [currentRepository, setCurrentRepository] = useState(new RepositoryData());
