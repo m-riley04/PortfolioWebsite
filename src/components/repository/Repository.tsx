@@ -42,15 +42,11 @@ function Repository({ data } : { data:RepositoryData }) {
     return (
         <div className="repo">
             <div className="row">
-                <div className="col-6">
+                <div className="col-10">
                     <h1>{data.name}</h1>
                     <p>{data.language}</p>
                 </div>
                 <div className="col">
-                    
-                </div>
-                <div className="col">
-
                 </div>
             </div>
             <div className="row">
