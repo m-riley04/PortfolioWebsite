@@ -18,15 +18,12 @@ A custom portfolio website for all of my personal projects and other fun things 
   - [API](#API)
 
 # Pages
-
-## Projects
-_To be explained at a later date..._
-### Project View
-_To be explained at a later date..._
 ## Repositories
-_To be explained at a later date..._
 ### Repository View
-_To be explained at a later date..._
+## Tools
+## Research
+
+# Links
 ## GitHub
 A navigation element that redirects the user to my GitHub profile.
 
