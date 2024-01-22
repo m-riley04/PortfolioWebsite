@@ -40,7 +40,7 @@ function Repository({ data } : { data:RepositoryData }) {
     }, []);
 
     return (
-        <div className="container repo">
+        <div className="repo">
             <div className="row">
                 <div className="col-6">
                     <h1>{data.name}</h1>
