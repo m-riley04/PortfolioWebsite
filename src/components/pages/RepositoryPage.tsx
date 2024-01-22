@@ -57,8 +57,24 @@ function jsonToRepository(json:object) : RepositoryData{
 function parseGithubRepositories(json:object) : RepositoryData[] {
 const repos = [];
 for (var i in json) {
-    // Convert each JSON to a project object
-    const repo = jsonToRepository(json[i as keyof object]);
+    const repoJson = json[i as keyof object];
+
+    // Check if the repo is blacklisted
+    if (json[i as keyof object]["name"] in BLACKLIST) {
+        console.log(`${repoJson["name"]} is blacklisted. Skipping...`)
+        continue;
+    }
+
+    // Convert the JSON to a Repository object
+    const repo = jsonToRepository(repoJson);
+
+    // Check if the repo is in the featured list
+    if (repo.name in FEATURED) {
+        console.log(`${repoJson["name"]} is featured!. Highlighting...`)
+        repo.featured = true;
+    }
+
+    // Push the repo to the array
     repos.push(repo);
 }
 
