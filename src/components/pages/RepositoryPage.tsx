@@ -1,12 +1,10 @@
 import RepositoryData from '../../classes/RepositoryData';
 import RepositoryList from '../repository/RepositoryList';
-import {useEffect, useState} from 'react';
-import Repository from '../repository/Repository';
-import RepositoryGrid from '../repository/RepositoryGrid';
-import RepositoriesPageContext from '../contexts/RepositoriesPageContext';
-import RepositoriesPageSwitcher from '../switchers/RepositoriesPageSwitcher.tsx';
-import CurrentRepositoryContext from '../contexts/CurrentRepositoryContext.ts';
+import {useEffect, useState, useContext} from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from "react-router-dom";
+import { Outlet } from 'react-router';
+import RepositoriesContext from '../contexts/RepositoriesContext';
 
 // CONSTANTS
 const GITHUB_USERNAME = "m-riley04";
@@ -58,44 +56,17 @@ function parseGithubRepositories(json:object) : RepositoryData[] {
 //#endregion
 
 function RepositoryPage() {
-    //#region STATES
-    // GitHub
-    const [githubData, setGithubData] = useState([]);
-    const [githubUser, setGithubUser] = useState(GITHUB_USERNAME);
-    const [githubRepos, setGithubRepos] = useState([]);
-    
-    // Data
-    const [repositories, setRepositories] = useState([]);
-    //#endregion
+    // Hooks and States
+    const { repositories, setRepositories } = useContext(RepositoriesContext);
 
-    // Pages
-    const [currentRepository, setCurrentRepository] = useState(new RepositoryData());
-    const currentRepositoryValue = {currentRepository, setCurrentRepository};
+    // navigate() Init
+    const navigate = useNavigate();
     
-    /**
-     * @type {string : JSX.Element} A map of the subpages within the RepositoryPage
-     * @param {string} name A string of the page's target name
-     * @param {JSX.Element} value A JSX element that contains the page's info
-     * 
-     * Current pages:
-     * - #grid - the repository grid
-     * - #repository - the repository viewer
-     */
-    const pages : {[name : string] : JSX.Element} = {
-        "#grid": <RepositoryGrid repos={repositories}/>,
-        "#repository": <Repository data={currentRepository} />
-    }
-
-    const [page, setPage] = useState("#grid");
-    const pageValue = {page, setPage}
-    
-    //#region TEMPORARY FUNCTIONS
     /** Fetch a JSON object of GitHub repositories from a designated user */
     const fetchGithubRepositories = () => {
-        fetch(`https://api.github.com/users/${githubUser}/repos`)
+        fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos`)
         .then((response) => (response.json()))
         .then((data) => {
-            setGithubRepos(data);
             setRepositories(parseGithubRepositories(data));
         }).catch((e) => {
             console.log("ERROR: Failed to fetch GitHub repositories.");
@@ -105,32 +76,33 @@ function RepositoryPage() {
 
         console.log("GitHub repositories fetched successfully.")
     }
-    //#endregion
 
-    // Fetch the repository once on-render of the app
+    // Fetch the repository once on-render of the page
     useEffect(() => {
         fetchGithubRepositories();
     }, []);
 
     return (
-        <RepositoriesPageContext.Provider value={pageValue}>
-            <CurrentRepositoryContext.Provider value={currentRepositoryValue}>
-                <motion.div 
-                    className="page-container"
-                    
-                    initial={{opacity: 0}}
-                    animate={{opacity: 1}}
-                    exit={{opacity: 0}}
-                >
-                    <RepositoryList repos={repositories} />
-                    <div className="container">
-                        <button onClick={fetchGithubRepositories}>Refresh</button>
-                        <RepositoriesPageSwitcher title="Repository Grid" target="#grid" />
-                        {pages[pageValue.page]}
-                    </div>
-                </motion.div>
-            </CurrentRepositoryContext.Provider>
-        </RepositoriesPageContext.Provider>
+        <motion.div 
+            id="repositories"
+            className="page-container"
+            
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+        >
+            <RepositoryList repos={repositories} />
+            <div className="container">
+                <button onClick={fetchGithubRepositories}>Refresh</button>
+                <button onClick={() => {
+                    navigate("repository")
+                }}> Repository Page</button>
+                <button onClick={() => {
+                    navigate("grid")
+                }}> Back To Grid</button>
+            </div>
+            <Outlet/>
+        </motion.div>
     );
 }
 
