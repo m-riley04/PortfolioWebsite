@@ -20,6 +20,7 @@ A custom portfolio website for all of my personal projects and other fun things 
   - [API](#API)
 
 # Pages
+## Home
 ## Repositories
 ### Repository View
 ## Tools
