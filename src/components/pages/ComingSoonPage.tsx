@@ -32,29 +32,27 @@ function ComingSoonPage() {
 
     return (
         <motion.div 
-            className="page-container coming-soon"
+            id="coming-soon"
+            className="page-container"
             
             initial={{opacity: 0}}
             animate={{opacity: 1}}
             exit={{opacity: 0}}
         >
-            <div id="coming-soon">
-                <h1>Coming soon...</h1>
-                <a href="https://giphy.com/stickers/work-5240-5240work-ZuorNU99NFvIrh8V10" target="_blank" rel="noreferrer"><img src={workingGifSrc}></img></a>
-                <p>This page is currently under construction. I am working hard to keep this site maintained and fresh. I apologize for any inconvenience.</p>
-                <br></br>
-                <br></br>
-                <p>In the meantime, here is a randomly generated cat using <a href="https://thecatapi.com/" target="_blank" rel="noreferrer">TheCatAPI</a>.</p>
-                <br></br>
+            <h1>Coming soon...</h1>
+            <a href="https://giphy.com/stickers/work-5240-5240work-ZuorNU99NFvIrh8V10" target="_blank" rel="noreferrer"><img src={workingGifSrc}></img></a>
+            <p>This page is currently under construction. I am working hard to keep this site maintained and fresh. I apologize for any inconvenience.</p>
+            <br></br>
+            <br></br>
+            <p>In the meantime, here is a randomly generated cat using <a href="https://thecatapi.com/" target="_blank" rel="noreferrer">TheCatAPI</a>.</p>
+            <br></br>
 
-                <div id="cat-container">
-                    <img src={catSrc}></img>
-                    <button className="clickable" onClick={() => {
-                        fetchRandomCatImage();
-                        setCatSrc(loadingSrc);
-                    }}>Generate a new cat.</button>
-                </div>
-
+            <div id="cat-container">
+                <img src={catSrc}></img>
+                <button className="clickable" onClick={() => {
+                    fetchRandomCatImage();
+                    setCatSrc(loadingSrc);
+                }}>Generate a new cat.</button>
             </div>
         </motion.div>
     );
