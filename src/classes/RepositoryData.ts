@@ -1,15 +1,30 @@
+/**
+ * @param {string} name
+ * @param {string} description
+ * @param {string} author
+ * @param {string} dateCreated
+ * @param {string} dateUpdated
+ * @param {string} datePushed
+ * @param {string} language
+ * @param {string} topics
+ * @param {string} url
+ * @param {string} defaultBranch
+ * @param {string} image
+ * @param {boolean} featured
+ */
 class RepositoryData {
-    name:string;
-    description:string;
-    author:string;
-    dateCreated:string;
-    dateUpdated:string;
-    datePushed:string;
-    language:string;
-    topics:Array<string>;
-    url:string;
-    defaultBranch:string;
-    image:string;
+    public name:string;
+    public description:string;
+    public author:string;
+    public dateCreated:string;
+    public dateUpdated:string;
+    public datePushed:string;
+    public language:string;
+    public topics:Array<string>;
+    public url:string;
+    public defaultBranch:string;
+    public image:string;
+    public featured:boolean;
 
     constructor(
         name:string="", 
@@ -22,7 +37,8 @@ class RepositoryData {
         topics:Array<string>=[],
         url:string="",
         defaultBranch:string="main",
-        image:string=""
+        image:string="",
+        featured:boolean=false
         ) {
 
         this.name           = name;
@@ -36,6 +52,7 @@ class RepositoryData {
         this.url            = url;
         this.defaultBranch  = defaultBranch;
         this.image          = image;
+        this.featured       = featured;
     }
 
     /**
