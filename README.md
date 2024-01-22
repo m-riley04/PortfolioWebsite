@@ -3,8 +3,11 @@ A custom portfolio website for all of my personal projects and other fun things 
 
 # Table of Contents
 - [Pages](#Pages)
+  - [Home](#Home)
   - [Repositories](#Repositories)
     - [Repository View](#Repository-View)
+  - [Tools](#Tools)
+  - [Research](#Research)
 - [Links](#Links)
   - [GitHub](#GitHub)
   - [LinkedIn](#LinkedIn)
