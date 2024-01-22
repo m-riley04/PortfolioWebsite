@@ -1,13 +1,13 @@
 import RepositoryData from "../../classes/RepositoryData";
 import RepositoryMarkdownViewer from "./RepositoryMarkdownViewer"
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import RepositoryMediaViewer from "./RepositoryMediaViewer";
 import RepositoryCollaboratorViewer from "./RepositoryCollaboratorViewer";
 import RepositoryTagViewer from "./RepositoryTagViewer";
 import RepositoriesPageSwitcher from "../switchers/RepositoriesPageSwitcher";
 
-function Repository({ data } : { data:RepositoryData }) {
+function Repository({ data, parent } : { data:RepositoryData, parent?:React.RefObject<HTMLDivElement>}) {
     
     const [imageUrls, setImageUrls] = useState([]);
 
@@ -15,7 +15,7 @@ function Repository({ data } : { data:RepositoryData }) {
 
     // Get the repositories images from a folder
     useEffect(() => {
-        window.scrollTo(0, 0);
+        parent?.current.scrollTo(0, 0);
 
         // Try a folder named "assets"
         data.getImageUrls("assets")
