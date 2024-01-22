@@ -5,7 +5,6 @@ import { useNavigate } from "react-router";
 import RepositoryMediaViewer from "./RepositoryMediaViewer";
 import RepositoryCollaboratorViewer from "./RepositoryCollaboratorViewer";
 import RepositoryTagViewer from "./RepositoryTagViewer";
-import RepositoriesPageContext from "../contexts/RepositoriesPageContext";
 
 function Repository({ data } : { data:RepositoryData }) {
     
@@ -13,6 +12,7 @@ function Repository({ data } : { data:RepositoryData }) {
 
     const navigate = useNavigate();
 
+    // Get the repositories images from a folder
     useEffect(() => {
         window.scrollTo(0, 0);
 
