@@ -83,6 +83,7 @@ return repos;
 //#endregion
 
 function RepositoryPage() {
+    //=== Hooks and States
     const [repositories, setRepositories] = useState([]);
 
     // Pages
@@ -127,6 +128,7 @@ function RepositoryPage() {
         //fetchGithubRepositories();
     }, []);
 
+
     return (
         <RepositoriesPageContext.Provider value={pageValue}>
             <CurrentRepositoryContext.Provider value={currentRepositoryValue}>
@@ -140,7 +142,6 @@ function RepositoryPage() {
                     <RepositoryList repos={repositories} />
                     <div className="container">
                         <button onClick={fetchGithubRepositories}>Refresh</button>
-                        <RepositoriesPageSwitcher title="Repository Grid" target="grid" />
                         {pages[pageValue.page]}
                     </div>
                 </motion.div>
