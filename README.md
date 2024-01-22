@@ -12,7 +12,7 @@ A custom portfolio website for all of my personal projects and other fun things 
   - [GitHub](#GitHub)
   - [LinkedIn](#LinkedIn)
 - [Features](#Features)
-- [Tools and Development Notes](#Tools-and-Development-Notes)
+- [Development Notes](#Development-Notes)
   - [Languages](#Languages)
   - [Environments](#Environments)
   - [Libraries and Dependencies](#Libraries-and-Dependencies)
@@ -39,7 +39,7 @@ A navigation element that redirects the user to my LinkedIn profile.
 - Filtering for projects and repositories
 - Fully resizable for most modern web-browsers and cellphones
 
-# Tools and Development Notes
+# Development Notes
 
 ## Environments
 - [NodeJS](https://nodejs.org/en)
