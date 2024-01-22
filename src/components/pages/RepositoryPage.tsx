@@ -60,8 +60,6 @@ return repos;
 function RepositoryPage() {
     //#region STATES
     // GitHub
-    const [githubData, setGithubData] = useState([]);
-    const [githubUser, setGithubUser] = useState(GITHUB_USERNAME);
     const [githubRepos, setGithubRepos] = useState([]);
     
     // Data
@@ -92,10 +90,9 @@ function RepositoryPage() {
     //#region TEMPORARY FUNCTIONS
     /** Fetch a JSON object of GitHub repositories from a designated user */
     const fetchGithubRepositories = () => {
-        fetch(`https://api.github.com/users/${githubUser}/repos`)
+        fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos`)
         .then((response) => (response.json()))
         .then((data) => {
-            setGithubRepos(data);
             setRepositories(parseGithubRepositories(data));
         }).catch((e) => {
             console.log("ERROR: Failed to fetch GitHub repositories.");
