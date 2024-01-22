@@ -7,7 +7,8 @@ import {
     Outlet,
     Route, 
     Routes, 
-    useLocation
+    useLocation,
+    Navigate
 } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import NavigationBar from "./NavigationBar";
@@ -23,8 +24,9 @@ function AnimatedRoutes() {
                 </Route>
                 <Route element={<WithNavbar/>}>
                     <Route path="repositories" element={<RepositoryPage/>}/>
-                    <Route path="projects" element={<ComingSoonPage/>}/>
-                    <Route path="tools" element={<ToolsPage/>}/>
+                    <Route path="projects" element={<Navigate to="../repositories"></Navigate>}/>
+                    <Route path="portfolio" element={<Navigate to="../repositories"></Navigate>}/>
+                    <Route path="tools" element={<ComingSoonPage/>}/>
                     <Route path="research" element={<ComingSoonPage/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>
                 </Route>
