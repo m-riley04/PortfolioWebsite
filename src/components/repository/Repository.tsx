@@ -10,9 +10,21 @@ function Repository({ data } : { data:RepositoryData }) {
     const [imageUrls, setImageUrls] = useState([]);
     const [images, setImages] = useState([Element]);
 
+    // Override the back button to navigate to the repository grid
     useEffect(() => {
-        setImageUrls(data.getImageUrls("assets"));
-        setImages(imageUrls.map((url, index) => <img src={url} alt="image" key={index}></img>))
+        // Function to be called when back button is pressed
+        const handleBackButton = (event) => {
+            console.log("Back button pressed");
+            navigate("../repositories");  
+        };
+
+        // Add event listener for 'popstate' event
+        window.addEventListener('popstate', handleBackButton);
+
+        // Clean up the event listener on component unmount
+        return () => {
+            window.removeEventListener('popstate', handleBackButton);
+        };
     }, []);
 
     return (
