@@ -40,20 +40,20 @@ function jsonToRepository(json:object) : RepositoryData{
     );
 }
   
-  /** 
-   * Takes a JSON object of repositories and returns a list of Project objects
-   * @param {object} json A JSON struct object with keys that relate to a GitHub RestAPI array of repositories
-   * @return {Repository} A Repository object containing the relevant JSON data
-  */ 
+/** 
+ * Takes a JSON object of repositories and returns a list of Project objects
+ * @param {object} json A JSON struct object with keys that relate to a GitHub RestAPI array of repositories
+ * @return {Repository} A Repository object containing the relevant JSON data
+ */ 
 function parseGithubRepositories(json:object) : RepositoryData[] {
-const repos = [];
-for (var i in json) {
-    // Convert each JSON to a project object
-    const repo = jsonToRepository(json[i as keyof object]);
-    repos.push(repo);
-}
+    const repos = [];
+    for (var i in json) {
+        // Convert each JSON to a project object
+        const repo = jsonToRepository(json[i as keyof object]);
+        repos.push(repo);
+    }
 
-return repos;
+    return repos;
 }
 //#endregion
 
