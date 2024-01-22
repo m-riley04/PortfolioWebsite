@@ -75,43 +75,28 @@ class RepositoryData {
 
     /**
      * @param {string} path The path of the folder that you would like to search in the repository. ex: "assets", "assets/images"
-     * @return {string[]} The image urls found in the path folder
+     * @return {Promise<string[]>} A promise that resolves to an array of image urls
      */
-    public getImageUrls(path:string) {
-        // Build the folder URL from contents url and given path
+    public getImageUrls(path:string): Promise<string[]> {
         const folderUrl = this.getContentsUrl() + path;
-
-        // Fetch the data of the contents
-        const urls:Array<string> = [];
-        fetch( folderUrl )
-        .then( (response) => {
-            if (!response.ok) {
-                throw new Error("ERROR: Could not fetch the image urls (response was not ok)")
-            }
-            return response.json() 
-        })
-        .then( (data) => {
-            // Put data into an array
-            const contents = this.parseJsonToArray(data);
-
-            // Iterate through the contents
-            for (let i = 0; i < contents.length; i++) {
-                const file:object = contents[i]
-                const url:string = file["download_url" as keyof object];
-
-                // Check if the file is an image
-                if (url.match(/\.(jpg|jpeg|png|gif)$/i)) {
-                    console.log(`Added url: ${url}`)
-                    urls.push(url);
-                } else {
-                    console.log(`Skipping file url: ${url}`)
+    
+        return fetch(folderUrl)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("ERROR: Could not fetch the image urls (response was not ok)")
                 }
-            }
-        })
-        .catch((err) => (console.error(err)))
-
-        // Return the array
-        return urls;
+                return response.json();
+            })
+            .then((data) => {
+                const contents = this.parseJsonToArray(data);
+                return contents
+                    .filter((file: any) => file["download_url"].match(/\.(jpg|jpeg|png|gif)$/i))
+                    .map((file: any) => file["download_url"]);
+            })
+            .catch((err) => {
+                console.error(err);
+                return [];
+            });
     }
 
     private parseJsonToArray(json:object) {
