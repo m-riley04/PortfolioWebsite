@@ -106,7 +106,6 @@ function RepositoryPage() {
     const [page, setPage] = useState("grid");
     const pageValue = {page, setPage}
     
-    //#region TEMPORARY FUNCTIONS
     /** Fetch a JSON object of GitHub repositories from a designated user */
     const fetchGithubRepositories = () => {
         fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos`)
@@ -121,11 +120,11 @@ function RepositoryPage() {
 
         console.log("GitHub repositories fetched successfully.")
     }
-    //#endregion
 
     // Fetch the repository once on-render of the app
     useEffect(() => {
-        fetchGithubRepositories();
+        setRepositories(DummyRepositories);
+        //fetchGithubRepositories();
     }, []);
 
     return (
