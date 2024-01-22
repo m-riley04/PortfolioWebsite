@@ -48,7 +48,6 @@ function Repository({ data } : { data:RepositoryData }) {
                 </div>
                 <div className="col-4">
                     <h3>Images</h3>
-                    {images}
                     <RepositoryMediaViewer urls={imageUrls}/>
 
                     <h3>Collaborators</h3>
