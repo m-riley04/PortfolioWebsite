@@ -48,7 +48,7 @@ function Repository({ data, parent } : { data:RepositoryData, parent?:React.RefO
                     <p>{data.language}</p>
                 </div>
                 <div className="col">
-                    <RepositoriesPageSwitcher title="Back to Grid" target="grid" />
+                    <RepositoriesPageSwitcher title="<-- Grid" target="grid" />
                 </div>
             </div>
             <div className="row">
