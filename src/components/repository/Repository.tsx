@@ -14,6 +14,7 @@ function Repository({ data } : { data:RepositoryData }) {
     const navigate = useNavigate();
 
     useEffect(() => {
+        window.scrollTo(0, 0);
 
         // Try a folder named "assets"
         data.getImageUrls("assets")
