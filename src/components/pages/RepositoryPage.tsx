@@ -1,6 +1,6 @@
 import RepositoryData from '../../classes/RepositoryData';
 import RepositoryList from '../repository/RepositoryList';
-import {useEffect, useState} from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Repository from '../repository/Repository';
 import RepositoryGrid from '../repository/RepositoryGrid';
 import RepositoriesPageContext from '../contexts/RepositoriesPageContext';
@@ -21,7 +21,6 @@ const FEATURED:string[] = [
     "AutoSortFolder"
 ];
 
-//#region OVERHEAD FUNCTIONS
 /**
   * Read a json value of a Github repository and turn it into a Repository object 
   * @param {object} json A json struct object with keys that relate to a GitHub repository (or Repository object)
@@ -50,40 +49,42 @@ function jsonToRepository(json:object) : RepositoryData{
     );
 }
   
-  /** 
-   * Takes a JSON object of repositories and returns a list of Project objects
-   * @param {object} json A JSON struct object with keys that relate to a GitHub RestAPI array of repositories
-   * @return {Repository} A Repository object containing the relevant JSON data
-  */ 
+/** 
+ * Takes a JSON object of repositories and returns a list of Project objects
+ * @param {object} json A JSON struct object with keys that relate to a GitHub RestAPI array of repositories
+ * @return {Repository} A Repository object containing the relevant JSON data
+ */ 
 function parseGithubRepositories(json:object) : RepositoryData[] {
-const repos = [];
-for (var i in json) {
-    const repoJson = json[i as keyof object];
+    const repos = [];
+    for (var i in json) {
+        const repoJson = json[i as keyof object];
 
-    // Check if the repo is blacklisted
-    if (json[i as keyof object]["name"] in BLACKLIST) {
-        console.log(`${repoJson["name"]} is blacklisted. Skipping...`)
-        continue;
+        // Check if the repo is blacklisted
+        if (json[i as keyof object]["name"] in BLACKLIST) {
+            console.log(`${repoJson["name"]} is blacklisted. Skipping...`)
+            continue;
+        }
+
+        // Convert the JSON to a Repository object
+        const repo = jsonToRepository(repoJson);
+
+        // Check if the repo is in the featured list
+        if (repo.name in FEATURED) {
+            console.log(`${repoJson["name"]} is featured!. Highlighting...`)
+            repo.featured = true;
+        }
+
+        // Push the repo to the array
+        repos.push(repo);
     }
 
-    // Convert the JSON to a Repository object
-    const repo = jsonToRepository(repoJson);
-
-    // Check if the repo is in the featured list
-    if (repo.name in FEATURED) {
-        console.log(`${repoJson["name"]} is featured!. Highlighting...`)
-        repo.featured = true;
-    }
-
-    // Push the repo to the array
-    repos.push(repo);
+    return repos;
 }
-
-return repos;
-}
-//#endregion
 
 function RepositoryPage() {
+    // References
+    const ref = useRef<HTMLDivElement>(null);
+
     //=== Hooks and States
     const [repositories, setRepositories] = useState([]);
 
@@ -102,7 +103,7 @@ function RepositoryPage() {
      */
     const pages : {[name : string] : JSX.Element} = {
         "grid": <RepositoryGrid repos={repositories}/>,
-        "repository": <Repository data={currentRepository} />
+        "repository": <Repository data={currentRepository} parent={ref} />
     }
 
     const [page, setPage] = useState("grid");
@@ -123,19 +124,21 @@ function RepositoryPage() {
         console.log("GitHub repositories fetched successfully.")
     }
 
+    
+
     // Fetch the repository once on-render of the app
     useEffect(() => {
         setRepositories(DummyRepositories);
         //fetchGithubRepositories();
     }, []);
 
-
     return (
         <RepositoriesPageContext.Provider value={pageValue}>
             <CurrentRepositoryContext.Provider value={currentRepositoryValue}>
                 <motion.div 
                     id="repositories"
-                    
+                    ref={ref}
+
                     initial={{opacity: 0}}
                     animate={{opacity: 1}}
                     exit={{opacity: 0}}
