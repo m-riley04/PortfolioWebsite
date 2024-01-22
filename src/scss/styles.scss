@@ -323,6 +323,11 @@ a:hover {
 }
 
 // Repository Viewer
+.repo {
+    height: 85vh;
+    background-color: red;
+}
+
 .markdown-viewer {
     overflow: scroll;
     border: 1px solid $body-color;
