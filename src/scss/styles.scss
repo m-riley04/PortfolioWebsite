@@ -150,6 +150,15 @@ a:hover {
     -webkit-text-stroke-color: black;
 }
 
+#repositories {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-y: scroll;
+    height: 80%;
+    
+    scroll-behavior: smooth !important;
+}
+
 #coming-soon {
     display: block;
     margin: auto;
@@ -165,8 +174,6 @@ a:hover {
     padding: 3%;
     text-shadow: rgba(0, 0, 0, .5) 1px 0 10px;
 }
-
-
 
 // Navigation
 .navigation-group {
