@@ -9,7 +9,16 @@ import CurrentRepositoryContext from '../contexts/CurrentRepositoryContext.ts';
 import { motion } from 'framer-motion';
 
 // CONSTANTS
+//** The GitHub username to search for repositories under */
 const GITHUB_USERNAME = "m-riley04";
+//** A list of repository names that will not appear on the site */
+const BLACKLIST:string[] = [
+    "FAP"
+];
+//** A list of repository names that will be given the "featured" tag */
+const FEATURED:string[] = [
+    "AutoSortFolder"
+];
 
 //#region OVERHEAD FUNCTIONS
 /**
