@@ -1,13 +1,25 @@
 import RepositoryData from "../../classes/RepositoryData";
 import RepositoryMarkdownViewer from "./RepositoryMarkdownViewer"
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router";
 import RepositoryMediaViewer from "./RepositoryMediaViewer";
 import RepositoryCollaboratorViewer from "./RepositoryCollaboratorViewer";
 import RepositoryTagViewer from "./RepositoryTagViewer";
+import RepositoriesPageContext from "../contexts/RepositoriesPageContext";
 
 function Repository({ data } : { data:RepositoryData }) {
     
     const [imageUrls, setImageUrls] = useState([]);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+
+        // Try a folder named "assets"
+        data.getImageUrls("assets")
+            .then(urls => setImageUrls(urls))  
+            .catch(err => console.error(err));
+    }, [data]);
 
     // Override the back button to navigate to the repository grid
     useEffect(() => {
