@@ -4,7 +4,6 @@ import { useEffect, useState, useRef } from 'react';
 import Repository from '../repository/Repository';
 import RepositoryGrid from '../repository/RepositoryGrid';
 import RepositoriesPageContext from '../contexts/RepositoriesPageContext';
-import RepositoriesPageSwitcher from '../switchers/RepositoriesPageSwitcher.tsx';
 import CurrentRepositoryContext from '../contexts/CurrentRepositoryContext.ts';
 import { motion } from 'framer-motion';
 import DummyRepositories from '../../testing/DummyRepositories.ts';
