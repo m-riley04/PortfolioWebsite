@@ -70,15 +70,15 @@ function RepositoryPage() {
      * @param {JSX.Element} value A JSX element that contains the page's info
      * 
      * Current pages:
-     * - #grid - the repository grid
-     * - #repository - the repository viewer
+     * - grid - the repository grid
+     * - repository - the repository viewer
      */
     const pages : {[name : string] : JSX.Element} = {
-        "#grid": <RepositoryGrid repos={repositories}/>,
-        "#repository": <Repository data={currentRepository} />
+        "grid": <RepositoryGrid repos={repositories}/>,
+        "repository": <Repository data={currentRepository} />
     }
 
-    const [page, setPage] = useState("#grid");
+    const [page, setPage] = useState("grid");
     const pageValue = {page, setPage}
     
     //#region TEMPORARY FUNCTIONS
@@ -116,7 +116,7 @@ function RepositoryPage() {
                     <RepositoryList repos={repositories} />
                     <div className="container">
                         <button onClick={fetchGithubRepositories}>Refresh</button>
-                        <RepositoriesPageSwitcher title="Repository Grid" target="#grid" />
+                        <RepositoriesPageSwitcher title="Repository Grid" target="grid" />
                         {pages[pageValue.page]}
                     </div>
                 </motion.div>

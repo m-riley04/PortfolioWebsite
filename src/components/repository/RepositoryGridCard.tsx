@@ -29,11 +29,9 @@ function RepositoryGridCard({ data, animations } : {data:RepositoryData, animati
                 initial={{opacity: 0}}
                 animate={{opacity: 1}}
                 
-                
-
                 onClick={() => {
                     setCurrentRepository(data);
-                    setPage("#repository");
+                    setPage("repository");
                     console.log(`Selected Repository: ${data}`);
                 }}
                 >
