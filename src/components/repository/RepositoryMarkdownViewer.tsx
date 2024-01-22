@@ -14,7 +14,7 @@ function RepositoryMarkdownViewer( { src } : { src: string } ) {
      * Fetches the markdown text from src url property
      */
     const fetchSource = () => {
-        console.log("Fetching the markdown source...")
+        console.log(`Fetching the markdown source at ${src}...`)
         fetch( src )
             .then ( (response) => {
                 if (!response.ok) {
