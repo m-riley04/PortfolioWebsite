@@ -33,6 +33,7 @@ $sidebar-bg: #141417;
 $card-bg: #121212;
 $card-bg-hover: #1a1a1a;
 $card-color: $body-color;
+$card-featured-color: gold;
 
 //=== IMPORTS
 @import "../node_modules/bootstrap/scss/bootstrap";
@@ -320,6 +321,11 @@ a:hover {
 }
 .card:hover {
     background-color: $card-bg-hover;
+}
+
+.featured {
+    border: 2px solid $card-featured-color;
+    box-shadow: 0 0 15px 1px $card-featured-color;
 }
 
 // Repository Viewer
