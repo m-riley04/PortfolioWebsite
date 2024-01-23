@@ -47,6 +47,13 @@ function jsonToRepository(json:object) : RepositoryData{
       ""
     );
 }
+
+/** Fetch a JSON object of GitHub repositories from a designated user */
+const fetchGithubRepositories = (username:string) => {
+    const reposUrl = `https://api.github.com/users/${username}/repos`
+    return fetch( reposUrl )
+        .then((response) => (response.json()));
+}
   
 /** 
  * Takes a JSON object of repositories and returns a list of Project objects
@@ -105,28 +112,20 @@ function RepositoryPage() {
         "repository": <Repository data={currentRepository} parent={ref} />
     }
 
-    const [page, setPage] = useState("grid");
-    const pageValue = {page, setPage}
-    
-    /** Fetch a JSON object of GitHub repositories from a designated user */
-    const fetchGithubRepositories = () => {
-        fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos`)
-            .then((response) => (response.json()))
+    const handleRefresh = () => {
+        fetchGithubRepositories(GITHUB_USERNAME)
             .then((data) => {
                 setRepositories(parseGithubRepositories(data));
             }).catch((e) => {
-                console.log("ERROR: Failed to fetch GitHub repositories.");
-                console.log(e.message);
+                console.error(`Failed to fetch GitHub repositories: ${e}`);
                 return;
             })
-
-        console.log("GitHub repositories fetched successfully.")
     }
 
     // Fetch the repository once on-render of the app
     useEffect(() => {
         //setRepositories(DummyRepositories);
-        fetchGithubRepositories();
+        handleRefresh()
     }, []);
 
     return (
@@ -142,7 +141,7 @@ function RepositoryPage() {
                 >
                     <RepositoryList repos={repositories} />
                     <div className="container">
-                        <button onClick={fetchGithubRepositories}>Refresh</button>
+                        <button onClick={handleRefresh}>Refresh</button>
                         {pages[pageValue.page]}
                     </div>
                 </motion.div>
