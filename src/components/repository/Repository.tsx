@@ -60,10 +60,7 @@ function Repository({ data, parent } : { data:RepositoryData, parent?:React.RefO
                     <h3>Images</h3>
                     <RepositoryMediaViewer urls={imageUrls}/>
 
-                    <h3>Collaborators</h3>
-                    <RepositoryCollaboratorViewer/>
-
-                    <h3>Tags</h3>
+                    <h3>Topics</h3>
                     <RepositoryTagViewer/>
                 </div>
             </div>
