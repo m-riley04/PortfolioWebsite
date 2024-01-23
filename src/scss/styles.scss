@@ -331,24 +331,27 @@ a:hover {
 
 .markdown-viewer {
     overflow: scroll;
-    height: 20%;
+    height: 60vh;
     border: 1px solid $body-color;
 }
 
 .media-viewer {
     background-color: $blank-bg;
     width: 100%;
-    height: 10%;
-    aspect-ratio: 1;
+    height: 30%;
+    overflow: hidden;
 }
 
-.media-viewer img {
-    
+.media-viewer-item {
     width: 100%;
-    min-width: 100%;
-    min-height: 100%;
-    height: 100%;
     aspect-ratio: 1;
+    
+}
+
+.media-viewer-item img {
+    max-width: 100%;
+    object-fit: contain;
+    
 }
 
 .collaborator-viewer {
