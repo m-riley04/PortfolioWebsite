@@ -52,11 +52,11 @@ function Repository({ data, parent } : { data:RepositoryData, parent?:React.RefO
                 </div>
             </div>
             <div className="row">
-                <div className="col-8">
+                <div className="col-7">
                     <h3>README</h3>
                     <RepositoryMarkdownViewer src={data.getReadmeUrl()}/>
                 </div>
-                <div className="col-4">
+                <div className="col-5">
                     <h3>Images</h3>
                     <RepositoryMediaViewer urls={imageUrls}/>
 
