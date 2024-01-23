@@ -88,16 +88,16 @@ function parseGithubRepositories(json:object) : RepositoryData[] {
 }
 
 function RepositoryPage() {
-    // References
+    //=== References
     const ref = useRef<HTMLDivElement>(null);
 
     //=== Hooks and States
     const [repositories, setRepositories] = useState([new RepositoryData()]);
-
-    // Pages
     const [currentRepository, setCurrentRepository] = useState(new RepositoryData());
     const currentRepositoryValue = {currentRepository, setCurrentRepository};
-    
+    const [page, setPage] = useState("grid");
+    const pageValue = {page, setPage}
+
     /**
      * @type {string : JSX.Element} A map of the subpages within the RepositoryPage
      * @param {string} name A string of the page's target name
