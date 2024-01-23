@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Markdown from "react-markdown";
 
 /**
@@ -8,7 +8,6 @@ function RepositoryMarkdownViewer( { src } : { src: string } ) {
     
     // Set up states and hooks
     const [text, setText] = useState("");
-    const [loaded, setLoaded] = useState(false);
 
     /**
      * Fetches the markdown text from src url property
@@ -30,13 +29,9 @@ function RepositoryMarkdownViewer( { src } : { src: string } ) {
             })
     }
 
-    // Fetch the source when the page is loaded
-    if (!loaded) {
+    useEffect(() => {
         fetchSource();
-
-        // Set the loaded flag
-        setLoaded(true);
-    }
+    })
 
     return (
         <div className="markdown-viewer">
