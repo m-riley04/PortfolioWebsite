@@ -123,12 +123,10 @@ function RepositoryPage() {
         console.log("GitHub repositories fetched successfully.")
     }
 
-    
-
     // Fetch the repository once on-render of the app
     useEffect(() => {
-        setRepositories(DummyRepositories);
-        //fetchGithubRepositories();
+        //setRepositories(DummyRepositories);
+        fetchGithubRepositories();
     }, []);
 
     return (
