@@ -4,10 +4,9 @@ import { useEffect, useState, useRef } from 'react';
 import Repository from '../repository/Repository';
 import RepositoryGrid from '../repository/RepositoryGrid';
 import RepositoriesPageContext from '../contexts/RepositoriesPageContext';
-import RepositoriesPageSwitcher from '../switchers/RepositoriesPageSwitcher.tsx';
 import CurrentRepositoryContext from '../contexts/CurrentRepositoryContext.ts';
 import { motion } from 'framer-motion';
-import DummyRepositories from '../../testing/DummyRepositories.ts';
+//import DummyRepositories from '../../testing/DummyRepositories.ts';
 
 // CONSTANTS
 //** The GitHub username to search for repositories under */
@@ -48,6 +47,13 @@ function jsonToRepository(json:object) : RepositoryData{
       ""
     );
 }
+
+/** Fetch a JSON object of GitHub repositories from a designated user */
+const fetchGithubRepositories = (username:string) => {
+    const reposUrl = `https://api.github.com/users/${username}/repos`
+    return fetch( reposUrl )
+        .then((response) => (response.json()));
+}
   
 /** 
  * Takes a JSON object of repositories and returns a list of Project objects
@@ -60,7 +66,7 @@ function parseGithubRepositories(json:object) : RepositoryData[] {
         const repoJson = json[i as keyof object];
 
         // Check if the repo is blacklisted
-        if (json[i as keyof object]["name"] in BLACKLIST) {
+        if (BLACKLIST.includes(repoJson["name"])) {
             console.log(`${repoJson["name"]} is blacklisted. Skipping...`)
             continue;
         }
@@ -69,7 +75,7 @@ function parseGithubRepositories(json:object) : RepositoryData[] {
         const repo = jsonToRepository(repoJson);
 
         // Check if the repo is in the featured list
-        if (repo.name in FEATURED) {
+        if (FEATURED.includes(repo.name)) {
             console.log(`${repoJson["name"]} is featured!. Highlighting...`)
             repo.featured = true;
         }
@@ -82,16 +88,16 @@ function parseGithubRepositories(json:object) : RepositoryData[] {
 }
 
 function RepositoryPage() {
-    // References
+    //=== References
     const ref = useRef<HTMLDivElement>(null);
 
     //=== Hooks and States
-    const [repositories, setRepositories] = useState([]);
-
-    // Pages
+    const [repositories, setRepositories] = useState([new RepositoryData()]);
     const [currentRepository, setCurrentRepository] = useState(new RepositoryData());
     const currentRepositoryValue = {currentRepository, setCurrentRepository};
-    
+    const [page, setPage] = useState("grid");
+    const pageValue = {page, setPage}
+
     /**
      * @type {string : JSX.Element} A map of the subpages within the RepositoryPage
      * @param {string} name A string of the page's target name
@@ -106,30 +112,20 @@ function RepositoryPage() {
         "repository": <Repository data={currentRepository} parent={ref} />
     }
 
-    const [page, setPage] = useState("grid");
-    const pageValue = {page, setPage}
-    
-    /** Fetch a JSON object of GitHub repositories from a designated user */
-    const fetchGithubRepositories = () => {
-        fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos`)
-        .then((response) => (response.json()))
-        .then((data) => {
-            setRepositories(parseGithubRepositories(data));
-        }).catch((e) => {
-            console.log("ERROR: Failed to fetch GitHub repositories.");
-            console.log(e.message);
-            return;
-        })
-
-        console.log("GitHub repositories fetched successfully.")
+    const handleRefresh = () => {
+        fetchGithubRepositories(GITHUB_USERNAME)
+            .then((data) => {
+                setRepositories(parseGithubRepositories(data));
+            }).catch((e) => {
+                console.error(`Failed to fetch GitHub repositories: ${e}`);
+                return;
+            })
     }
-
-    
 
     // Fetch the repository once on-render of the app
     useEffect(() => {
-        setRepositories(DummyRepositories);
-        //fetchGithubRepositories();
+        //setRepositories(DummyRepositories);
+        handleRefresh()
     }, []);
 
     return (
@@ -145,7 +141,7 @@ function RepositoryPage() {
                 >
                     <RepositoryList repos={repositories} />
                     <div className="container">
-                        <button onClick={fetchGithubRepositories}>Refresh</button>
+                        <button onClick={handleRefresh}>Refresh</button>
                         {pages[pageValue.page]}
                     </div>
                 </motion.div>

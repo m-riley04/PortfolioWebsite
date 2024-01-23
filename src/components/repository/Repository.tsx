@@ -48,22 +48,19 @@ function Repository({ data, parent } : { data:RepositoryData, parent?:React.RefO
                     <p>{data.language}</p>
                 </div>
                 <div className="col">
-                    <RepositoriesPageSwitcher title="Back to Grid" target="grid" />
+                    <RepositoriesPageSwitcher title="<-- Grid" target="grid" />
                 </div>
             </div>
             <div className="row">
-                <div className="col-8">
+                <div className="col-7">
                     <h3>README</h3>
                     <RepositoryMarkdownViewer src={data.getReadmeUrl()}/>
                 </div>
-                <div className="col-4">
+                <div className="col-5">
                     <h3>Images</h3>
                     <RepositoryMediaViewer urls={imageUrls}/>
 
-                    <h3>Collaborators</h3>
-                    <RepositoryCollaboratorViewer/>
-
-                    <h3>Tags</h3>
+                    <h3>Topics</h3>
                     <RepositoryTagViewer/>
                 </div>
             </div>

@@ -33,6 +33,7 @@ $sidebar-bg: #141417;
 $card-bg: #121212;
 $card-bg-hover: #1a1a1a;
 $card-color: $body-color;
+$card-featured-color: gold;
 
 //=== IMPORTS
 @import "../node_modules/bootstrap/scss/bootstrap";
@@ -232,7 +233,6 @@ a:hover {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: a 2s linear infinite;
-    
 }
 
 .navbar-option {
@@ -323,6 +323,11 @@ a:hover {
     background-color: $card-bg-hover;
 }
 
+.featured {
+    border: 2px solid $card-featured-color;
+    box-shadow: 0 0 15px 1px $card-featured-color;
+}
+
 // Repository Viewer
 .repo {
     height: 85vh;
@@ -332,24 +337,28 @@ a:hover {
 
 .markdown-viewer {
     overflow: scroll;
-    height: 20%;
+    height: 60vh;
     border: 1px solid $body-color;
 }
 
 .media-viewer {
     background-color: $blank-bg;
     width: 100%;
-    height: 10%;
+    height: 30%;
+    overflow: hidden;
     aspect-ratio: 1;
 }
 
-.media-viewer img {
-    
+.media-viewer-item {
     width: 100%;
-    min-width: 100%;
-    min-height: 100%;
-    height: 100%;
     aspect-ratio: 1;
+    
+}
+
+.media-viewer-item img {
+    max-width: 100%;
+    object-fit: contain;
+    
 }
 
 .collaborator-viewer {

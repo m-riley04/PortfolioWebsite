@@ -17,10 +17,17 @@ function RepositoryGridCard({ data, animations } : {data:RepositoryData, animati
     // Get contexts of parent page and the currently selected repository
     const { setCurrentRepository } = useContext(CurrentRepositoryContext);
     const { setPage } = useContext(RepositoriesPageContext);
+    let classes = "card clickable";
+
+    if (data.featured) {
+        classes = "card clickable featured";
+    } else {
+        classes = "card clickable";
+    }
 
     return (
             <motion.div 
-                className="card clickable" 
+                className={classes}
 
                 transition={{
                     delay: animations?.delay,
