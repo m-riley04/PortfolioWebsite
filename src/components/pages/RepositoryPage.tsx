@@ -6,7 +6,7 @@ import RepositoryGrid from '../repository/RepositoryGrid';
 import RepositoriesPageContext from '../contexts/RepositoriesPageContext';
 import CurrentRepositoryContext from '../contexts/CurrentRepositoryContext.ts';
 import { motion } from 'framer-motion';
-import DummyRepositories from '../../testing/DummyRepositories.ts';
+//import DummyRepositories from '../../testing/DummyRepositories.ts';
 
 // CONSTANTS
 //** The GitHub username to search for repositories under */
@@ -59,7 +59,7 @@ function parseGithubRepositories(json:object) : RepositoryData[] {
         const repoJson = json[i as keyof object];
 
         // Check if the repo is blacklisted
-        if (json[i as keyof object]["name"] in BLACKLIST) {
+        if (BLACKLIST.includes(repoJson["name"])) {
             console.log(`${repoJson["name"]} is blacklisted. Skipping...`)
             continue;
         }
@@ -68,7 +68,7 @@ function parseGithubRepositories(json:object) : RepositoryData[] {
         const repo = jsonToRepository(repoJson);
 
         // Check if the repo is in the featured list
-        if (repo.name in FEATURED) {
+        if (FEATURED.includes(repo.name)) {
             console.log(`${repoJson["name"]} is featured!. Highlighting...`)
             repo.featured = true;
         }
@@ -85,7 +85,7 @@ function RepositoryPage() {
     const ref = useRef<HTMLDivElement>(null);
 
     //=== Hooks and States
-    const [repositories, setRepositories] = useState([]);
+    const [repositories, setRepositories] = useState([new RepositoryData()]);
 
     // Pages
     const [currentRepository, setCurrentRepository] = useState(new RepositoryData());
@@ -111,14 +111,14 @@ function RepositoryPage() {
     /** Fetch a JSON object of GitHub repositories from a designated user */
     const fetchGithubRepositories = () => {
         fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos`)
-        .then((response) => (response.json()))
-        .then((data) => {
-            setRepositories(parseGithubRepositories(data));
-        }).catch((e) => {
-            console.log("ERROR: Failed to fetch GitHub repositories.");
-            console.log(e.message);
-            return;
-        })
+            .then((response) => (response.json()))
+            .then((data) => {
+                setRepositories(parseGithubRepositories(data));
+            }).catch((e) => {
+                console.log("ERROR: Failed to fetch GitHub repositories.");
+                console.log(e.message);
+                return;
+            })
 
         console.log("GitHub repositories fetched successfully.")
     }
