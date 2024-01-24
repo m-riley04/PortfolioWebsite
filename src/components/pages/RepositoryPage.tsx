@@ -245,7 +245,23 @@ function RepositoryPage() {
                 >
                     <RepositoryList repos={repositories} />
                     <div className="container">
-                        <button onClick={handleRefresh}>Refresh</button>
+                        <button onClick={() => handleRefresh()}>Refresh</button>
+                        <button onClick={() => {
+                            handleRefresh(sortByName_Descending);
+                        }}>Name</button>
+                        <button onClick={() => {
+                            handleRefresh(undefined, filterFeatured);
+                        }}>Featured</button>
+                        <button onClick={() => {
+                            handleRefresh(sortByDateCreated_Newest);
+                        }}>Date Created</button>
+                        <button onClick={() => {
+                            handleRefresh(sortByDateUpdated_Newest);
+                        }}>Date Updated</button>
+                        <button onClick={() => {
+                            handleRefresh(sortByDatePushed_Newest);
+                        }}>Date Pushed</button>
+                        
                         {pages[pageValue.page]}
                     </div>
                 </motion.div>
