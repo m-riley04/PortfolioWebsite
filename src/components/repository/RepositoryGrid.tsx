@@ -3,8 +3,6 @@ import RepositoryData from '../../classes/RepositoryData';
 import { motion } from "framer-motion";
 
 function RepositoryGrid( {repos} : {repos:Array<RepositoryData>} ) {
-    
-    
     return (
         <>
             <h1>Repositories</h1>
