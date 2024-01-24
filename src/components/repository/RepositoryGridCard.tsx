@@ -17,7 +17,7 @@ function RepositoryGridCard({ data, animations } : {data:RepositoryData, animati
     // Get contexts of parent page and the currently selected repository
     const { setCurrentRepository } = useContext(CurrentRepositoryContext);
     const { setPage } = useContext(RepositoriesPageContext);
-    let classes = "card clickable";
+    var classes = "card clickable";
 
     if (data.featured) {
         classes = "card clickable featured";
@@ -26,26 +26,26 @@ function RepositoryGridCard({ data, animations } : {data:RepositoryData, animati
     }
 
     return (
-            <motion.div 
-                className={classes}
+        <motion.div 
+            className={classes}
 
-                transition={{
-                    delay: animations?.delay,
-                    duration: animations?.duration
-                }}
-                initial={{opacity: 0}}
-                animate={{opacity: 1}}
-                
-                onClick={() => {
-                    setCurrentRepository(data);
-                    setPage("repository");
-                    console.log(`Selected Repository: ${data}`);
-                }}
-                >
-                <img src={data.image} hidden={!data.image}></img>
-                <h2>{data.name}</h2>
-                <p>{data.description}</p>
-            </motion.div>
+            transition={{
+                delay: animations?.delay,
+                duration: animations?.duration
+            }}
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            
+            onClick={() => {
+                setCurrentRepository(data);
+                setPage("repository");
+                console.log(`Selected Repository: ${data}`);
+            }}
+            >
+            <img src={data.image} hidden={!data.image}></img>
+            <h2>{data.name}</h2>
+            <p>{data.description}</p>
+        </motion.div>
     );
 }
 
