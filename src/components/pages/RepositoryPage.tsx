@@ -91,6 +91,106 @@ function parseGithubRepositories(json:object) : RepositoryData[] {
     return repos;
 }
 
+
+//#region Sorting Methods
+function sortByName_Descending(a:RepositoryData, b:RepositoryData) {
+    if (a.name < b.name) {
+        return -1;
+    }
+    if (a.name > b.name) {
+        return 1;
+    }
+    return 0;
+}
+
+function sortByName_Ascending(a:RepositoryData, b:RepositoryData) {
+    if (a.name > b.name) {
+        return -1;
+    }
+    if (a.name < b.name) {
+        return 1;
+    }
+    return 0;
+}
+
+function sortByDateCreated_Oldest(a:RepositoryData, b:RepositoryData) {
+    const date_a = new Date(a.dateCreated);
+    const date_b = new Date(b.dateCreated);
+    if (date_a < date_b) {
+        return -1;
+    }
+    if (date_a > date_b) {
+        return 1;
+    }
+    return 0;
+}
+
+function sortByDateCreated_Newest(a:RepositoryData, b:RepositoryData) {
+    const date_a = new Date(a.dateCreated);
+    const date_b = new Date(b.dateCreated);
+    if (date_a > date_b) {
+        return -1;
+    }
+    if (date_a < date_b) {
+        return 1;
+    }
+    return 0;
+}
+
+function sortByDateUpdated_Oldest(a:RepositoryData, b:RepositoryData) {
+    const date_a = new Date(a.dateUpdated);
+    const date_b = new Date(b.dateUpdated);
+    if (date_a < date_b) {
+        return -1;
+    }
+    if (date_a > date_b) {
+        return 1;
+    }
+    return 0;
+}
+
+function sortByDateUpdated_Newest(a:RepositoryData, b:RepositoryData) {
+    const date_a = new Date(a.dateUpdated);
+    const date_b = new Date(b.dateUpdated);
+    if (date_a > date_b) {
+        return -1;
+    }
+    if (date_a < date_b) {
+        return 1;
+    }
+    return 0;
+}
+
+function sortByDatePushed_Oldest(a:RepositoryData, b:RepositoryData) {
+    const date_a = new Date(a.datePushed);
+    const date_b = new Date(b.datePushed);
+    if (date_a < date_b) {
+        return -1;
+    }
+    if (date_a > date_b) {
+        return 1;
+    }
+    return 0;
+}
+
+function sortByDatePushed_Newest(a:RepositoryData, b:RepositoryData) {
+    const date_a = new Date(a.datePushed);
+    const date_b = new Date(b.datePushed);
+    if (date_a > date_b) {
+        return -1;
+    }
+    if (date_a < date_b) {
+        return 1;
+    }
+    return 0;
+}
+//#endregion
+
+//=== Filters
+function filterFeatured(repo: RepositoryData) {
+    return (repo.featured === true);
+}
+
 function RepositoryPage() {
     //=== References
     const ref = useRef<HTMLDivElement>(null);
