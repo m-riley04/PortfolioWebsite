@@ -1,6 +1,7 @@
 import RepositoryData from '../../classes/RepositoryData';
 import RepositoryList from '../repository/RepositoryList';
 import { useEffect, useState, useRef } from 'react';
+import { Dropdown } from 'react-bootstrap';
 import Repository from '../repository/Repository';
 import RepositoryGrid from '../repository/RepositoryGrid';
 import RepositoriesPageContext from '../contexts/RepositoriesPageContext';
@@ -256,21 +257,42 @@ function RepositoryPage() {
                     <RepositoryList repos={repositories} />
                     <div className="container">
                         <button onClick={() => handleRefresh()}>Refresh</button>
-                        <button onClick={() => {
-                            handleRefresh(sortByName_Descending);
-                        }}>Name</button>
-                        <button onClick={() => {
-                            handleRefresh(undefined, filterFeatured);
-                        }}>Featured</button>
-                        <button onClick={() => {
-                            handleRefresh(sortByDateCreated_Newest);
-                        }}>Date Created</button>
-                        <button onClick={() => {
-                            handleRefresh(sortByDateUpdated_Newest);
-                        }}>Date Updated</button>
-                        <button onClick={() => {
-                            handleRefresh(sortByDatePushed_Newest);
-                        }}>Date Pushed</button>
+
+                        <Dropdown>
+                            <Dropdown.Toggle className="clickable">
+                                Sort By
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item onClick={() => {
+                                    handleRefresh(sortByName_Descending);
+                                }}>Name</Dropdown.Item>
+                                <Dropdown.Item onClick={() => {
+                                    handleRefresh(sortByDateCreated_Newest);
+                                }}>Date Created</Dropdown.Item>
+                                <Dropdown.Item onClick={() => {
+                                    handleRefresh(sortByDateUpdated_Newest);
+                                }}>Date Updated</Dropdown.Item>
+                                <Dropdown.Item onClick={() => {
+                                    handleRefresh(sortByDatePushed_Newest);
+                                }}>Date Pushed</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+
+                        <Dropdown >
+                            <Dropdown.Toggle className="clickable">
+                                Filter By
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item onClick={() => {
+                                        handleRefresh(undefined, filterFeatured);
+                                    }}>Featured</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+
+                        
+                        
                         
                         {pages[pageValue.page]}
                     </div>
