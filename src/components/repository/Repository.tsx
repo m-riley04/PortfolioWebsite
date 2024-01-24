@@ -3,13 +3,11 @@ import RepositoryMarkdownViewer from "./RepositoryMarkdownViewer"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import RepositoryMediaViewer from "./RepositoryMediaViewer";
-import RepositoryCollaboratorViewer from "./RepositoryCollaboratorViewer";
 import RepositoryTagViewer from "./RepositoryTagViewer";
 import RepositoriesPageSwitcher from "../switchers/RepositoriesPageSwitcher";
 
 function Repository({ data, parent } : { data:RepositoryData, parent?:React.RefObject<HTMLDivElement>}) {
-    
-    const [imageUrls, setImageUrls] = useState([new String]);
+    const [imageUrls, setImageUrls] = useState([""]);
 
     const navigate = useNavigate();
 
