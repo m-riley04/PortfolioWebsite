@@ -21,7 +21,8 @@ const FEATURED:string[] = [
     "ShutterSort",
     "AsteroidsNEO",
     "ClozeShuffler",
-    "LethalCompanyModpackInstaller"
+    "LethalCompanyModpackInstaller",
+    "PortfolioWebsite"
 ];
 
 /**
