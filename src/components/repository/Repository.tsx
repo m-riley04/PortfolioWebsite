@@ -9,13 +9,15 @@ import RepositoriesPageSwitcher from "../switchers/RepositoriesPageSwitcher";
 
 function Repository({ data, parent } : { data:RepositoryData, parent?:React.RefObject<HTMLDivElement>}) {
     
-    const [imageUrls, setImageUrls] = useState([]);
+    const [imageUrls, setImageUrls] = useState([new String]);
 
     const navigate = useNavigate();
 
     // Get the repositories images from a folder
     useEffect(() => {
-        parent?.current.scrollTo(0, 0);
+        if (parent != null && parent != undefined) {
+            parent?.current.scrollTo(0, 0);
+        }
 
         // Try a folder named "assets"
         data.getImageUrls("assets")
@@ -26,7 +28,7 @@ function Repository({ data, parent } : { data:RepositoryData, parent?:React.RefO
     // Override the back button to navigate to the repository grid
     useEffect(() => {
         // Function to be called when back button is pressed
-        const handleBackButton = (event) => {
+        const handleBackButton = () => {
             console.log("Back button pressed");
             navigate("../repositories");  
         };
