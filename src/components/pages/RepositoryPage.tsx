@@ -199,9 +199,10 @@ function RepositoryPage() {
     const [repositories, setRepositories] = useState([new RepositoryData()]);
     const [currentRepository, setCurrentRepository] = useState(new RepositoryData());
     const currentRepositoryValue = {currentRepository, setCurrentRepository};
+    
     const [page, setPage] = useState("grid");
     const pageValue = {page, setPage}
-
+ 
     /**
      * @type {string : JSX.Element} A map of the subpages within the RepositoryPage
      * @param {string} name A string of the page's target name
@@ -216,11 +217,19 @@ function RepositoryPage() {
         "repository": <Repository data={currentRepository} parent={ref} />
     }
 
-    const handleRefresh = () => {
+    const handleRefresh = (sortingMethod:Function | undefined=undefined, filter:Function | undefined=undefined) => {
         fetchGithubRepositories(GITHUB_USERNAME)
             .then((data) => {
-                setRepositories(parseGithubRepositories(data));
-            }).catch((e) => {
+                if (filter) {
+                    setRepositories(parseGithubRepositories(data).filter(filter));
+                } else if (sortingMethod) {
+                    setRepositories(parseGithubRepositories(data).sort(sortingMethod));
+                } else {
+                    setRepositories(parseGithubRepositories(data))
+                }
+                
+            })
+            .catch((e) => {
                 console.error(`Failed to fetch GitHub repositories: ${e}`);
                 return;
             })
@@ -229,7 +238,7 @@ function RepositoryPage() {
     // Fetch the repository once on-render of the app
     useEffect(() => {
         //setRepositories(DummyRepositories);
-        handleRefresh()
+        handleRefresh();
     }, []);
 
     return (
