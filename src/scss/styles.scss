@@ -256,6 +256,16 @@ a:hover {
 }
 
 // Card Grid
+.dropdown-menu {
+    color: $body-color;
+    background-color: $navbar-bg;
+}
+
+.dropdown-menu *:hover {
+    background-color: $hover-bg;
+}
+
+
 .grid {
     display: grid;
     grid-template-columns: auto auto auto auto;
