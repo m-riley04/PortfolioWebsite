@@ -188,10 +188,33 @@ function sortByDatePushed_Newest(a:RepositoryData, b:RepositoryData) {
 }
 //#endregion
 
-//=== Filters
+//#region Filters
 function filterFeatured(repo: RepositoryData) {
     return (repo.featured === true);
 }
+function filterLanguage(repo: RepositoryData, language: string) {
+    return (repo.language.toLowerCase() === language.toLowerCase());
+}
+function filterLanguage_Python(repo: RepositoryData) {
+    return (repo.language.toLowerCase() === "python");
+}
+function filterLanguage_CPP(repo: RepositoryData) {
+    console.log(repo.language.toLowerCase() === "c++");
+    return (repo.language.toLowerCase() === "c++");
+}
+function filterLanguage_C(repo: RepositoryData) {
+    return (repo.language.toLowerCase() === "c");
+}
+function filterLanguage_TypeScript(repo: RepositoryData) {
+    return (repo.language.toLowerCase() === "typescript");
+}
+function filterLanguage_JavaScript(repo: RepositoryData) {
+    return (repo.language.toLowerCase() === "javascript");
+}
+function filterLanguage_HTML(repo: RepositoryData) {
+    return (repo.language.toLowerCase() === "html");
+}
+//#endregion
 
 function RepositoryPage() {
     //=== References
