@@ -7,6 +7,8 @@ import RepositoryGrid from '../repository/RepositoryGrid';
 import RepositoriesPageContext from '../contexts/RepositoriesPageContext';
 import CurrentRepositoryContext from '../contexts/CurrentRepositoryContext.ts';
 import { motion } from 'framer-motion';
+import { useQuery } from '@apollo/client';
+import { GET_REPOSITORIES_PREVIEW } from "../../graphql/Query.ts"
 //import DummyRepositories from '../../testing/DummyRepositories.ts';
 
 // CONSTANTS
@@ -260,10 +262,23 @@ function RepositoryPage() {
             })
     }
 
+    //=== API
+    const { loading, error, data } = useQuery(GET_REPOSITORIES_PREVIEW, {
+        variables: {
+            username: GITHUB_USERNAME,
+            count: 100
+        },
+    });
+
+    if (loading) pages["grid"] = <p>Loading...</p>;
+    if (error) pages["grid"] = <p>Error : {error.message}</p>;
+
+    if (!loading && !error) pages["grid"] = <RepositoryGrid repos={repositories}/>;
+
     // Fetch the repository once on-render of the app
-    useEffect(() => {
+    useEffect(() => {        
         //setRepositories(DummyRepositories);
-        handleRefresh();
+        //handleRefresh();
     }, []);
 
     return (
