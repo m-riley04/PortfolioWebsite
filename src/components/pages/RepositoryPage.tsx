@@ -95,7 +95,6 @@ function parseGithubRepositories(json:object) : RepositoryData[] {
     return repos;
 }
 
-
 //#region Sorting Methods
 function sortByName_Descending(a:RepositoryData, b:RepositoryData) {
     if (a.name < b.name) {
@@ -304,34 +303,70 @@ function RepositoryPage() {
                             <Dropdown.Menu>
                                 <Dropdown.Item onClick={() => {
                                     handleRefresh(sortByName_Descending);
-                                }}>Name</Dropdown.Item>
+                                }}>Name (A-Z)</Dropdown.Item>
+                                <Dropdown.Item onClick={() => {
+                                    handleRefresh(sortByName_Ascending);
+                                }}>Name (Z-A)</Dropdown.Item>
                                 <Dropdown.Item onClick={() => {
                                     handleRefresh(sortByDateCreated_Newest);
-                                }}>Date Created</Dropdown.Item>
+                                }}>Date Created (Newest)</Dropdown.Item>
+                                <Dropdown.Item onClick={() => {
+                                    handleRefresh(sortByDateCreated_Oldest);
+                                }}>Date Created (Oldest)</Dropdown.Item>
                                 <Dropdown.Item onClick={() => {
                                     handleRefresh(sortByDateUpdated_Newest);
-                                }}>Date Updated</Dropdown.Item>
+                                }}>Date Updated (Newest)</Dropdown.Item>
+                                <Dropdown.Item onClick={() => {
+                                    handleRefresh(sortByDateUpdated_Oldest);
+                                }}>Date Updated (Oldest)</Dropdown.Item>
                                 <Dropdown.Item onClick={() => {
                                     handleRefresh(sortByDatePushed_Newest);
-                                }}>Date Pushed</Dropdown.Item>
+                                }}>Date Pushed (Newest)</Dropdown.Item>
+                                <Dropdown.Item onClick={() => {
+                                    handleRefresh(sortByDatePushed_Oldest);
+                                }}>Date Pushed (Oldest)</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
 
                         <Dropdown >
                             <Dropdown.Toggle className="clickable">
-                                Filter By
+                                Filter By Language
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item onClick={() => {
+                                        handleRefresh(undefined, filterLanguage_Python);
+                                }}>Python</Dropdown.Item>
+                                <Dropdown.Item onClick={() => {
+                                        handleRefresh(undefined, filterLanguage_CPP);
+                                }}>C++</Dropdown.Item>
+                                <Dropdown.Item onClick={() => {
+                                        handleRefresh(undefined, filterLanguage_C);
+                                }}>C</Dropdown.Item>
+                                <Dropdown.Item onClick={() => {
+                                        handleRefresh(undefined, filterLanguage_TypeScript);
+                                }}>TypeScript</Dropdown.Item>
+                                <Dropdown.Item onClick={() => {
+                                        handleRefresh(undefined, filterLanguage_JavaScript);
+                                }}>JavaScript</Dropdown.Item>
+                                <Dropdown.Item onClick={() => {
+                                        handleRefresh(undefined, filterLanguage_HTML);
+                                }}>HTML</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+
+                        <Dropdown >
+                            <Dropdown.Toggle className="clickable">
+                                Other Filters
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
                                 <Dropdown.Item onClick={() => {
                                         handleRefresh(undefined, filterFeatured);
-                                    }}>Featured</Dropdown.Item>
+                                }}>Featured</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
 
-                        
-                        
-                        
                         {pages[pageValue.page]}
                     </div>
                 </motion.div>
