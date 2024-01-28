@@ -2,7 +2,7 @@ import RepositoryGridCard from './RepositoryGridCard'
 import { Repository } from "../../graphql/Query.ts";
 import { motion } from "framer-motion";
 
-function RepositoryGrid( {repos} : {repos:Array<Repository>} ) {
+function RepositoryGrid( {repos} : {repos?:Array<Repository> | undefined} ) {
     return (
         <>
             <h1>Repositories</h1>
@@ -13,7 +13,7 @@ function RepositoryGrid( {repos} : {repos:Array<Repository>} ) {
                 animate={{opacity: 1}}
                 exit={{opacity: 0}}
             >
-                {repos.map((repo, index) => <RepositoryGridCard data={repo} animations={{delay: index/25, duration: .8}} key={index}></RepositoryGridCard>)}
+                {repos?.map((repo, index) => <RepositoryGridCard data={repo} animations={{delay: index/25, duration: .8}} key={index}></RepositoryGridCard>)}
             </motion.div>
         </>
     );
