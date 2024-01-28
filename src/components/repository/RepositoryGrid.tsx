@@ -13,7 +13,7 @@ function RepositoryGrid( {repos} : {repos?:Array<Repository> | undefined} ) {
                 animate={{opacity: 1}}
                 exit={{opacity: 0}}
             >
-                {repos?.map((repo, index) => <RepositoryGridCard data={repo} animations={{delay: index/25, duration: .8}} key={index}></RepositoryGridCard>)}
+                {repos?.map((repo, index) => <RepositoryGridCard repo={repo} animations={{delay: index/25, duration: .8}} key={index}></RepositoryGridCard>)}
             </motion.div>
         </>
     );

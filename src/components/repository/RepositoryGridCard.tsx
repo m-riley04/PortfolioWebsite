@@ -13,11 +13,11 @@ interface CardAnimations {
 * The card that will be displayed within the RepositoryGrid
 * @param {RepositoryData} data The repository data, which contains information about a repository.
 */
-function RepositoryGridCard({ data, animations } : {data:Repository, animations?:CardAnimations}) {
+function RepositoryGridCard({ repo, animations } : {repo?:Repository, animations?:CardAnimations}) {
     // Get contexts of parent page and the currently selected repository
     const { setCurrentRepository } = useContext(CurrentRepositoryContext);
     const { setPage } = useContext(RepositoriesPageContext);
-    var classes = "card clickable";
+    let classes = "card clickable";
 
     /*
     if (data.featured) {
@@ -38,14 +38,16 @@ function RepositoryGridCard({ data, animations } : {data:Repository, animations?
             animate={{opacity: 1}}
             
             onClick={() => {
-                setCurrentRepository(data);
+                if (repo) {
+                    setCurrentRepository(repo);
+                }
                 setPage("repository");
-                console.log(`Selected Repository: ${data}`);
+                console.log(`Selected Repository: ${repo?.name}`);
             }}
-            >
-            <img src={data.openGraphImageUrl} hidden={!data.openGraphImageUrl}></img>
-            <h2>{data.name}</h2>
-            <p>{data.description}</p>
+        >
+            <img src={repo?.openGraphImageUrl} hidden={!repo?.openGraphImageUrl}></img>
+            <h2>{repo?.name}</h2>
+            <p>{repo?.description}</p>
         </motion.div>
     );
 }
