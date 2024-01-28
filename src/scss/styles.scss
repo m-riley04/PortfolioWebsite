@@ -265,12 +265,15 @@ a:hover {
     background-color: $hover-bg;
 }
 
-
 .grid {
     display: grid;
     grid-template-columns: auto auto auto auto;
     row-gap: $spacer;
     column-gap: $spacer;
+}
+
+.grid-controls {
+    display: flex;
 }
 
 .card {
