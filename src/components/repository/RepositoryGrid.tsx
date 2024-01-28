@@ -1,8 +1,8 @@
 import RepositoryGridCard from './RepositoryGridCard'
-import RepositoryData from '../../classes/RepositoryData';
+import { Repository } from "../../graphql/Query.ts";
 import { motion } from "framer-motion";
 
-function RepositoryGrid( {repos} : {repos:Array<RepositoryData>} ) {
+function RepositoryGrid( {repos} : {repos:Array<Repository>} ) {
     return (
         <>
             <h1>Repositories</h1>

@@ -1,7 +1,7 @@
 import RepositoryListItem from './RepositoryListItem';
-import RepositoryData from '../../classes/RepositoryData';
+import { Repository } from "../../graphql/Query.ts";
 
-function RepositoryList( { repos } : { repos:Array<RepositoryData>}) {
+function RepositoryList( { repos } : { repos:Array<Repository>}) {
     return (
         <ul className="list-group list">
             {repos.map((repo, index) => <RepositoryListItem key={index} repo={repo}/>)}

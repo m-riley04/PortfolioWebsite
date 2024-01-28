@@ -2,13 +2,14 @@ import RepositoryData from '../../classes/RepositoryData';
 import RepositoryList from '../repository/RepositoryList';
 import { useEffect, useState, useRef } from 'react';
 import { Dropdown } from 'react-bootstrap';
-import Repository from '../repository/Repository';
+import RepositoryViewer from '../repository/RepositoryViewer.tsx';
 import RepositoryGrid from '../repository/RepositoryGrid';
 import RepositoriesPageContext from '../contexts/RepositoriesPageContext';
 import CurrentRepositoryContext from '../contexts/CurrentRepositoryContext.ts';
 import { motion } from 'framer-motion';
 import { useQuery } from '@apollo/client';
-import { GET_REPOSITORIES_PREVIEW } from "../../graphql/Query.ts"
+import { GET_REPOSITORIES } from "../../graphql/Query.ts"
+import { Repository, DefaultRepository } from "../../graphql/Query.ts";
 //import DummyRepositories from '../../testing/DummyRepositories.ts';
 
 // CONSTANTS
@@ -221,9 +222,17 @@ function RepositoryPage() {
     //=== References
     const ref = useRef<HTMLDivElement>(null);
 
+    //=== API
+    const { loading, error, data } = useQuery(GET_REPOSITORIES, {
+        variables: {
+            username: GITHUB_USERNAME,
+            count: 100
+        },
+    });
+
     //=== Hooks and States
-    const [repositories, setRepositories] = useState([new RepositoryData()]);
-    const [currentRepository, setCurrentRepository] = useState(new RepositoryData());
+    const [repositories, setRepositories] = useState<Array<Repository>>([]);
+    const [currentRepository, setCurrentRepository] = useState<Repository>(DefaultRepository);
     const currentRepositoryValue = {currentRepository, setCurrentRepository};
     
     const [page, setPage] = useState("grid");
@@ -240,20 +249,19 @@ function RepositoryPage() {
      */
     const pages : {[name : string] : JSX.Element} = {
         "grid": <RepositoryGrid repos={repositories}/>,
-        "repository": <Repository data={currentRepository} parent={ref} />
+        "repository": <RepositoryViewer data={currentRepository} parent={ref} />
     }
 
     const handleRefresh = (sortingMethod:Function | undefined=undefined, filter:Function | undefined=undefined) => {
         fetchGithubRepositories(GITHUB_USERNAME)
             .then((data) => {
                 if (filter) {
-                    setRepositories(parseGithubRepositories(data).filter(filter));
+                    //setRepositories(parseGithubRepositories(data).filter(filter));
                 } else if (sortingMethod) {
-                    setRepositories(parseGithubRepositories(data).sort(sortingMethod));
+                    //setRepositories(parseGithubRepositories(data).sort(sortingMethod));
                 } else {
-                    setRepositories(parseGithubRepositories(data))
+                    //setRepositories(parseGithubRepositories(data))
                 }
-                
             })
             .catch((e) => {
                 console.error(`Failed to fetch GitHub repositories: ${e}`);
@@ -261,21 +269,14 @@ function RepositoryPage() {
             })
     }
 
-    //=== API
-    const { loading, error, data } = useQuery(GET_REPOSITORIES_PREVIEW, {
-        variables: {
-            username: GITHUB_USERNAME,
-            count: 100
-        },
-    });
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error : {error.message}</p>;
 
-    if (loading) pages["grid"] = <p>Loading...</p>;
-    if (error) pages["grid"] = <p>Error : {error.message}</p>;
-
-    if (!loading && !error) pages["grid"] = <RepositoryGrid repos={repositories}/>;
+    if (!loading && !error) pages["grid"] = <RepositoryGrid repos={data}/>;
 
     // Fetch the repository once on-render of the app
-    useEffect(() => {        
+    useEffect(() => {
+        setRepositories(data["user"]["repositories"]["nodes"]);
         //setRepositories(DummyRepositories);
         //handleRefresh();
     }, []);
@@ -293,79 +294,81 @@ function RepositoryPage() {
                 >
                     <RepositoryList repos={repositories} />
                     <div className="container">
-                        <button onClick={() => handleRefresh()}>Refresh</button>
+                        <div className="grid-controls">
+                            <button onClick={() => handleRefresh()}>Refresh</button>
 
-                        <Dropdown>
-                            <Dropdown.Toggle className="clickable">
-                                Sort By
-                            </Dropdown.Toggle>
+                            <Dropdown>
+                                <Dropdown.Toggle className="clickable">
+                                    Sort By
+                                </Dropdown.Toggle>
 
-                            <Dropdown.Menu>
-                                <Dropdown.Item onClick={() => {
-                                    handleRefresh(sortByName_Descending);
-                                }}>Name (A-Z)</Dropdown.Item>
-                                <Dropdown.Item onClick={() => {
-                                    handleRefresh(sortByName_Ascending);
-                                }}>Name (Z-A)</Dropdown.Item>
-                                <Dropdown.Item onClick={() => {
-                                    handleRefresh(sortByDateCreated_Newest);
-                                }}>Date Created (Newest)</Dropdown.Item>
-                                <Dropdown.Item onClick={() => {
-                                    handleRefresh(sortByDateCreated_Oldest);
-                                }}>Date Created (Oldest)</Dropdown.Item>
-                                <Dropdown.Item onClick={() => {
-                                    handleRefresh(sortByDateUpdated_Newest);
-                                }}>Date Updated (Newest)</Dropdown.Item>
-                                <Dropdown.Item onClick={() => {
-                                    handleRefresh(sortByDateUpdated_Oldest);
-                                }}>Date Updated (Oldest)</Dropdown.Item>
-                                <Dropdown.Item onClick={() => {
-                                    handleRefresh(sortByDatePushed_Newest);
-                                }}>Date Pushed (Newest)</Dropdown.Item>
-                                <Dropdown.Item onClick={() => {
-                                    handleRefresh(sortByDatePushed_Oldest);
-                                }}>Date Pushed (Oldest)</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={() => {
+                                        handleRefresh(sortByName_Descending);
+                                    }}>Name (A-Z)</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => {
+                                        handleRefresh(sortByName_Ascending);
+                                    }}>Name (Z-A)</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => {
+                                        handleRefresh(sortByDateCreated_Newest);
+                                    }}>Date Created (Newest)</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => {
+                                        handleRefresh(sortByDateCreated_Oldest);
+                                    }}>Date Created (Oldest)</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => {
+                                        handleRefresh(sortByDateUpdated_Newest);
+                                    }}>Date Updated (Newest)</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => {
+                                        handleRefresh(sortByDateUpdated_Oldest);
+                                    }}>Date Updated (Oldest)</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => {
+                                        handleRefresh(sortByDatePushed_Newest);
+                                    }}>Date Pushed (Newest)</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => {
+                                        handleRefresh(sortByDatePushed_Oldest);
+                                    }}>Date Pushed (Oldest)</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
 
-                        <Dropdown >
-                            <Dropdown.Toggle className="clickable">
-                                Filter By Language
-                            </Dropdown.Toggle>
+                            <Dropdown >
+                                <Dropdown.Toggle className="clickable">
+                                    Filter By Language
+                                </Dropdown.Toggle>
 
-                            <Dropdown.Menu>
-                                <Dropdown.Item onClick={() => {
-                                        handleRefresh(undefined, filterLanguage_Python);
-                                }}>Python</Dropdown.Item>
-                                <Dropdown.Item onClick={() => {
-                                        handleRefresh(undefined, filterLanguage_CPP);
-                                }}>C++</Dropdown.Item>
-                                <Dropdown.Item onClick={() => {
-                                        handleRefresh(undefined, filterLanguage_C);
-                                }}>C</Dropdown.Item>
-                                <Dropdown.Item onClick={() => {
-                                        handleRefresh(undefined, filterLanguage_TypeScript);
-                                }}>TypeScript</Dropdown.Item>
-                                <Dropdown.Item onClick={() => {
-                                        handleRefresh(undefined, filterLanguage_JavaScript);
-                                }}>JavaScript</Dropdown.Item>
-                                <Dropdown.Item onClick={() => {
-                                        handleRefresh(undefined, filterLanguage_HTML);
-                                }}>HTML</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={() => {
+                                            handleRefresh(undefined, filterLanguage_Python);
+                                    }}>Python</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => {
+                                            handleRefresh(undefined, filterLanguage_CPP);
+                                    }}>C++</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => {
+                                            handleRefresh(undefined, filterLanguage_C);
+                                    }}>C</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => {
+                                            handleRefresh(undefined, filterLanguage_TypeScript);
+                                    }}>TypeScript</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => {
+                                            handleRefresh(undefined, filterLanguage_JavaScript);
+                                    }}>JavaScript</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => {
+                                            handleRefresh(undefined, filterLanguage_HTML);
+                                    }}>HTML</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
 
-                        <Dropdown >
-                            <Dropdown.Toggle className="clickable">
-                                Other Filters
-                            </Dropdown.Toggle>
+                            <Dropdown >
+                                <Dropdown.Toggle className="clickable">
+                                    Other Filters
+                                </Dropdown.Toggle>
 
-                            <Dropdown.Menu>
-                                <Dropdown.Item onClick={() => {
-                                        handleRefresh(undefined, filterFeatured);
-                                }}>Featured</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={() => {
+                                            handleRefresh(undefined, filterFeatured);
+                                    }}>Featured</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </div>
 
                         {pages[pageValue.page]}
                     </div>

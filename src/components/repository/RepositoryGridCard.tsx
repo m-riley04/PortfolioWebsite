@@ -1,8 +1,8 @@
-import RepositoryData from "../../classes/RepositoryData";
 import { useContext } from "react";
 import CurrentRepositoryContext from "../contexts/CurrentRepositoryContext";
 import RepositoriesPageContext from "../contexts/RepositoriesPageContext";
 import { motion } from "framer-motion";
+import { Repository } from "../../graphql/Query.ts";
 
 interface CardAnimations {
     delay: number,
@@ -13,17 +13,18 @@ interface CardAnimations {
 * The card that will be displayed within the RepositoryGrid
 * @param {RepositoryData} data The repository data, which contains information about a repository.
 */
-function RepositoryGridCard({ data, animations } : {data:RepositoryData, animations?:CardAnimations}) {
+function RepositoryGridCard({ data, animations } : {data:Repository, animations?:CardAnimations}) {
     // Get contexts of parent page and the currently selected repository
     const { setCurrentRepository } = useContext(CurrentRepositoryContext);
     const { setPage } = useContext(RepositoriesPageContext);
     var classes = "card clickable";
 
+    /*
     if (data.featured) {
         classes = "card clickable featured";
     } else {
         classes = "card clickable";
-    }
+    }*/
 
     return (
         <motion.div 
@@ -42,7 +43,7 @@ function RepositoryGridCard({ data, animations } : {data:RepositoryData, animati
                 console.log(`Selected Repository: ${data}`);
             }}
             >
-            <img src={data.image} hidden={!data.image}></img>
+            <img src={data.openGraphImageUrl} hidden={!data.openGraphImageUrl}></img>
             <h2>{data.name}</h2>
             <p>{data.description}</p>
         </motion.div>
