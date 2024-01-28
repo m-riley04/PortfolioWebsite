@@ -1,5 +1,8 @@
 import { gql } from "@apollo/client";
 
+//** The GitHub username to query for repositories under */
+export const GITHUB_USERNAME = "m-riley04";
+
 export interface Collaborator {
     login: string;
 }
