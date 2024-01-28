@@ -270,6 +270,19 @@ export const GET_REPOSITORIES = gql`
     }
 `;
 
+//** A query to retrieve a README.md of a specified repository */
+export const GET_README = gql`
+    query getReadme($repository: String!, $owner: String!) {
+        repository(name: $repository, owner: $owner) {
+            object(expression: "HEAD:README.md") {
+                ... on Blob {
+                    text
+                }
+            }
+        }
+    }
+`;
+
 //** A query to retrieve user data from a specified username */
 export const GET_USER = gql`
     query getUser($username: String!) {
