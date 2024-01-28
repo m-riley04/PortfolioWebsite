@@ -59,8 +59,8 @@ export interface Repository {
     createdAt: Date,
     updatedAt: Date,
     pushedAt: Date,
-    latestRelease: Release,
-    releases: Array<Release>,
+    latestRelease: Release | undefined,
+    releases: Array<Release> | undefined,
     primaryLanguage: Language,
     languages: Array<Language>,
     resourcePath: string
@@ -79,6 +79,66 @@ export interface RepositoryPreview {
     primaryLanguage: Language,
     languages: Array<Language>,
     resourcePath: string
+}
+
+//=== Defaults
+export const DefaultCollaborator : Collaborator = {
+    login: ""
+}
+
+export const DefaultOwner : Owner = {
+    login: ""
+}
+
+export const DefaultForks : Forks = {
+    totalCount: 0
+}
+
+export const DefaultLanguage : Language ={
+    name: "",
+    color: ""
+}
+
+export const DefaultUser : User = {
+    login: "",
+    name: "",
+    bio: "",
+    url: "",
+    avatarUrl: "",
+    email: ""
+}
+
+export const DefaultRelease : Release = {
+    tagName: "",
+    name: "",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    publishedAt: new Date(),
+    url: "",
+    isLatest: false,
+    description: "",
+    descriptionHTML: "",
+    resourcePath: ""
+}
+
+export const DefaultRepository : Repository = {
+    name: "",
+    description: "",
+    visibility: "",
+    url: "",
+    homepageUrl: "",
+    openGraphImageUrl: "",
+    owner: DefaultOwner,
+    forks: DefaultForks,
+    collaborators: [],
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    pushedAt: new Date(),
+    latestRelease: DefaultRelease,
+    releases: [],
+    primaryLanguage: {name: "", color: ""},
+    languages: [{name: "", color: ""}],
+    resourcePath: ""
 }
 
 //=== PROPS
