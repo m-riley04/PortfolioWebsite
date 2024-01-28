@@ -283,6 +283,31 @@ export const GET_README = gql`
     }
 `;
 
+//** A query to retrieve a README.md of a specified repository */
+export const GET_FOLDER = gql`
+    query getFolder($repository: String!, $owner: String!, $filepath: String!) {
+        repository(name: $repository, owner: $owner) {
+            object(expression: $filepath){
+                ... on Tree {
+                    entries {
+                        name
+                        type
+                        object {
+                            ... on Blob {
+                                byteSize
+                                text
+                                isBinary
+                                commitUrl
+                                commitResourcePath
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+`;
+
 //** A query to retrieve user data from a specified username */
 export const GET_USER = gql`
     query getUser($username: String!) {
