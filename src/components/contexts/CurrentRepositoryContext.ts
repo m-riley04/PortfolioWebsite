@@ -1,9 +1,9 @@
 import { createContext } from "react";
-import RepositoryData from "../../classes/RepositoryData";
+import { Repository } from "../../graphql/Query.ts";
 
 const CurrentRepositoryContext = createContext({
-    currentRepository: new RepositoryData(),
-    setCurrentRepository: (data: RepositoryData) => {}
+    currentRepository: {},
+    setCurrentRepository: (data: Repository) => {}
 });
 
 export default CurrentRepositoryContext;

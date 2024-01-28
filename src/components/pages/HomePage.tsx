@@ -3,8 +3,8 @@ import NavigationGroup from "../NavigationGroup";
 
 function HomePage() {
     const paths = [
-        {title: "Repositories", path: "repositories"},
-        {title: "Projects", path: "projects"},
+        {title: "Projects", path: "repositories"},
+        {title: "About", path: "about"},
         {title: "Tools", path: "tools"},
         {title: "Research", path: "research"},
     ]

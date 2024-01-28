@@ -1,8 +1,8 @@
-import RepositoryData from "../../classes/RepositoryData";
 import { useContext } from "react";
 import CurrentRepositoryContext from "../contexts/CurrentRepositoryContext";
 import RepositoriesPageContext from "../contexts/RepositoriesPageContext";
 import { motion } from "framer-motion";
+import { Repository } from "../../graphql/Query.ts";
 
 interface CardAnimations {
     delay: number,
@@ -13,39 +13,42 @@ interface CardAnimations {
 * The card that will be displayed within the RepositoryGrid
 * @param {RepositoryData} data The repository data, which contains information about a repository.
 */
-function RepositoryGridCard({ data, animations } : {data:RepositoryData, animations?:CardAnimations}) {
+function RepositoryGridCard({ repo, animations } : {repo?:Repository, animations?:CardAnimations}) {
     // Get contexts of parent page and the currently selected repository
     const { setCurrentRepository } = useContext(CurrentRepositoryContext);
     const { setPage } = useContext(RepositoriesPageContext);
     let classes = "card clickable";
 
+    /*
     if (data.featured) {
         classes = "card clickable featured";
     } else {
         classes = "card clickable";
-    }
+    }*/
 
     return (
-            <motion.div 
-                className={classes}
+        <motion.div 
+            className={classes}
 
-                transition={{
-                    delay: animations?.delay,
-                    duration: animations?.duration
-                }}
-                initial={{opacity: 0}}
-                animate={{opacity: 1}}
-                
-                onClick={() => {
-                    setCurrentRepository(data);
-                    setPage("repository");
-                    console.log(`Selected Repository: ${data}`);
-                }}
-                >
-                <img src={data.image} hidden={!data.image}></img>
-                <h2>{data.name}</h2>
-                <p>{data.description}</p>
-            </motion.div>
+            transition={{
+                delay: animations?.delay,
+                duration: animations?.duration
+            }}
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            
+            onClick={() => {
+                if (repo) {
+                    setCurrentRepository(repo);
+                }
+                setPage("repository");
+                console.log(`Selected Repository: ${repo?.name}`);
+            }}
+        >
+            <img src={repo?.openGraphImageUrl} hidden={!repo?.openGraphImageUrl}></img>
+            <h2>{repo?.name}</h2>
+            <p>{repo?.description}</p>
+        </motion.div>
     );
 }
 

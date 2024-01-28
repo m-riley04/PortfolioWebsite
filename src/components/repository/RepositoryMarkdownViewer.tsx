@@ -1,48 +1,50 @@
-import { useState, useEffect } from "react";
 import Markdown from "react-markdown";
-
-
-/**
- * Fetches the markdown text from src url property
- */
-const fetchSource = (src:string) => {
-    console.log(`Fetching the markdown source at ${src}...`)
-    return fetch( src )
-        .then ( (response) => {
-            if (!response.ok) {
-                throw new Error("ERROR: There was an error fetching the markdown text.")
-            }
-            return response.text();
-        })
-}
-
+import { GET_README, Repository } from "../../graphql/Query";
+import { useQuery } from "@apollo/client";
 
 /**
  * @param {string} src A url to a markdown file 
  */
-function RepositoryMarkdownViewer( { src } : { src: string } ) {
-    
-    // Set up states and hooks
-    const [text, setText] = useState("");
+function RepositoryMarkdownViewer( { repo } : { repo?:Repository } ) {
+    // Query the README
+    const { loading, error, data } = useQuery(GET_README, {
+        variables: {
+            repository: repo?.name,
+            owner: repo?.owner.login,
+            filepath: "MAIN:README.md"
+        },
+    });
 
-    useEffect(() => {
-        fetchSource(src)
-            .then( (text) => {
-                setText(text);
-            })
-            .catch( (err) => {
-                setText("### There was an issue fetching the repository's README. \nIt might be because 'README.md' does not exist at the repository's root.")
-                console.error(err);
-            })
-    })
-
-    return (
+    if (loading) return (
         <div className="markdown-viewer">
-            <Markdown>
-                {text}
-            </Markdown>
+            <p>Loading README.md...</p>
         </div>
     );
+
+    if (error) return (
+        <div className="markdown-viewer">
+            <p>ERROR: Could not load README.md</p>
+            <p>Reason: {error.message}</p>
+        </div>
+    );
+
+    if (data) { 
+        try {
+            return (
+                <div className="markdown-viewer">
+                    <Markdown>
+                        {data["repository"]["object"]["text"]}
+                    </Markdown>
+                </div>
+            );
+        } catch (e) {
+            return (
+                <div className="markdown-viewer">
+                    <p>ERROR: Could not load README.md</p>
+                </div>  
+            );
+        }
+    }
 }
 
 export default RepositoryMarkdownViewer;

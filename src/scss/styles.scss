@@ -256,11 +256,24 @@ a:hover {
 }
 
 // Card Grid
+.dropdown-menu {
+    color: $body-color;
+    background-color: $navbar-bg;
+}
+
+.dropdown-menu *:hover {
+    background-color: $hover-bg;
+}
+
 .grid {
     display: grid;
     grid-template-columns: auto auto auto auto;
     row-gap: $spacer;
     column-gap: $spacer;
+}
+
+.grid-controls {
+    display: flex;
 }
 
 .card {
@@ -352,13 +365,11 @@ a:hover {
 .media-viewer-item {
     width: 100%;
     aspect-ratio: 1;
-    
 }
 
 .media-viewer-item img {
     max-width: 100%;
     object-fit: contain;
-    
 }
 
 .collaborator-viewer {
