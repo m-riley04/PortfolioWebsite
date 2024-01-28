@@ -6,9 +6,7 @@ import RepositoryTagViewer from "./RepositoryTagViewer";
 import RepositoriesPageSwitcher from "../switchers/RepositoriesPageSwitcher";
 import { Repository } from "../../graphql/Query.ts";
 
-function RepositoryViewer({ data, parent } : { data:Repository, parent?:React.RefObject<HTMLDivElement>}) {
-    const [imageUrls, setImageUrls] = useState([""]);
-
+function RepositoryViewer({ repo, parent } : { repo:Repository, parent?:React.RefObject<HTMLDivElement>}) {
     const navigate = useNavigate();
 
     // Override the back button to navigate to the repository grid
@@ -37,8 +35,8 @@ function RepositoryViewer({ data, parent } : { data:Repository, parent?:React.Re
         <div className="repo">
             <div className="row">
                 <div className="col-10">
-                    <h1>{data.name}</h1>
-                    <p>{data.primaryLanguage.name}</p>
+                    <h1>{repo?.name}</h1>
+                    <p>{repo?.primaryLanguage.name}</p>
                 </div>
                 <div className="col">
                     <RepositoriesPageSwitcher title="<-- Grid" target="grid" />
@@ -47,11 +45,11 @@ function RepositoryViewer({ data, parent } : { data:Repository, parent?:React.Re
             <div className="row">
                 <div className="col-7">
                     <h3>README</h3>
-                    <RepositoryMarkdownViewer src={""}/>
+                    <RepositoryMarkdownViewer repo={repo}/>
                 </div>
                 <div className="col-5">
                     <h3>Images</h3>
-                    <RepositoryMediaViewer urls={imageUrls}/>
+                    <RepositoryMediaViewer repo={repo}/>
 
                     <h3>Topics</h3>
                     <RepositoryTagViewer/>
