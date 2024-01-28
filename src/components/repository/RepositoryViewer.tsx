@@ -11,17 +11,6 @@ function RepositoryViewer({ data, parent } : { data:Repository, parent?:React.Re
 
     const navigate = useNavigate();
 
-    // Get the repositories images from a folder
-    //useEffect(() => {
-        
-        /*
-        // Try a folder named "assets"
-        data.getImageUrls("assets")
-            .then(urls => setImageUrls(urls))  
-            .catch(err => console.error(err));
-        */
-    //}, []);
-
     // Override the back button to navigate to the repository grid
     useEffect(() => {
         // Scroll to the top
