@@ -6,6 +6,13 @@ import RepositoryTagViewer from "./RepositoryTagViewer";
 import RepositoriesPageSwitcher from "../switchers/RepositoriesPageSwitcher";
 import { Repository } from "../../graphql/Query.ts";
 
+
+/**
+ * A subpage of RepositoryPage that displays the contents of the selected repository
+ * @param {Repository} repo a repository struct/interface that contains information about a repository 
+ * @param {React.RefObject<HTMLDivElement>} parent the parent object that the component is a child of
+ * @returns the notable contents of a repository in a custom design/format
+ */
 function RepositoryViewer({ repo, parent } : { repo:Repository, parent?:React.RefObject<HTMLDivElement>}) {
     const navigate = useNavigate();
 

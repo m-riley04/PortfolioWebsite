@@ -1,5 +1,9 @@
 import { motion } from "framer-motion";
 
+
+/**
+ * A page that displays a grid/list of helpful tools that can be used in-browser
+ */
 function ToolsPage() {
     return (
         <motion.div 

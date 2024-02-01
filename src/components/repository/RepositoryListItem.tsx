@@ -4,11 +4,11 @@ import CurrentRepositoryContext from "../contexts/CurrentRepositoryContext";
 import RepositoriesPageContext from "../contexts/RepositoriesPageContext";
 
 
-/*
-An item in a RepositoryList that contains information about a repository
-
-Properties:
-    - repo: a repository data object
+/**
+* An item in a RepositoryList that contains information about a repository
+* 
+* @param {Repository} repo a repository struct/interface that contains information about a repository
+* @returns an item of a RepositoryList
 */
 function RepositoryListItem({repo}: {repo:Repository}) {
 

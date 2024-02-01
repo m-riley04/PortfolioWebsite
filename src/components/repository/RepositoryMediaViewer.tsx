@@ -47,6 +47,10 @@ function fetchRepositoryImageUrls(repo:Repository, path:string): Promise<string[
         });
 }
 
+/**
+ * @param {Repository | undefined} repo a repository struct/interface that contains information about a repository 
+ * @returns a carousel of images from the repository's "assets" directory
+ */
 function RepositoryMediaViewer( { repo } : { repo?:Repository}) {
     const [urls, setUrls] = useState<Array<string>>([]);
     const [loading, setLoading] = useState<boolean>(true);

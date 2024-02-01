@@ -3,7 +3,8 @@ import { GET_README, Repository } from "../../graphql/Query";
 import { useQuery } from "@apollo/client";
 
 /**
- * @param {string} src A url to a markdown file 
+ * @param {Repository | undefined} repo a repository struct/interface that contains information about a repository 
+ * @returns a view of the repository's README.md file properly formatted in markdown
  */
 function RepositoryMarkdownViewer( { repo } : { repo?:Repository } ) {
     // Query the README

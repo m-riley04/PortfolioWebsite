@@ -14,6 +14,10 @@ import { AnimatePresence } from "framer-motion";
 import NavigationBar from "./NavigationBar";
 import ComingSoonPage from "../pages/ComingSoonPage";
 
+
+/**
+ * @returns {Element.JSX} the animated routes for the site's navigation
+ */
 function AnimatedRoutes() {
     const location = useLocation();
     return (

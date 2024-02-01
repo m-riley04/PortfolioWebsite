@@ -160,6 +160,13 @@ function filterLanguage_HTML(repo: Repository) {
 }
 //#endregion
 
+/**
+ * The page that contains
+ * 
+ * Subpages:
+ * - grid: Displays a grid of repositories
+ * - repository: Displays information regarding a chosen repository
+ */
 function RepositoryPage() {
     //=== References
     const ref = useRef<HTMLDivElement>(null);
