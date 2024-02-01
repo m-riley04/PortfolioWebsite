@@ -189,7 +189,7 @@ function RepositoryPage() {
     const pageValue = {page, setPage}
 
     /** Handle the sorting of the repositories */
-    const handleSort = (sortingMethod:Function|undefined=undefined) => {
+    const handleSort = (sortingMethod:(a:Repository, b:Repository)=>number) => {
         if (repositories) {
             const sortedData = [...repositories].sort(sortingMethod);
             setSortedRepositories(sortedData);
@@ -197,7 +197,7 @@ function RepositoryPage() {
     }
 
     /** Handle the fiiltering of the repositories */
-    const handleFilter = (filter:Function | undefined=undefined) => {
+    const handleFilter = (filter:(value:Repository)=>boolean) => {
         if (repositories) {
             const sortedData = [...repositories].filter(filter);
             setSortedRepositories(sortedData);
