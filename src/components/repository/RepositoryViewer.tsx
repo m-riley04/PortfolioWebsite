@@ -13,7 +13,7 @@ import { Repository } from "../../graphql/Query.ts";
  * @param {React.RefObject<HTMLDivElement>} parent the parent object that the component is a child of
  * @returns the notable contents of a repository in a custom design/format
  */
-function RepositoryViewer({ repo, parent } : { repo:Repository, parent?:React.RefObject<HTMLDivElement>}) {
+function RepositoryViewer({ repo, parent } : { repo?:Repository, parent?:React.RefObject<HTMLDivElement>}) {
     const navigate = useNavigate();
 
     // Override the back button to navigate to the repository grid
@@ -43,7 +43,7 @@ function RepositoryViewer({ repo, parent } : { repo:Repository, parent?:React.Re
             <div className="row">
                 <div className="col-10">
                     <h1>{repo?.name}</h1>
-                    <p>{repo?.primaryLanguage.name}</p>
+                    <p>{repo?.primaryLanguage?.name}</p>
                 </div>
                 <div className="col">
                     <RepositoriesPageSwitcher title="<-- Grid" target="grid" />
