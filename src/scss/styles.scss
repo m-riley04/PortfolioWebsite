@@ -12,9 +12,6 @@ $tertiary: #424047;
 $button-bg: #2f2e33;
 $button-body: #fcfcfc;
 
-// Home
-$banner-image: "./assets/home_banner.png";
-
 // Animating
 $fade-duration: 0.2s;
 $hover-bg: #1a1a1a;
@@ -107,7 +104,6 @@ a:hover {
 
 #banner {
     margin-top: 0;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url($banner-image);
     background-color: rgba(0, 0, 0, .5);
     background-attachment: fixed;
     background-position: center;
