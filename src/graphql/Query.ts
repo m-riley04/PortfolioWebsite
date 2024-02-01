@@ -29,13 +29,6 @@ export interface User {
     email: string
 }
 
-export interface UserPreview {
-    login: string,
-    name: string,
-    url: string,
-    avatarUrl: string,
-}
-
 export interface Release {
     tagName: string,
     name: string,
@@ -70,21 +63,6 @@ export interface Repository {
 
     // Visual/App
     featured: boolean
-}
-
-export interface RepositoryPreview {
-    name: string,
-    description: string,
-    visibility: string,
-    openGraphImageUrl: string,
-    createdAt: Date,
-    updatedAt: Date,
-    pushedAt: Date,
-    latestRelease: Release,
-    releases: Array<Release>,
-    primaryLanguage: Language,
-    languages: Array<Language>,
-    resourcePath: string
 }
 
 //=== Defaults
@@ -169,13 +147,6 @@ const USER_PROPS = `
     email
 `
 
-const USER_PREVIEW_PROPS = `
-    login
-    name
-    url
-    avatarUrl
-`
-
 const RELEASE_PROPS = `
     tagName
     name
@@ -227,27 +198,6 @@ const REPOSITORY_PROPS = `
         }
     }
     resourcePath
-`
-
-const REPOSITORY_PREVIEW_PROPS = `
-    name
-    description
-    visibility
-    openGraphImageUrl
-    createdAt
-    updatedAt
-    pushedAt
-    releases(first: 100) {
-        totalCount
-    }
-    primaryLanguage {
-        ${LANGUAGE_PROPS}
-    }
-    languages(first: 100) {
-        nodes {
-            ${LANGUAGE_PROPS}
-        }
-    }
 `
 
 //=== QUERIES =================================
@@ -332,40 +282,6 @@ export const GET_RELEASE = gql`
                     ${RELEASE_PROPS}
                 }
             }
-        }
-    }
-`;
-
-// Previews
-//** A query to retrieve the preview of a specific repository by name and username */
-export const GET_REPOSITORY_PREVIEW = gql`
-    query getRepositoryPreview($name: String!, $username: String!) {
-        repository(name: $name, owner: $username) {
-            ${REPOSITORY_PREVIEW_PROPS}
-        }
-    }
-`;
-
-//** A query to retrieve the preview of a specific user's repositories */
-export const GET_REPOSITORIES_PREVIEW = gql`
-    query getRepositoriesPreviews($username: String!, $count: Int!) {
-        user(login: $username) {
-            repositories(first: $count) {
-                totalCount
-                nodes {
-                    id
-                    ${REPOSITORY_PREVIEW_PROPS}
-                }
-            }
-        }
-    }
-`;
-
-//** A query to retrieve the preview of a user from a specified username */
-export const GET_USER_PREVIEW = gql`
-    query getUser($username: String!) {
-        user(login: $username) {
-            ${USER_PREVIEW_PROPS}
         }
     }
 `;
