@@ -199,6 +199,25 @@ function RepositoryPage() {
         }
     }
 
+    useEffect(() => {
+        if (data) {
+            const uneditedRepos : Array<Repository> = data["user"]["repositories"]["nodes"];
+            const editedRepos : Array<Repository> = [];
+
+            // Add "featured"
+            for (let i = 0; i < uneditedRepos.length; i++) {
+                editedRepos.push({
+                    ...uneditedRepos[i],
+                    featured: FEATURED.includes(uneditedRepos[i].name)
+                });
+            }
+
+            // Set the repositories, filter out the blacklist, and sort them by newest
+            setRepositories(editedRepos.filter(filterNotInBlacklist).sort(sortByDateCreated_Newest));
+            setSortedRepositories(editedRepos.filter(filterNotInBlacklist).sort(sortByDateCreated_Newest));
+        }
+    }, [data]);
+
     // Elements to render if the query is loading
     if (loading) return ( 
         <motion.div 
