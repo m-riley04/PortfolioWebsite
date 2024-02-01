@@ -180,6 +180,16 @@ function RepositoryPage() {
 
     /** Handle the refreshing of the repositories */
     const handleRefresh = (sortingMethod:Function | undefined=undefined, filter:Function | undefined=undefined) => {
+        
+    }
+
+    /** Handle the sorting of the repositories */
+    const handleSort = (sortingMethod:Function|undefined=undefined) => {
+        if (repositories) {
+            const sortedData = [...repositories].sort(sortingMethod);
+            setSortedRepositories(sortedData);
+        }
+    }
 
     }
 
