@@ -303,8 +303,8 @@ function RepositoryPage() {
                     <RepositoryList repos={repositories}/>
                     <div className="container">
                         <div className="grid-controls">
-                            <RepositoryGridDropdown title="Sort" options={sortOptions}></RepositoryGridDropdown>
-                            <RepositoryGridDropdown title="Filter" options={filterOptions}></RepositoryGridDropdown>
+                            <RepositoryGridDropdown title="Sort" options={sortOptions}/>
+                            <RepositoryGridDropdown title="Filter" options={filterOptions}/>
                         </div>
                         <h1>Repositories</h1>
                         <p>There are no repositories with that query.</p>
@@ -328,8 +328,8 @@ function RepositoryPage() {
                         <RepositoryList repos={repositories} />
                         <div className="container">
                             <div className="grid-controls">
-                                <RepositoryGridDropdown title="Sort" options={sortOptions}></RepositoryGridDropdown>
-                                <RepositoryGridDropdown title="Filter" options={filterOptions}></RepositoryGridDropdown>
+                                <RepositoryGridDropdown title="Sort" options={sortOptions}/>
+                                <RepositoryGridDropdown title="Filter" options={filterOptions}/>
                             </div>
 
                             {pages[pageValue.page]}
