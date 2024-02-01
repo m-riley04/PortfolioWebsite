@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 
+/**
+ * The fallback page that will be displayed if the user enters an invali URL
+ */
 function NotFoundPage() {
 
     return (

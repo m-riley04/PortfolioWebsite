@@ -4,6 +4,9 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
 
+/**
+ * @returns the main navigation bar at the top of the site
+ */
 function NavigationBar() {
   return (
     <Navbar expand="lg" className="navbar">

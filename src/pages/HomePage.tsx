@@ -1,6 +1,9 @@
 import {motion} from "framer-motion";
-import NavigationGroup from "../NavigationGroup";
+import NavigationGroup from "../components/NavigationGroup";
 
+/**
+ * The home/root page of the website
+ */
 function HomePage() {
     const paths = [
         {title: "Projects", path: "repositories"},

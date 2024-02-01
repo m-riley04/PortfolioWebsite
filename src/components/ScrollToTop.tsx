@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
+/** 
+ * A component that allows the user to scroll to the top of the body/window when clicked. Appears after the user scrolls for a while.
+ */
 function ScrollToTop() {
     const { pathname } = useLocation();
     useEffect(() => {

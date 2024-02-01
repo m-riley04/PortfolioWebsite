@@ -1,14 +1,14 @@
-import RepositoryList from '../repository/RepositoryList';
+import RepositoryList from '../components/repository/RepositoryList.tsx';
 import { useState, useRef, useEffect } from 'react';
-import { Dropdown } from 'react-bootstrap';
-import RepositoryViewer from '../repository/RepositoryViewer.tsx';
-import RepositoryGrid from '../repository/RepositoryGrid';
-import RepositoriesPageContext from '../contexts/RepositoriesPageContext';
-import CurrentRepositoryContext from '../contexts/CurrentRepositoryContext.ts';
+import RepositoryViewer from '../components/repository/repositoryviewer/RepositoryViewer.tsx';
+import RepositoryGrid from '../components/repository/repositorygrid/RepositoryGrid.tsx';
+import RepositoriesPageContext from '../components/contexts/RepositoriesPageContext.ts';
+import CurrentRepositoryContext from '../components/contexts/CurrentRepositoryContext.ts';
 import { motion } from 'framer-motion';
 import { useQuery } from '@apollo/client';
-import { GET_REPOSITORIES } from "../../graphql/Query.ts"
-import { Repository, DefaultRepository, GITHUB_USERNAME } from "../../graphql/Query.ts";
+import { GET_REPOSITORIES } from "../graphql/Query.ts"
+import { Repository, DefaultRepository, GITHUB_USERNAME } from "../graphql/Query.ts";
+import RepositoryGridDropdown from '../components/repository/repositorygrid/RepositoryGridDropdown.tsx';
 
 //** A list of repository names that will not appear on the site */
 const BLACKLIST:string[] = [
@@ -159,6 +159,13 @@ function filterLanguage_HTML(repo: Repository) {
 }
 //#endregion
 
+/**
+ * The page that contains
+ * 
+ * Subpages:
+ * - grid: Displays a grid of repositories
+ * - repository: Displays information regarding a chosen repository
+ */
 function RepositoryPage() {
     //=== References
     const ref = useRef<HTMLDivElement>(null);
@@ -181,7 +188,7 @@ function RepositoryPage() {
     const pageValue = {page, setPage}
 
     /** Handle the sorting of the repositories */
-    const handleSort = (sortingMethod:Function|undefined=undefined) => {
+    const handleSort = (sortingMethod:(a:Repository, b:Repository)=>number) => {
         if (repositories) {
             const sortedData = [...repositories].sort(sortingMethod);
             setSortedRepositories(sortedData);
@@ -189,16 +196,41 @@ function RepositoryPage() {
     }
 
     /** Handle the fiiltering of the repositories */
-    const handleFilter = (filter:Function | undefined=undefined) => {
+    const handleFilter = (filter:(value:Repository)=>boolean) => {
         if (repositories) {
             const sortedData = [...repositories].filter(filter);
             setSortedRepositories(sortedData);
         }
     }
 
+    /** The list of options the user has to sort the repositories */
+    const sortOptions = [
+        {title: "Name (A-Z)", callback:()=>handleSort(sortByName_Descending)},
+        {title: "Name (Z-A)", callback:()=>handleSort(sortByName_Ascending)},
+        {title: "Date Created (Newest)", callback:()=>handleSort(sortByDateCreated_Newest)},
+        {title: "Date Created (Oldest)", callback:()=>handleSort(sortByDateCreated_Oldest)},
+        {title: "Date Updated (Newest)", callback:()=>handleSort(sortByDateUpdated_Newest)},
+        {title: "Date Updated (Oldest)", callback:()=>handleSort(sortByDateUpdated_Oldest)},
+        {title: "Date Pushed (Newest)", callback:()=>handleSort(sortByDatePushed_Newest)},
+        {title: "Date Pushed (Oldest)", callback:()=>handleSort(sortByDatePushed_Oldest)},
+    ]
+
+    /** The list of options the user has to filter the repositories */
+    const filterOptions = [
+        {title: "Featured", callback:()=>handleFilter(filterFeatured)},
+        {title: "Python", callback:()=>handleFilter(filterLanguage_Python)},
+        {title: "C++", callback:()=>handleFilter(filterLanguage_CPP)},
+        {title: "C", callback:()=>handleFilter(filterLanguage_C)},
+        {title: "TypeScript", callback:()=>handleFilter(filterLanguage_TypeScript)},
+        {title: "JavaScript", callback:()=>handleFilter(filterLanguage_JavaScript)},
+        {title: "HTML", callback:()=>handleFilter(filterLanguage_HTML)},
+    ]
+
     // Load the repositories from the queried data
     useEffect(() => {
+        // Check if data isn't null or empty
         if (data) {
+            // Initialize variables
             const uneditedRepos : Array<Repository> = data["user"]["repositories"]["nodes"];
             const editedRepos : Array<Repository> = [];
 
@@ -280,9 +312,13 @@ function RepositoryPage() {
                 >
                     <RepositoryList repos={repositories}/>
                     <div className="container">
-                    <h1>Repositories</h1>
-                    <p>There are no repositories with that query.</p>
-                    <button onClick={() => handleSort(sortByDateCreated_Newest)}>Back</button>
+                        <div className="grid-controls">
+                            <RepositoryGridDropdown title="Sort" options={sortOptions}/>
+                            <RepositoryGridDropdown title="Filter" options={filterOptions}/>
+                        </div>
+                        <h1>Repositories</h1>
+                        <p>There are no repositories with that query.</p>
+                        <button onClick={() => handleSort(sortByDateCreated_Newest)}>Back</button>
                     </div>
                 </motion.div>
             );
@@ -302,77 +338,8 @@ function RepositoryPage() {
                         <RepositoryList repos={repositories} />
                         <div className="container">
                             <div className="grid-controls">
-                                <Dropdown>
-                                    <Dropdown.Toggle className="clickable">
-                                        Sort
-                                    </Dropdown.Toggle>
-
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item onClick={() => {
-                                            handleSort(sortByName_Descending);
-                                        }}>Name (A-Z)</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => {
-                                            handleSort(sortByName_Ascending);
-                                        }}>Name (Z-A)</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => {
-                                            handleSort(sortByDateCreated_Newest);
-                                        }}>Date Created (Newest)</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => {
-                                            handleSort(sortByDateCreated_Oldest);
-                                        }}>Date Created (Oldest)</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => {
-                                            handleSort(sortByDateUpdated_Newest);
-                                        }}>Date Updated (Newest)</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => {
-                                            handleSort(sortByDateUpdated_Oldest);
-                                        }}>Date Updated (Oldest)</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => {
-                                            handleSort(sortByDatePushed_Newest);
-                                        }}>Date Pushed (Newest)</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => {
-                                            handleSort(sortByDatePushed_Oldest);
-                                        }}>Date Pushed (Oldest)</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-
-                                <Dropdown >
-                                    <Dropdown.Toggle className="clickable">
-                                        Filter By Language
-                                    </Dropdown.Toggle>
-
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item onClick={() => {
-                                                handleFilter(filterLanguage_Python);
-                                        }}>Python</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => {
-                                                handleFilter(filterLanguage_CPP);
-                                        }}>C++</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => {
-                                                handleFilter(filterLanguage_C);
-                                        }}>C</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => {
-                                                handleFilter(filterLanguage_TypeScript);
-                                        }}>TypeScript</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => {
-                                                handleFilter(filterLanguage_JavaScript);
-                                        }}>JavaScript</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => {
-                                                handleFilter(filterLanguage_HTML);
-                                        }}>HTML</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-
-                                <Dropdown >
-                                    <Dropdown.Toggle className="clickable">
-                                        Other Filters
-                                    </Dropdown.Toggle>
-
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item onClick={() => {
-                                                handleFilter(filterFeatured);
-                                        }}>Featured</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
+                                <RepositoryGridDropdown title="Sort" options={sortOptions}/>
+                                <RepositoryGridDropdown title="Filter" options={filterOptions}/>
                             </div>
 
                             {pages[pageValue.page]}

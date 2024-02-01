@@ -1,9 +1,10 @@
 import { useContext } from "react";
-import CurrentRepositoryContext from "../contexts/CurrentRepositoryContext";
-import RepositoriesPageContext from "../contexts/RepositoriesPageContext";
+import CurrentRepositoryContext from "../../contexts/CurrentRepositoryContext.ts";
+import RepositoriesPageContext from "../../contexts/RepositoriesPageContext.ts";
 import { motion } from "framer-motion";
-import { Repository } from "../../graphql/Query.ts";
+import { Repository } from "../../../graphql/Query.ts";
 
+/** The properties of a card's animations */
 interface CardAnimations {
     delay: number,
     duration: number
@@ -11,7 +12,9 @@ interface CardAnimations {
 
 /**
 * The card that will be displayed within the RepositoryGrid
-* @param {RepositoryData} data The repository data, which contains information about a repository.
+* @param {Repository} repo The repository data, which contains information about a repository.
+* @param {CardAnimations} animations The properties for the animation of the framer-motion div container
+* @returns a card that displays some information about a repository
 */
 function RepositoryGridCard({ repo, animations } : {repo?:Repository, animations?:CardAnimations}) {
     // Get contexts of parent page and the currently selected repository

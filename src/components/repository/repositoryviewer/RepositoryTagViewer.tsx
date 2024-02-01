@@ -1,3 +1,8 @@
+
+/**
+ * 
+ * @returns a list of tags that the repository has been marked with
+ */
 function RepositoryTagViewer() {
 
     return (

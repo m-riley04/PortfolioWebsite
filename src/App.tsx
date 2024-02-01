@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 
+/** The main app component for the website */
 function App() {
   return (
     <div id="app">

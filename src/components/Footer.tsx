@@ -1,3 +1,6 @@
+/**
+ * @returns The footer component for the entire site
+ */
 function Footer() {
 
     return (

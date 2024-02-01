@@ -1,15 +1,19 @@
 import {motion} from "framer-motion";
 import { useState, useEffect } from "react";
 
+/** 
+ * The page that is displayed on the pages that are still being worked on.
+*/
 function ComingSoonPage() {
     // Variables
-    const workingGifSrc = "./src/assets/working.gif";
-    const sadCatSrc = "./src/assets/sad-cat.gif";
-    const loadingSrc = "./src/assets/loading.gif";
+    const workingGifSrc = "../../assets/working.gif";
+    const sadCatSrc = "../../assets/sad-cat.gif";
+    const loadingSrc = "../../assets/loading.gif";
 
     // Hooks
     const [catSrc, setCatSrc] = useState(loadingSrc);
 
+    // Fetch the random cat image from TheCatApi
     const fetchRandomCatImage = () => {
         const apiUrl = "https://api.thecatapi.com/v1/images/search";
         fetch( apiUrl )
@@ -24,11 +28,10 @@ function ComingSoonPage() {
             });
     }
 
+    // Fetch a random image on page-load
     useEffect(() =>{
         fetchRandomCatImage();
     }, []);
-
-    
 
     return (
         <motion.div 
