@@ -1,15 +1,13 @@
 import {motion} from "framer-motion";
 import { useState, useEffect } from "react";
+import workingGifSrc from "../../assets/working.gif";
+import sadCatSrc from "../../assets/crying-cat.jpg";
+import loadingSrc from "../../assets/loading.gif";
 
 /** 
  * The page that is displayed on the pages that are still being worked on.
 */
 function ComingSoonPage() {
-    // Variables
-    const workingGifSrc = "../../assets/working.gif";
-    const sadCatSrc = "../../assets/sad-cat.gif";
-    const loadingSrc = "../../assets/loading.gif";
-
     // Hooks
     const [catSrc, setCatSrc] = useState(loadingSrc);
 
