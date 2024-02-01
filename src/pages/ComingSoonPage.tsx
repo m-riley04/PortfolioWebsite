@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 
 function ComingSoonPage() {
     // Variables
-    const workingGifSrc = "./src/assets/working.gif";
-    const sadCatSrc = "./src/assets/sad-cat.gif";
-    const loadingSrc = "./src/assets/loading.gif";
+    const workingGifSrc = "../../assets/working.gif";
+    const sadCatSrc = "../../assets/sad-cat.gif";
+    const loadingSrc = "../../assets/loading.gif";
 
     // Hooks
     const [catSrc, setCatSrc] = useState(loadingSrc);

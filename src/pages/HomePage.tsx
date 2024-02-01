@@ -1,5 +1,5 @@
 import {motion} from "framer-motion";
-import NavigationGroup from "../NavigationGroup";
+import NavigationGroup from "../components/NavigationGroup";
 
 function HomePage() {
     const paths = [

@@ -1,15 +1,15 @@
-import RepositoryList from '../repository/RepositoryList';
+import RepositoryList from '../components/repository/RepositoryList.tsx';
 import { useState, useRef, useEffect } from 'react';
 import { Dropdown } from 'react-bootstrap';
-import RepositoryViewer from '../repository/RepositoryViewer.tsx';
-import RepositoryGrid from '../repository/RepositoryGrid';
-import RepositoriesPageContext from '../contexts/RepositoriesPageContext';
-import CurrentRepositoryContext from '../contexts/CurrentRepositoryContext.ts';
+import RepositoryViewer from '../components/repository/RepositoryViewer.tsx';
+import RepositoryGrid from '../components/repository/RepositoryGrid.tsx';
+import RepositoriesPageContext from '../components/contexts/RepositoriesPageContext.ts';
+import CurrentRepositoryContext from '../components/contexts/CurrentRepositoryContext.ts';
 import { motion } from 'framer-motion';
 import { useQuery } from '@apollo/client';
-import { GET_REPOSITORIES } from "../../graphql/Query.ts"
-import { Repository, DefaultRepository, GITHUB_USERNAME } from "../../graphql/Query.ts";
-import RepositoryGridDropdown from '../repository/RepositoryGridDropdown.tsx';
+import { GET_REPOSITORIES } from "../graphql/Query.ts"
+import { Repository, DefaultRepository, GITHUB_USERNAME } from "../graphql/Query.ts";
+import RepositoryGridDropdown from '../components/repository/RepositoryGridDropdown.tsx';
 
 //** A list of repository names that will not appear on the site */
 const BLACKLIST:string[] = [

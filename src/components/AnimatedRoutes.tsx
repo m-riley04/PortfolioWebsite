@@ -1,8 +1,8 @@
 
-import HomePage from "./pages/HomePage";
-import RepositoryPage from "./pages/RepositoryPage";
-import ToolsPage from "./pages/ToolsPage";
-import NotFoundPage from "./pages/NotFoundPage";
+import HomePage from "../pages/HomePage";
+import RepositoryPage from "../pages/RepositoryPage";
+import ToolsPage from "../pages/ToolsPage";
+import NotFoundPage from "../pages/NotFoundPage";
 import { 
     Outlet,
     Route, 
@@ -12,7 +12,7 @@ import {
 } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import NavigationBar from "./NavigationBar";
-import ComingSoonPage from "./pages/ComingSoonPage";
+import ComingSoonPage from "../pages/ComingSoonPage";
 
 function AnimatedRoutes() {
     const location = useLocation();
