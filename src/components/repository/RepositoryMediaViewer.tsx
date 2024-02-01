@@ -63,6 +63,7 @@ function RepositoryMediaViewer( { repo } : { repo?:Repository}) {
                 })  
                 .catch(err => {
                     console.error(err);
+                    setLoading(false);
                     setError(err);
                 });
         }
@@ -79,7 +80,14 @@ function RepositoryMediaViewer( { repo } : { repo?:Repository}) {
     // Check if the images are still loading
     if (loading) return (
         <div className="media-viewer">
-            <p>Loading...</p>
+            <p>Loading images...</p>
+        </div>
+    );
+
+    // Check if there are any images returned
+    if (urls.length <= 0) return (
+        <div className="media-viewer">
+            <p>There were no images found in the &quot;assets&quot; folder.</p>
         </div>
     );
 
