@@ -31,6 +31,7 @@ function AnimatedRoutes() {
                     <Route path="projects" element={<Navigate to="../repositories"></Navigate>}/>
                     <Route path="portfolio" element={<Navigate to="../repositories"></Navigate>}/>
                     <Route path="about" element={<ComingSoonPage/>}/>
+                    <Route path="blog" element={<ComingSoonPage/>}/>
                     <Route path="tools" element={<ComingSoonPage/>}/>
                     <Route path="research" element={<ComingSoonPage/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>
