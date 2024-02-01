@@ -9,7 +9,7 @@ import { motion } from 'framer-motion';
 import { useQuery } from '@apollo/client';
 import { GET_REPOSITORIES } from "../graphql/Query.ts"
 import { Repository, DefaultRepository, GITHUB_USERNAME } from "../graphql/Query.ts";
-import RepositoryGridDropdown from '../components/repository/RepositoryGridDropdown.tsx';
+import RepositoryGridDropdown from '../components/repository/repositorygrid/RepositoryGridDropdown.tsx';
 
 //** A list of repository names that will not appear on the site */
 const BLACKLIST:string[] = [
