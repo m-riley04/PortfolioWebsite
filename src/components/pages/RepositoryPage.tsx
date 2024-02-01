@@ -196,6 +196,7 @@ function RepositoryPage() {
         }
     }
 
+    // Load the repositories from the queried data
     useEffect(() => {
         if (data) {
             const uneditedRepos : Array<Repository> = data["user"]["repositories"]["nodes"];
@@ -267,6 +268,26 @@ function RepositoryPage() {
             "repository": <RepositoryViewer repo={currentRepository} parent={ref} />
         }
 
+        if (sortedRepositories.length <= 0) {
+            return (
+                <motion.div 
+                    id="repositories"
+                    ref={ref}
+
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    exit={{opacity: 0}}
+                >
+                    <RepositoryList repos={repositories}/>
+                    <div className="container">
+                    <h1>Repositories</h1>
+                    <p>There are no repositories with that query.</p>
+                    <button onClick={() => handleSort(sortByDateCreated_Newest)}>Back</button>
+                    </div>
+                </motion.div>
+            );
+        }
+
         return (
             <RepositoriesPageContext.Provider value={pageValue}>
                 <CurrentRepositoryContext.Provider value={currentRepositoryValue}>
@@ -283,7 +304,7 @@ function RepositoryPage() {
                             <div className="grid-controls">
                                 <Dropdown>
                                     <Dropdown.Toggle className="clickable">
-                                        Sort By
+                                        Sort
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu>
