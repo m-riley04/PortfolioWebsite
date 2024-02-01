@@ -172,6 +172,8 @@ function RepositoryPage() {
     });
 
     //=== Hooks and States
+    const [repositories, setRepositories] = useState<Array<Repository>>([]);
+    const [sortedRepositories, setSortedRepositories] = useState<Array<Repository>>([]);
     const [currentRepository, setCurrentRepository] = useState<Repository>(DefaultRepository);
     const currentRepositoryValue = {currentRepository, setCurrentRepository};
 
@@ -266,7 +268,7 @@ function RepositoryPage() {
          * - repository - the repository viewer
          */
         const pages : {[name : string] : JSX.Element} = {
-            "grid": <RepositoryGrid repos={data["user"]["repositories"]["nodes"]}/>,
+            "grid": <RepositoryGrid repos={sortedRepositories}/>,
             "repository": <RepositoryViewer repo={currentRepository} parent={ref} />
         }
 
@@ -281,7 +283,7 @@ function RepositoryPage() {
                         animate={{opacity: 1}}
                         exit={{opacity: 0}}
                     >
-                        <RepositoryList repos={data["user"]["repositories"]["nodes"]} />
+                        <RepositoryList repos={repositories} />
                         <div className="container">
                             <div className="grid-controls">
                                 <button onClick={() => handleRefresh()}>Refresh</button>
