@@ -180,8 +180,6 @@ function RepositoryPage() {
     const [page, setPage] = useState("grid");
     const pageValue = {page, setPage}
 
-        
-    }
     /** Handle the sorting of the repositories */
     const handleSort = (sortingMethod:Function|undefined=undefined) => {
         if (repositories) {
@@ -305,14 +303,12 @@ function RepositoryPage() {
                                             handleSort(sortByDateUpdated_Newest);
                                         }}>Date Updated (Newest)</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                            handleRefresh(sortByDateUpdated_Oldest);
+                                            handleSort(sortByDateUpdated_Oldest);
                                         }}>Date Updated (Oldest)</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                            handleRefresh(sortByDatePushed_Newest);
                                             handleSort(sortByDatePushed_Newest);
                                         }}>Date Pushed (Newest)</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                            handleRefresh(sortByDatePushed_Oldest);
                                             handleSort(sortByDatePushed_Oldest);
                                         }}>Date Pushed (Oldest)</Dropdown.Item>
                                     </Dropdown.Menu>
@@ -334,14 +330,13 @@ function RepositoryPage() {
                                                 handleFilter(filterLanguage_C);
                                         }}>C</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                                handleRefresh(undefined, filterLanguage_TypeScript);
+                                                handleFilter(filterLanguage_TypeScript);
                                         }}>TypeScript</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                                handleRefresh(undefined, filterLanguage_JavaScript);
                                                 handleFilter(filterLanguage_JavaScript);
                                         }}>JavaScript</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                                handleRefresh(undefined, filterLanguage_HTML);
+                                                handleFilter(filterLanguage_HTML);
                                         }}>HTML</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
