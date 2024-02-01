@@ -1,4 +1,3 @@
-import RepositoryData from '../../classes/RepositoryData';
 import RepositoryList from '../repository/RepositoryList';
 import { useState, useRef } from 'react';
 import { Dropdown } from 'react-bootstrap';
@@ -26,7 +25,7 @@ const FEATURED:string[] = [
 ];
 
 //#region Sorting Methods
-function sortByName_Descending(a:RepositoryData, b:RepositoryData) {
+function sortByName_Descending(a:Repository, b:Repository) {
     if (a.name < b.name) {
         return -1;
     }
@@ -36,7 +35,7 @@ function sortByName_Descending(a:RepositoryData, b:RepositoryData) {
     return 0;
 }
 
-function sortByName_Ascending(a:RepositoryData, b:RepositoryData) {
+function sortByName_Ascending(a:Repository, b:Repository) {
     if (a.name > b.name) {
         return -1;
     }
@@ -46,9 +45,9 @@ function sortByName_Ascending(a:RepositoryData, b:RepositoryData) {
     return 0;
 }
 
-function sortByDateCreated_Oldest(a:RepositoryData, b:RepositoryData) {
-    const date_a = new Date(a.dateCreated);
-    const date_b = new Date(b.dateCreated);
+function sortByDateCreated_Oldest(a:Repository, b:Repository) {
+    const date_a = new Date(a.createdAt);
+    const date_b = new Date(b.createdAt);
     if (date_a < date_b) {
         return -1;
     }
@@ -58,9 +57,9 @@ function sortByDateCreated_Oldest(a:RepositoryData, b:RepositoryData) {
     return 0;
 }
 
-function sortByDateCreated_Newest(a:RepositoryData, b:RepositoryData) {
-    const date_a = new Date(a.dateCreated);
-    const date_b = new Date(b.dateCreated);
+function sortByDateCreated_Newest(a:Repository, b:Repository) {
+    const date_a = new Date(a.createdAt);
+    const date_b = new Date(b.createdAt);
     if (date_a > date_b) {
         return -1;
     }
@@ -70,9 +69,9 @@ function sortByDateCreated_Newest(a:RepositoryData, b:RepositoryData) {
     return 0;
 }
 
-function sortByDateUpdated_Oldest(a:RepositoryData, b:RepositoryData) {
-    const date_a = new Date(a.dateUpdated);
-    const date_b = new Date(b.dateUpdated);
+function sortByDateUpdated_Oldest(a:Repository, b:Repository) {
+    const date_a = new Date(a.updatedAt);
+    const date_b = new Date(b.updatedAt);
     if (date_a < date_b) {
         return -1;
     }
@@ -82,9 +81,9 @@ function sortByDateUpdated_Oldest(a:RepositoryData, b:RepositoryData) {
     return 0;
 }
 
-function sortByDateUpdated_Newest(a:RepositoryData, b:RepositoryData) {
-    const date_a = new Date(a.dateUpdated);
-    const date_b = new Date(b.dateUpdated);
+function sortByDateUpdated_Newest(a:Repository, b:Repository) {
+    const date_a = new Date(a.updatedAt);
+    const date_b = new Date(b.updatedAt);
     if (date_a > date_b) {
         return -1;
     }
@@ -94,9 +93,9 @@ function sortByDateUpdated_Newest(a:RepositoryData, b:RepositoryData) {
     return 0;
 }
 
-function sortByDatePushed_Oldest(a:RepositoryData, b:RepositoryData) {
-    const date_a = new Date(a.datePushed);
-    const date_b = new Date(b.datePushed);
+function sortByDatePushed_Oldest(a:Repository, b:Repository) {
+    const date_a = new Date(a.pushedAt);
+    const date_b = new Date(b.pushedAt);
     if (date_a < date_b) {
         return -1;
     }
@@ -106,9 +105,9 @@ function sortByDatePushed_Oldest(a:RepositoryData, b:RepositoryData) {
     return 0;
 }
 
-function sortByDatePushed_Newest(a:RepositoryData, b:RepositoryData) {
-    const date_a = new Date(a.datePushed);
-    const date_b = new Date(b.datePushed);
+function sortByDatePushed_Newest(a:Repository, b:Repository) {
+    const date_a = new Date(a.pushedAt);
+    const date_b = new Date(b.pushedAt);
     if (date_a > date_b) {
         return -1;
     }
@@ -120,30 +119,43 @@ function sortByDatePushed_Newest(a:RepositoryData, b:RepositoryData) {
 //#endregion
 
 //#region Filters
-function filterFeatured(repo: RepositoryData) {
+function filterInBlacklist(repo: Repository) {
+    return BLACKLIST.includes(repo.name);
+}
+
+function filterNotInBlacklist(repo: Repository) {
+    return !BLACKLIST.includes(repo.name);
+}
+
+function filterFeatured(repo: Repository) {
     return (repo.featured === true);
 }
-function filterLanguage(repo: RepositoryData, language: string) {
-    return (repo.language.toLowerCase() === language.toLowerCase());
+function filterLanguage(repo: Repository, language: string) {
+    return (repo.primaryLanguage?.name.toLowerCase() === language.toLowerCase());
 }
-function filterLanguage_Python(repo: RepositoryData) {
-    return (repo.language.toLowerCase() === "python");
+function filterLanguage_Python(repo: Repository) {
+    const language : string = repo.primaryLanguage?.name;
+    return (language?.toLowerCase() === "python");
 }
-function filterLanguage_CPP(repo: RepositoryData) {
-    console.log(repo.language.toLowerCase() === "c++");
-    return (repo.language.toLowerCase() === "c++");
+function filterLanguage_CPP(repo: Repository) {
+    const language : string = repo.primaryLanguage?.name;
+    return (language?.toLowerCase() === "c++");
 }
-function filterLanguage_C(repo: RepositoryData) {
-    return (repo.language.toLowerCase() === "c");
+function filterLanguage_C(repo: Repository) {
+    const language : string = repo.primaryLanguage?.name;
+    return (language?.toLowerCase() === "c");
 }
-function filterLanguage_TypeScript(repo: RepositoryData) {
-    return (repo.language.toLowerCase() === "typescript");
+function filterLanguage_TypeScript(repo: Repository) {
+    const language : string = repo.primaryLanguage?.name;
+    return (language?.toLowerCase() === "typescript");
 }
-function filterLanguage_JavaScript(repo: RepositoryData) {
-    return (repo.language.toLowerCase() === "javascript");
+function filterLanguage_JavaScript(repo: Repository) {
+    const language : string = repo.primaryLanguage?.name;
+    return (language?.toLowerCase() === "javascript");
 }
-function filterLanguage_HTML(repo: RepositoryData) {
-    return (repo.language.toLowerCase() === "html");
+function filterLanguage_HTML(repo: Repository) {
+    const language : string = repo.primaryLanguage?.name;
+    return (language?.toLowerCase() === "html");
 }
 //#endregion
 
