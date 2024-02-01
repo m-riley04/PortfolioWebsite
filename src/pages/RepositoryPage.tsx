@@ -2,7 +2,7 @@ import RepositoryList from '../components/repository/RepositoryList.tsx';
 import { useState, useRef, useEffect } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import RepositoryViewer from '../components/repository/repositoryviewer/RepositoryViewer.tsx';
-import RepositoryGrid from '../components/repository/RepositoryGrid.tsx';
+import RepositoryGrid from '../components/repository/repositorygrid/RepositoryGrid.tsx';
 import RepositoriesPageContext from '../components/contexts/RepositoriesPageContext.ts';
 import CurrentRepositoryContext from '../components/contexts/CurrentRepositoryContext.ts';
 import { motion } from 'framer-motion';

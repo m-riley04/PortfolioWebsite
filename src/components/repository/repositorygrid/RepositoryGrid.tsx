@@ -1,5 +1,5 @@
-import RepositoryGridCard from './RepositoryGridCard'
-import { Repository } from "../../graphql/Query.ts";
+import RepositoryGridCard from './RepositoryGridCard.tsx'
+import { Repository } from "../../../graphql/Query.ts";
 import { motion } from "framer-motion";
 
 

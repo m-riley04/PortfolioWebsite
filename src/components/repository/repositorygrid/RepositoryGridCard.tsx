@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import CurrentRepositoryContext from "../contexts/CurrentRepositoryContext";
-import RepositoriesPageContext from "../contexts/RepositoriesPageContext";
+import CurrentRepositoryContext from "../../contexts/CurrentRepositoryContext.ts";
+import RepositoriesPageContext from "../../contexts/RepositoriesPageContext.ts";
 import { motion } from "framer-motion";
-import { Repository } from "../../graphql/Query.ts";
+import { Repository } from "../../../graphql/Query.ts";
 
 /** The properties of a card's animations */
 interface CardAnimations {
