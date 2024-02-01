@@ -1,6 +1,5 @@
-import RepositoryData from '../../classes/RepositoryData';
 import RepositoryList from '../repository/RepositoryList';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import RepositoryViewer from '../repository/RepositoryViewer.tsx';
 import RepositoryGrid from '../repository/RepositoryGrid';
@@ -26,7 +25,7 @@ const FEATURED:string[] = [
 ];
 
 //#region Sorting Methods
-function sortByName_Descending(a:RepositoryData, b:RepositoryData) {
+function sortByName_Descending(a:Repository, b:Repository) {
     if (a.name < b.name) {
         return -1;
     }
@@ -36,7 +35,7 @@ function sortByName_Descending(a:RepositoryData, b:RepositoryData) {
     return 0;
 }
 
-function sortByName_Ascending(a:RepositoryData, b:RepositoryData) {
+function sortByName_Ascending(a:Repository, b:Repository) {
     if (a.name > b.name) {
         return -1;
     }
@@ -46,9 +45,9 @@ function sortByName_Ascending(a:RepositoryData, b:RepositoryData) {
     return 0;
 }
 
-function sortByDateCreated_Oldest(a:RepositoryData, b:RepositoryData) {
-    const date_a = new Date(a.dateCreated);
-    const date_b = new Date(b.dateCreated);
+function sortByDateCreated_Oldest(a:Repository, b:Repository) {
+    const date_a = new Date(a.createdAt);
+    const date_b = new Date(b.createdAt);
     if (date_a < date_b) {
         return -1;
     }
@@ -58,9 +57,9 @@ function sortByDateCreated_Oldest(a:RepositoryData, b:RepositoryData) {
     return 0;
 }
 
-function sortByDateCreated_Newest(a:RepositoryData, b:RepositoryData) {
-    const date_a = new Date(a.dateCreated);
-    const date_b = new Date(b.dateCreated);
+function sortByDateCreated_Newest(a:Repository, b:Repository) {
+    const date_a = new Date(a.createdAt);
+    const date_b = new Date(b.createdAt);
     if (date_a > date_b) {
         return -1;
     }
@@ -70,9 +69,9 @@ function sortByDateCreated_Newest(a:RepositoryData, b:RepositoryData) {
     return 0;
 }
 
-function sortByDateUpdated_Oldest(a:RepositoryData, b:RepositoryData) {
-    const date_a = new Date(a.dateUpdated);
-    const date_b = new Date(b.dateUpdated);
+function sortByDateUpdated_Oldest(a:Repository, b:Repository) {
+    const date_a = new Date(a.updatedAt);
+    const date_b = new Date(b.updatedAt);
     if (date_a < date_b) {
         return -1;
     }
@@ -82,9 +81,9 @@ function sortByDateUpdated_Oldest(a:RepositoryData, b:RepositoryData) {
     return 0;
 }
 
-function sortByDateUpdated_Newest(a:RepositoryData, b:RepositoryData) {
-    const date_a = new Date(a.dateUpdated);
-    const date_b = new Date(b.dateUpdated);
+function sortByDateUpdated_Newest(a:Repository, b:Repository) {
+    const date_a = new Date(a.updatedAt);
+    const date_b = new Date(b.updatedAt);
     if (date_a > date_b) {
         return -1;
     }
@@ -94,9 +93,9 @@ function sortByDateUpdated_Newest(a:RepositoryData, b:RepositoryData) {
     return 0;
 }
 
-function sortByDatePushed_Oldest(a:RepositoryData, b:RepositoryData) {
-    const date_a = new Date(a.datePushed);
-    const date_b = new Date(b.datePushed);
+function sortByDatePushed_Oldest(a:Repository, b:Repository) {
+    const date_a = new Date(a.pushedAt);
+    const date_b = new Date(b.pushedAt);
     if (date_a < date_b) {
         return -1;
     }
@@ -106,9 +105,9 @@ function sortByDatePushed_Oldest(a:RepositoryData, b:RepositoryData) {
     return 0;
 }
 
-function sortByDatePushed_Newest(a:RepositoryData, b:RepositoryData) {
-    const date_a = new Date(a.datePushed);
-    const date_b = new Date(b.datePushed);
+function sortByDatePushed_Newest(a:Repository, b:Repository) {
+    const date_a = new Date(a.pushedAt);
+    const date_b = new Date(b.pushedAt);
     if (date_a > date_b) {
         return -1;
     }
@@ -120,30 +119,43 @@ function sortByDatePushed_Newest(a:RepositoryData, b:RepositoryData) {
 //#endregion
 
 //#region Filters
-function filterFeatured(repo: RepositoryData) {
+function filterInBlacklist(repo: Repository) {
+    return BLACKLIST.includes(repo.name);
+}
+
+function filterNotInBlacklist(repo: Repository) {
+    return !BLACKLIST.includes(repo.name);
+}
+
+function filterFeatured(repo: Repository) {
     return (repo.featured === true);
 }
-function filterLanguage(repo: RepositoryData, language: string) {
-    return (repo.language.toLowerCase() === language.toLowerCase());
+function filterLanguage(repo: Repository, language: string) {
+    return (repo.primaryLanguage?.name.toLowerCase() === language.toLowerCase());
 }
-function filterLanguage_Python(repo: RepositoryData) {
-    return (repo.language.toLowerCase() === "python");
+function filterLanguage_Python(repo: Repository) {
+    const language : string = repo.primaryLanguage?.name;
+    return (language?.toLowerCase() === "python");
 }
-function filterLanguage_CPP(repo: RepositoryData) {
-    console.log(repo.language.toLowerCase() === "c++");
-    return (repo.language.toLowerCase() === "c++");
+function filterLanguage_CPP(repo: Repository) {
+    const language : string = repo.primaryLanguage?.name;
+    return (language?.toLowerCase() === "c++");
 }
-function filterLanguage_C(repo: RepositoryData) {
-    return (repo.language.toLowerCase() === "c");
+function filterLanguage_C(repo: Repository) {
+    const language : string = repo.primaryLanguage?.name;
+    return (language?.toLowerCase() === "c");
 }
-function filterLanguage_TypeScript(repo: RepositoryData) {
-    return (repo.language.toLowerCase() === "typescript");
+function filterLanguage_TypeScript(repo: Repository) {
+    const language : string = repo.primaryLanguage?.name;
+    return (language?.toLowerCase() === "typescript");
 }
-function filterLanguage_JavaScript(repo: RepositoryData) {
-    return (repo.language.toLowerCase() === "javascript");
+function filterLanguage_JavaScript(repo: Repository) {
+    const language : string = repo.primaryLanguage?.name;
+    return (language?.toLowerCase() === "javascript");
 }
-function filterLanguage_HTML(repo: RepositoryData) {
-    return (repo.language.toLowerCase() === "html");
+function filterLanguage_HTML(repo: Repository) {
+    const language : string = repo.primaryLanguage?.name;
+    return (language?.toLowerCase() === "html");
 }
 //#endregion
 
@@ -160,16 +172,49 @@ function RepositoryPage() {
     });
 
     //=== Hooks and States
+    const [repositories, setRepositories] = useState<Array<Repository>>([]);
+    const [sortedRepositories, setSortedRepositories] = useState<Array<Repository>>([]);
     const [currentRepository, setCurrentRepository] = useState<Repository>(DefaultRepository);
     const currentRepositoryValue = {currentRepository, setCurrentRepository};
 
     const [page, setPage] = useState("grid");
     const pageValue = {page, setPage}
 
-    /** Handle the refreshing of the repositories */
-    const handleRefresh = (sortingMethod:Function | undefined=undefined, filter:Function | undefined=undefined) => {
-
+    /** Handle the sorting of the repositories */
+    const handleSort = (sortingMethod:Function|undefined=undefined) => {
+        if (repositories) {
+            const sortedData = [...repositories].sort(sortingMethod);
+            setSortedRepositories(sortedData);
+        }
     }
+
+    /** Handle the fiiltering of the repositories */
+    const handleFilter = (filter:Function | undefined=undefined) => {
+        if (repositories) {
+            const sortedData = [...repositories].filter(filter);
+            setSortedRepositories(sortedData);
+        }
+    }
+
+    // Load the repositories from the queried data
+    useEffect(() => {
+        if (data) {
+            const uneditedRepos : Array<Repository> = data["user"]["repositories"]["nodes"];
+            const editedRepos : Array<Repository> = [];
+
+            // Add "featured"
+            for (let i = 0; i < uneditedRepos.length; i++) {
+                editedRepos.push({
+                    ...uneditedRepos[i],
+                    featured: FEATURED.includes(uneditedRepos[i].name)
+                });
+            }
+
+            // Set the repositories, filter out the blacklist, and sort them by newest
+            setRepositories(editedRepos.filter(filterNotInBlacklist).sort(sortByDateCreated_Newest));
+            setSortedRepositories(editedRepos.filter(filterNotInBlacklist).sort(sortByDateCreated_Newest));
+        }
+    }, [data]);
 
     // Elements to render if the query is loading
     if (loading) return ( 
@@ -184,7 +229,7 @@ function RepositoryPage() {
             <RepositoryList/>
             <div className="container">
                 <h1>Repositories</h1>
-                <p>Loading...</p>
+                <p>Loading repositories...</p>
             </div>
         </motion.div>
     );
@@ -219,8 +264,28 @@ function RepositoryPage() {
          * - repository - the repository viewer
          */
         const pages : {[name : string] : JSX.Element} = {
-            "grid": <RepositoryGrid repos={data["user"]["repositories"]["nodes"]}/>,
+            "grid": <RepositoryGrid repos={sortedRepositories}/>,
             "repository": <RepositoryViewer repo={currentRepository} parent={ref} />
+        }
+
+        if (sortedRepositories.length <= 0) {
+            return (
+                <motion.div 
+                    id="repositories"
+                    ref={ref}
+
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    exit={{opacity: 0}}
+                >
+                    <RepositoryList repos={repositories}/>
+                    <div className="container">
+                    <h1>Repositories</h1>
+                    <p>There are no repositories with that query.</p>
+                    <button onClick={() => handleSort(sortByDateCreated_Newest)}>Back</button>
+                    </div>
+                </motion.div>
+            );
         }
 
         return (
@@ -234,40 +299,38 @@ function RepositoryPage() {
                         animate={{opacity: 1}}
                         exit={{opacity: 0}}
                     >
-                        <RepositoryList repos={data["user"]["repositories"]["nodes"]} />
+                        <RepositoryList repos={repositories} />
                         <div className="container">
                             <div className="grid-controls">
-                                <button onClick={() => handleRefresh()}>Refresh</button>
-
                                 <Dropdown>
                                     <Dropdown.Toggle className="clickable">
-                                        Sort By
+                                        Sort
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu>
                                         <Dropdown.Item onClick={() => {
-                                            handleRefresh(sortByName_Descending);
+                                            handleSort(sortByName_Descending);
                                         }}>Name (A-Z)</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                            handleRefresh(sortByName_Ascending);
+                                            handleSort(sortByName_Ascending);
                                         }}>Name (Z-A)</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                            handleRefresh(sortByDateCreated_Newest);
+                                            handleSort(sortByDateCreated_Newest);
                                         }}>Date Created (Newest)</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                            handleRefresh(sortByDateCreated_Oldest);
+                                            handleSort(sortByDateCreated_Oldest);
                                         }}>Date Created (Oldest)</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                            handleRefresh(sortByDateUpdated_Newest);
+                                            handleSort(sortByDateUpdated_Newest);
                                         }}>Date Updated (Newest)</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                            handleRefresh(sortByDateUpdated_Oldest);
+                                            handleSort(sortByDateUpdated_Oldest);
                                         }}>Date Updated (Oldest)</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                            handleRefresh(sortByDatePushed_Newest);
+                                            handleSort(sortByDatePushed_Newest);
                                         }}>Date Pushed (Newest)</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                            handleRefresh(sortByDatePushed_Oldest);
+                                            handleSort(sortByDatePushed_Oldest);
                                         }}>Date Pushed (Oldest)</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
@@ -279,22 +342,22 @@ function RepositoryPage() {
 
                                     <Dropdown.Menu>
                                         <Dropdown.Item onClick={() => {
-                                                handleRefresh(undefined, filterLanguage_Python);
+                                                handleFilter(filterLanguage_Python);
                                         }}>Python</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                                handleRefresh(undefined, filterLanguage_CPP);
+                                                handleFilter(filterLanguage_CPP);
                                         }}>C++</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                                handleRefresh(undefined, filterLanguage_C);
+                                                handleFilter(filterLanguage_C);
                                         }}>C</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                                handleRefresh(undefined, filterLanguage_TypeScript);
+                                                handleFilter(filterLanguage_TypeScript);
                                         }}>TypeScript</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                                handleRefresh(undefined, filterLanguage_JavaScript);
+                                                handleFilter(filterLanguage_JavaScript);
                                         }}>JavaScript</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                                handleRefresh(undefined, filterLanguage_HTML);
+                                                handleFilter(filterLanguage_HTML);
                                         }}>HTML</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
@@ -306,7 +369,7 @@ function RepositoryPage() {
 
                                     <Dropdown.Menu>
                                         <Dropdown.Item onClick={() => {
-                                                handleRefresh(undefined, filterFeatured);
+                                                handleFilter(filterFeatured);
                                         }}>Featured</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>

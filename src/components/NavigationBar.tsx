@@ -20,12 +20,6 @@ function NavigationBar() {
               <NavDropdown.Item href="https://www.linkedin.com/in/riley-meyerkorth" target="_blank" className="clickable">LinkedIn</NavDropdown.Item>
               <NavDropdown.Item href="https://restlessmedicine.com" target="_blank" className="clickable">Company</NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown title="Debug" id="basic-nav-dropdown" className="navbar-option navbar-dropdown">
-              <NavDropdown.Item href="#action/test">Test</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/refresh-repositories">Refresh Repositories</NavDropdown.Item>
-              <NavDropdown.Item href="#action/refresh-projects">Refresh Projects</NavDropdown.Item>
-            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Container>

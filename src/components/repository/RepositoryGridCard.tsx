@@ -19,12 +19,11 @@ function RepositoryGridCard({ repo, animations } : {repo?:Repository, animations
     const { setPage } = useContext(RepositoriesPageContext);
     let classes = "card clickable";
 
-    /*
-    if (data.featured) {
+    if (repo?.featured) {
         classes = "card clickable featured";
     } else {
         classes = "card clickable";
-    }*/
+    }
 
     return (
         <motion.div 

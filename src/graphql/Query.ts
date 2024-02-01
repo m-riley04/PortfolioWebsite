@@ -66,7 +66,10 @@ export interface Repository {
     releases: Array<Release> | undefined,
     primaryLanguage: Language,
     languages: Array<Language>,
-    resourcePath: string
+    resourcePath: string,
+
+    // Visual/App
+    featured: boolean
 }
 
 export interface RepositoryPreview {
@@ -141,7 +144,10 @@ export const DefaultRepository : Repository = {
     releases: [],
     primaryLanguage: {name: "", color: ""},
     languages: [{name: "", color: ""}],
-    resourcePath: ""
+    resourcePath: "",
+    
+    // Visual/App
+    featured: false
 }
 
 //=== PROPS
