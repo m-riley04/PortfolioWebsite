@@ -1,6 +1,5 @@
 import RepositoryList from '../components/repository/RepositoryList.tsx';
 import { useState, useRef, useEffect } from 'react';
-import { Dropdown } from 'react-bootstrap';
 import RepositoryViewer from '../components/repository/repositoryviewer/RepositoryViewer.tsx';
 import RepositoryGrid from '../components/repository/repositorygrid/RepositoryGrid.tsx';
 import RepositoriesPageContext from '../components/contexts/RepositoriesPageContext.ts';
@@ -204,6 +203,7 @@ function RepositoryPage() {
         }
     }
 
+    /** The list of options the user has to sort the repositories */
     const sortOptions = [
         {title: "Name (A-Z)", callback:()=>handleSort(sortByName_Descending)},
         {title: "Name (Z-A)", callback:()=>handleSort(sortByName_Ascending)},
@@ -215,6 +215,7 @@ function RepositoryPage() {
         {title: "Date Pushed (Oldest)", callback:()=>handleSort(sortByDatePushed_Oldest)},
     ]
 
+    /** The list of options the user has to filter the repositories */
     const filterOptions = [
         {title: "Featured", callback:()=>handleFilter(filterFeatured)},
         {title: "Python", callback:()=>handleFilter(filterLanguage_Python)},
@@ -227,7 +228,9 @@ function RepositoryPage() {
 
     // Load the repositories from the queried data
     useEffect(() => {
+        // Check if data isn't null or empty
         if (data) {
+            // Initialize variables
             const uneditedRepos : Array<Repository> = data["user"]["repositories"]["nodes"];
             const editedRepos : Array<Repository> = [];
 
