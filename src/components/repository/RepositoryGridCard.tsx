@@ -11,7 +11,8 @@ interface CardAnimations {
 
 /**
 * The card that will be displayed within the RepositoryGrid
-* @param {RepositoryData} data The repository data, which contains information about a repository.
+* @param {Repository} repo The repository data, which contains information about a repository.
+* @param {CardAnimations} animations The properties for the animation of the framer-motion div container
 */
 function RepositoryGridCard({ repo, animations } : {repo?:Repository, animations?:CardAnimations}) {
     // Get contexts of parent page and the currently selected repository
