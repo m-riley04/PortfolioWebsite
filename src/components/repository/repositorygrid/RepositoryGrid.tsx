@@ -1,6 +1,7 @@
 import RepositoryGridCard from './RepositoryGridCard.tsx'
 import { Repository } from "../../../graphql/Query.ts";
 import { motion } from "framer-motion";
+import { Row, Col } from "react-bootstrap";
 
 
 /**
@@ -18,7 +19,9 @@ function RepositoryGrid( {repos} : {repos?:Array<Repository> | undefined} ) {
                 animate={{opacity: 1}}
                 exit={{opacity: 0}}
             >
-                {repos?.map((repo, index) => <RepositoryGridCard repo={repo} animations={{delay: index/25, duration: .8}} key={index}></RepositoryGridCard>)}
+                <Row>
+                    {repos?.map((repo, index) => <Col key={index} xs={8} sm={6} md={5} lg={4} xl={3} xxl={3}><RepositoryGridCard repo={repo} animations={{delay: index/25, duration: .8}}></RepositoryGridCard></Col>)}
+                </Row>
             </motion.div>
         </>
     );
