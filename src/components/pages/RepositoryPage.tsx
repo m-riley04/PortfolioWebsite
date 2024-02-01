@@ -231,7 +231,7 @@ function RepositoryPage() {
             <RepositoryList/>
             <div className="container">
                 <h1>Repositories</h1>
-                <p>Loading...</p>
+                <p>Loading repositories...</p>
             </div>
         </motion.div>
     );
