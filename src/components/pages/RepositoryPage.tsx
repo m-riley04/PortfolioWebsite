@@ -191,6 +191,12 @@ function RepositoryPage() {
         }
     }
 
+    /** Handle the fiiltering of the repositories */
+    const handleFilter = (filter:Function | undefined=undefined) => {
+        if (repositories) {
+            const sortedData = [...repositories].filter(filter);
+            setSortedRepositories(sortedData);
+        }
     }
 
     // Elements to render if the query is loading
