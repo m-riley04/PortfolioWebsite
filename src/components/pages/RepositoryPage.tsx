@@ -286,8 +286,6 @@ function RepositoryPage() {
                         <RepositoryList repos={repositories} />
                         <div className="container">
                             <div className="grid-controls">
-                                <button onClick={() => handleRefresh()}>Refresh</button>
-
                                 <Dropdown>
                                     <Dropdown.Toggle className="clickable">
                                         Sort By
