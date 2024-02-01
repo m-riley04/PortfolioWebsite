@@ -113,6 +113,10 @@ a:hover {
     padding: 5%;
 }
 
+#banner h1 {
+    font-size: 8vw;
+}
+
 //=== CLASS STYLES
 .page-container {
     display: flex;
@@ -393,6 +397,13 @@ a:hover {
     max-width: 20vw;
     background-color: $sidebar-bg;
     overflow-y: scroll;
+}
+
+// Hide the list when the
+@media screen and (width: 1300px) {
+    .list {
+        display: none !important;
+    }    
 }
 
 .list-item {
