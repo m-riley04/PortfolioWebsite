@@ -1,4 +1,4 @@
-import { Collaborator } from "../../graphql/Query";
+import { Collaborator } from "../../../graphql/Query";
 
 /**
  * Displays a list of collaborators

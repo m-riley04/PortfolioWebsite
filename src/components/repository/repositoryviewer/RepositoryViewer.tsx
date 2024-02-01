@@ -1,10 +1,10 @@
-import RepositoryMarkdownViewer from "./RepositoryMarkdownViewer"
-import { useEffect, useState } from "react";
+import RepositoryMarkdownViewer from "./RepositoryMarkdownViewer.tsx"
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import RepositoryMediaViewer from "./RepositoryMediaViewer";
-import RepositoryTagViewer from "./RepositoryTagViewer";
-import RepositoriesPageSwitcher from "../switchers/RepositoriesPageSwitcher";
-import { Repository } from "../../graphql/Query.ts";
+import RepositoryMediaViewer from "./RepositoryMediaViewer.tsx";
+import RepositoryTagViewer from "./RepositoryTagViewer.tsx";
+import RepositoriesPageSwitcher from "../../switchers/RepositoriesPageSwitcher.tsx";
+import { Repository } from "../../../graphql/Query.ts";
 
 
 /**

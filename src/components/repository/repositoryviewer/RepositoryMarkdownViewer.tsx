@@ -1,5 +1,5 @@
 import Markdown from "react-markdown";
-import { GET_README, Repository } from "../../graphql/Query";
+import { GET_README, Repository } from "../../../graphql/Query";
 import { useQuery } from "@apollo/client";
 
 /**

@@ -1,5 +1,5 @@
 import { Carousel } from "react-bootstrap";
-import { Repository } from "../../graphql/Query";
+import { Repository } from "../../../graphql/Query";
 import { useEffect, useState } from "react";
 
 
