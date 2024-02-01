@@ -1,5 +1,5 @@
 import RepositoryList from '../repository/RepositoryList';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import RepositoryViewer from '../repository/RepositoryViewer.tsx';
 import RepositoryGrid from '../repository/RepositoryGrid';
@@ -180,11 +180,8 @@ function RepositoryPage() {
     const [page, setPage] = useState("grid");
     const pageValue = {page, setPage}
 
-    /** Handle the refreshing of the repositories */
-    const handleRefresh = (sortingMethod:Function | undefined=undefined, filter:Function | undefined=undefined) => {
         
     }
-
     /** Handle the sorting of the repositories */
     const handleSort = (sortingMethod:Function|undefined=undefined) => {
         if (repositories) {
@@ -293,28 +290,30 @@ function RepositoryPage() {
 
                                     <Dropdown.Menu>
                                         <Dropdown.Item onClick={() => {
-                                            handleRefresh(sortByName_Descending);
+                                            handleSort(sortByName_Descending);
                                         }}>Name (A-Z)</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                            handleRefresh(sortByName_Ascending);
+                                            handleSort(sortByName_Ascending);
                                         }}>Name (Z-A)</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                            handleRefresh(sortByDateCreated_Newest);
+                                            handleSort(sortByDateCreated_Newest);
                                         }}>Date Created (Newest)</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                            handleRefresh(sortByDateCreated_Oldest);
+                                            handleSort(sortByDateCreated_Oldest);
                                         }}>Date Created (Oldest)</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                            handleRefresh(sortByDateUpdated_Newest);
+                                            handleSort(sortByDateUpdated_Newest);
                                         }}>Date Updated (Newest)</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
                                             handleRefresh(sortByDateUpdated_Oldest);
                                         }}>Date Updated (Oldest)</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
                                             handleRefresh(sortByDatePushed_Newest);
+                                            handleSort(sortByDatePushed_Newest);
                                         }}>Date Pushed (Newest)</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
                                             handleRefresh(sortByDatePushed_Oldest);
+                                            handleSort(sortByDatePushed_Oldest);
                                         }}>Date Pushed (Oldest)</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
@@ -326,19 +325,20 @@ function RepositoryPage() {
 
                                     <Dropdown.Menu>
                                         <Dropdown.Item onClick={() => {
-                                                handleRefresh(undefined, filterLanguage_Python);
+                                                handleFilter(filterLanguage_Python);
                                         }}>Python</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                                handleRefresh(undefined, filterLanguage_CPP);
+                                                handleFilter(filterLanguage_CPP);
                                         }}>C++</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
-                                                handleRefresh(undefined, filterLanguage_C);
+                                                handleFilter(filterLanguage_C);
                                         }}>C</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
                                                 handleRefresh(undefined, filterLanguage_TypeScript);
                                         }}>TypeScript</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
                                                 handleRefresh(undefined, filterLanguage_JavaScript);
+                                                handleFilter(filterLanguage_JavaScript);
                                         }}>JavaScript</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {
                                                 handleRefresh(undefined, filterLanguage_HTML);
@@ -353,7 +353,7 @@ function RepositoryPage() {
 
                                     <Dropdown.Menu>
                                         <Dropdown.Item onClick={() => {
-                                                handleRefresh(undefined, filterFeatured);
+                                                handleFilter(filterFeatured);
                                         }}>Featured</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
