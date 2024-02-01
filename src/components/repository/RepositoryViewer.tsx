@@ -19,7 +19,7 @@ function RepositoryViewer({ repo, parent } : { repo:Repository, parent?:React.Re
     // Override the back button to navigate to the repository grid
     useEffect(() => {
         // Scroll to the top
-        if (parent != null && parent != undefined) {
+        if (parent != null && parent != undefined && parent?.current != null) {
             parent?.current.scrollTo(0, 0);
         }
 
