@@ -1,4 +1,7 @@
 /**
+ * A class that stores information and method regarding a repository using the GitHub REST API
+ * @deprecated Use the GitHub GraphQL API instead with Apollo 
+ * 
  * @param {string} name
  * @param {string} description
  * @param {string} author
