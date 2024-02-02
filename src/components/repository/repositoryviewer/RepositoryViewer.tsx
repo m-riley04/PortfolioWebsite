@@ -1,11 +1,11 @@
 import RepositoryMarkdownViewer from "./RepositoryMarkdownViewer.tsx"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import RepositoryMediaViewer from "./RepositoryMediaViewer.tsx";
 import RepositoryTagViewer from "./RepositoryTagViewer.tsx";
 import RepositoriesPageSwitcher from "../../switchers/RepositoriesPageSwitcher.tsx";
 import { Repository } from "../../../graphql/Query.ts";
-
+import RepositoryInfoModal from "./RepositoryInfoModal.tsx";
 
 /**
  * A subpage of RepositoryPage that displays the contents of the selected repository
@@ -15,6 +15,7 @@ import { Repository } from "../../../graphql/Query.ts";
  */
 function RepositoryViewer({ repo, parent } : { repo?:Repository, parent?:React.RefObject<HTMLDivElement>}) {
     const navigate = useNavigate();
+    const [showInfo, setShowInfo] = useState(false);
 
     // Override the back button to navigate to the repository grid
     useEffect(() => {
@@ -39,30 +40,34 @@ function RepositoryViewer({ repo, parent } : { repo?:Repository, parent?:React.R
     }, []);
 
     return (
-        <div className="repo">
-            <div className="row">
-                <div className="col-10">
-                    <h1>{repo?.name}</h1>
-                    <p>{repo?.primaryLanguage?.name}</p>
+        <>
+            <RepositoryInfoModal repo={repo}/>
+            <div className="repo">
+                <div className="row">
+                    <div className="col-10">
+                        <h1>{repo?.name}</h1>
+                        <p>{repo?.primaryLanguage?.name}</p>
+                    </div>
+                    <div className="col">
+                        <button onClick={() => setShowInfo(!showInfo)}>i</button>
+                        <RepositoriesPageSwitcher title="<-- Grid" target="grid" />
+                    </div>
                 </div>
-                <div className="col">
-                    <RepositoriesPageSwitcher title="<-- Grid" target="grid" />
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-7">
-                    <h3>README</h3>
-                    <RepositoryMarkdownViewer repo={repo}/>
-                </div>
-                <div className="col-5">
-                    <h3>Images</h3>
-                    <RepositoryMediaViewer repo={repo}/>
+                <div className="row">
+                    <div className="col-7">
+                        <h3>README</h3>
+                        <RepositoryMarkdownViewer repo={repo}/>
+                    </div>
+                    <div className="col-5">
+                        <h3>Images</h3>
+                        <RepositoryMediaViewer repo={repo}/>
 
-                    <h3>Topics</h3>
-                    <RepositoryTagViewer/>
+                        <h3>Topics</h3>
+                        <RepositoryTagViewer/>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 
