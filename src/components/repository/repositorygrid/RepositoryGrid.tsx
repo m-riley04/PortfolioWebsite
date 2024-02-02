@@ -20,7 +20,7 @@ function RepositoryGrid( {repos} : {repos?:Array<Repository> | undefined} ) {
                 exit={{opacity: 0}}
             >
                 <Row>
-                    {repos?.map((repo, index) => <Col key={index} xs={8} sm={6} md={5} lg={4} xl={3} xxl={3}><RepositoryGridCard repo={repo} animations={{delay: index/25, duration: .8}}></RepositoryGridCard></Col>)}
+                    {repos?.map((repo, index) => <Col key={index} xs={8} sm={6} md={5} lg={4} xl={3} xxl={3} style={{margin: "auto"}}><RepositoryGridCard repo={repo} animations={{delay: index/25, duration: .8}}></RepositoryGridCard></Col>)}
                 </Row>
             </motion.div>
         </>

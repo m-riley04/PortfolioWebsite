@@ -91,11 +91,12 @@ a:hover {
 
 #cat-container {
     display: block;
-    width: 25%;
-    height: 25%;
+    width: 25vw;
+    height: 25vh;
 }
 
 #cat-container img {
+    display: block;
     object-fit: cover;
     overflow: hidden;
     width: 250px;
@@ -111,6 +112,10 @@ a:hover {
     background-size: cover;
     box-shadow: inset 0px -10px 10px rgba(0, 0, 0, .6);
     padding: 5%;
+}
+
+#banner h1 {
+    font-size: 8vw;
 }
 
 //=== CLASS STYLES
@@ -141,10 +146,10 @@ a:hover {
 }
 
 #home h1 {
-    font-size: 10em;
+    font-size: 10vw;
     padding: 2%;
     text-shadow: rgba(0, 0, 0, .5) 1px 0 10px;
-    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-width: .2vw;
     -webkit-text-stroke-color: black;
 }
 
@@ -168,7 +173,7 @@ a:hover {
 }
 
 #coming-soon h1 {
-    font-size: 5em;
+    font-size: 8em;
     padding: 3%;
     text-shadow: rgba(0, 0, 0, .5) 1px 0 10px;
 }
@@ -193,7 +198,7 @@ a:hover {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 1.5em;
+    font-size: 1.25vw;
 }
 
 .navigation-group-button:hover {
@@ -202,7 +207,7 @@ a:hover {
     text-shadow: white 0 0 1em;
     border: white solid 5px;
     width: 22%;
-    font-size: 2em;
+    font-size: 1.75vw;
 }
 
 .navbar {
@@ -426,4 +431,16 @@ a:hover {
     white-space: nowrap;
     margin-top: auto;
     margin-bottom: auto;
+}
+
+@media (max-width: 500px) {
+    #coming-soon h1 {
+        font-size: 15vw;
+        padding: 3%;
+        text-shadow: rgba(0, 0, 0, .5) 1px 0 10px;
+    }
+
+    .list {
+        display: none !important;
+    }
 }
