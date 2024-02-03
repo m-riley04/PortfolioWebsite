@@ -3,8 +3,8 @@ function RepositoryCollaborator( { name, username, avatarUrl, url } : { name?:st
         <a href={url} target="_blank" rel="noreferrer">
         <div className="collaborator">
             <img src={avatarUrl}></img>
-            <h3>{name}</h3>
-            <p>{username}</p>
+            <h4>{username}</h4>
+            <p>{name}</p>
         </div>
         </a>
     );
