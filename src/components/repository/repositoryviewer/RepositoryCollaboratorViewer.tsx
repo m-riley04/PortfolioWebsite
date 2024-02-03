@@ -1,10 +1,10 @@
 import { Collaborator } from "../../../graphql/Query";
 
 /**
- * Displays a list of collaborators
- * @param {Array<Collaborator>} collaborators a list of collaborators' logins/usernames
+ * Displays a list of collaborators from a repository
+ * @param {Repository} repo the repository to find collaborators from
  */
-function RepositoryCollaboratorViewer( { collaborators } : { collaborators:Array<Collaborator>} ) {
+function RepositoryCollaboratorViewer( { repo } : { repo?:Repository} ) {
     // Query the collaborators' data from the array of usernames/login
 
     return (
