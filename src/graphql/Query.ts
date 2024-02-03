@@ -282,6 +282,20 @@ export const GET_USER = gql`
     }
 `;
 
+//** A query to retrieve the collaborators from a specified repository */
+export const GET_COLLABORATORS = gql`
+    query getCollaborators($owner:String!, $repository: String!) {
+        repository(name: $repository, owner: $owner) {
+            collaborators(first: 100) {
+                totalCount
+                nodes {
+                    ${COLLABORATOR_PROPS}
+                }
+            }
+        }
+    }
+`;
+
 //** A query to retrieve a specific release from a specified username and repository name*/
 export const GET_RELEASE = gql`
     query getRelease($tag: String!, $user: String!, $repository: String!) {
