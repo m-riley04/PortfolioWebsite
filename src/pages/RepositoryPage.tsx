@@ -119,6 +119,14 @@ function sortByDatePushed_Newest(a:Repository, b:Repository) {
 //#endregion
 
 //#region Filters
+function filterPublic(repo: Repository) {
+    return (repo.visibility === "PUBLIC")
+}
+
+function filterPrivate(repo: Repository) {
+    return (repo.visibility === "PRIVATE")
+}
+
 function filterInBlacklist(repo: Repository) {
     return BLACKLIST.includes(repo.name);
 }
@@ -236,6 +244,7 @@ function RepositoryPage() {
 
             // Add "featured"
             for (let i = 0; i < uneditedRepos.length; i++) {
+
                 editedRepos.push({
                     ...uneditedRepos[i],
                     featured: FEATURED.includes(uneditedRepos[i].name)
