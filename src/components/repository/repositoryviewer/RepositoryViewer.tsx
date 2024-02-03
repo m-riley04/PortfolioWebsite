@@ -6,6 +6,7 @@ import RepositoryTagViewer from "./RepositoryTagViewer.tsx";
 import RepositoriesPageSwitcher from "../../switchers/RepositoriesPageSwitcher.tsx";
 import { Repository } from "../../../graphql/Query.ts";
 import RepositoryInfoModal from "./RepositoryInfoModal.tsx";
+import RepositoryCollaboratorViewer from "./RepositoryCollaboratorViewer.tsx";
 
 /**
  * A subpage of RepositoryPage that displays the contents of the selected repository
@@ -62,8 +63,8 @@ function RepositoryViewer({ repo, parent } : { repo?:Repository, parent?:React.R
                         <h3>Images</h3>
                         <RepositoryMediaViewer repo={repo}/>
 
-                        <h3>Topics</h3>
-                        <RepositoryTagViewer/>
+                        <h3>Collaborators</h3>
+                        <RepositoryCollaboratorViewer repo={repo}/>
                     </div>
                 </div>
             </div>
