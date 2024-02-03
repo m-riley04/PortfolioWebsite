@@ -5,6 +5,9 @@ export const GITHUB_USERNAME = "m-riley04";
 
 export interface Collaborator {
     login: string;
+    name: string;
+    url: string;
+    avatarUrl: string;
 }
 
 export interface Owner {
@@ -32,9 +35,9 @@ export interface User {
 export interface Release {
     tagName: string,
     name: string,
-    createdAt: Date,
-    updatedAt: Date,
-    publishedAt: Date,
+    createdAt: string,
+    updatedAt: string,
+    publishedAt: string,
     url: string,
     isLatest: boolean,
     description: string,
@@ -52,9 +55,9 @@ export interface Repository {
     owner: Owner,
     forks: Forks,
     collaborators: Array<Collaborator>,
-    createdAt: Date,
-    updatedAt: Date,
-    pushedAt: Date,
+    createdAt: string,
+    updatedAt: string,
+    pushedAt: string,
     latestRelease: Release | undefined,
     releases: Array<Release> | undefined,
     primaryLanguage: Language,
@@ -67,21 +70,24 @@ export interface Repository {
 
 //=== Defaults
 export const DefaultCollaborator : Collaborator = {
-    login: ""
-}
+    login: "",
+    name: "",
+    url: "",
+    avatarUrl: "",
+};
 
 export const DefaultOwner : Owner = {
     login: ""
-}
+};
 
 export const DefaultForks : Forks = {
     totalCount: 0
-}
+};
 
 export const DefaultLanguage : Language ={
     name: "",
     color: ""
-}
+};
 
 export const DefaultUser : User = {
     login: "",
@@ -90,20 +96,20 @@ export const DefaultUser : User = {
     url: "",
     avatarUrl: "",
     email: ""
-}
+};
 
 export const DefaultRelease : Release = {
     tagName: "",
     name: "",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    publishedAt: new Date(),
+    createdAt: "",
+    updatedAt: "",
+    publishedAt: "",
     url: "",
     isLatest: false,
     description: "",
     descriptionHTML: "",
     resourcePath: ""
-}
+};
 
 export const DefaultRepository : Repository = {
     name: "",
@@ -115,9 +121,9 @@ export const DefaultRepository : Repository = {
     owner: DefaultOwner,
     forks: DefaultForks,
     collaborators: [],
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    pushedAt: new Date(),
+    createdAt: "",
+    updatedAt: "",
+    pushedAt: "",
     latestRelease: DefaultRelease,
     releases: [],
     primaryLanguage: {name: "", color: ""},
@@ -126,17 +132,20 @@ export const DefaultRepository : Repository = {
     
     // Visual/App
     featured: false
-}
+};
 
 //=== PROPS
 const COLLABORATOR_PROPS = `
     login
-`
+    name
+    url
+    avatarUrl
+`;
 
 const LANGUAGE_PROPS = `
     name
     color
-`
+`;
 
 const USER_PROPS = `
     login
@@ -145,7 +154,7 @@ const USER_PROPS = `
     url
     avatarUrl
     email
-`
+`;
 
 const RELEASE_PROPS = `
     tagName
@@ -158,7 +167,7 @@ const RELEASE_PROPS = `
     description
     descriptionHTML
     resourcePath
-`
+`;
 
 const REPOSITORY_PROPS = `
     name
@@ -198,7 +207,7 @@ const REPOSITORY_PROPS = `
         }
     }
     resourcePath
-`
+`;
 
 //=== QUERIES =================================
 // Full
@@ -269,6 +278,20 @@ export const GET_USER = gql`
     query getUser($username: String!) {
         user(login: $username) {
             ${USER_PROPS}
+        }
+    }
+`;
+
+//** A query to retrieve the collaborators from a specified repository */
+export const GET_COLLABORATORS = gql`
+    query getCollaborators($owner:String!, $repository: String!) {
+        repository(name: $repository, owner: $owner) {
+            collaborators(first: 100) {
+                totalCount
+                nodes {
+                    ${COLLABORATOR_PROPS}
+                }
+            }
         }
     }
 `;

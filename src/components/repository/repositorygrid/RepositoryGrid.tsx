@@ -5,7 +5,7 @@ import { Row, Col } from "react-bootstrap";
 
 
 /**
- * @param {Array<Repository>} repos an array of repositories
+ * @param {Array<Repository> | undefined} repos an array of repositories
  * @returns a grid of repository cards
  */
 function RepositoryGrid( {repos} : {repos?:Array<Repository> | undefined} ) {
