@@ -239,7 +239,7 @@ function RepositoryPage() {
         // Check if data isn't null or empty
         if (data) {
             // Initialize variables
-            const uneditedRepos : Array<Repository> = data["user"]["repositories"]["nodes"];
+            const uneditedRepos : Array<Repository> = data["user"]["repositories"]["nodes"].filter(filterPublic); // Only show public repositories
             const editedRepos : Array<Repository> = [];
 
             // Add "featured"
