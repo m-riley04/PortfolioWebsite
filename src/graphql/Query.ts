@@ -351,6 +351,40 @@ export const GET_COLLABORATORS = gql`
 `;
 
 /** 
+ * A query to retrieve the latest release from a specified username and repository name
+ * @param {string} user
+ * @param {string} repository
+ */
+export const GET_LATEST_RELEASE = gql`
+    query getRelease($user: String!, $repository: String!) {
+        user(login: $user) {
+            repository(name: $repository) {
+                latestRelease {
+                    ${RELEASE_PROPS}
+                }
+            }
+        }
+    }
+`;
+
+/** 
+ * A query to retrieve all releases from a specified username and repository name
+ * @param {string} user
+ * @param {string} repository
+ */
+export const GET_RELEASES = gql`
+    query getReleases($user: String!, $repository: String!) {
+        user(login: $user) {
+            repository(name: $repository) {
+                releases {
+                    ${RELEASE_PROPS}
+                }
+            }
+        }
+    }
+`;
+
+/** 
  * A query to retrieve a specific release from a specified username and repository name
  * @param {string} tag
  * @param {string} user
