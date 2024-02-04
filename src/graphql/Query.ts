@@ -211,7 +211,11 @@ const REPOSITORY_PROPS = `
 
 //=== QUERIES =================================
 // Full
-//** A query to retrieve a specific repository by name and username */
+/** 
+ * A query to retrieve a specific repository by name and username 
+ * @param {string} name
+ * @param {string} username
+ */
 export const GET_REPOSITORY = gql`
     query getRepository($name: String!, $username: String!) {
         repository(name: $name, owner: $username) {
@@ -220,7 +224,11 @@ export const GET_REPOSITORY = gql`
     }
 `;
 
-//** A query to retrieve all of a specific user's repositories */
+/** 
+ * A query to retrieve all of a specific user's repositories
+ * @param {string} username the owner's username/login
+ * @param {Int} count the number of repositories to retrieve
+ */
 export const GET_REPOSITORIES = gql`
     query getRepositories($username: String!, $count: Int!) {
         user(login: $username) {
@@ -235,7 +243,11 @@ export const GET_REPOSITORIES = gql`
     }
 `;
 
-//** A query to retrieve a README.md of a specified repository */
+/** 
+ * A query to retrieve a README.md of a specified repository 
+ * @param {string} repository
+ * @param {string} owner
+ */
 export const GET_README = gql`
     query getReadme($repository: String!, $owner: String!) {
         repository(name: $repository, owner: $owner) {
@@ -248,7 +260,12 @@ export const GET_README = gql`
     }
 `;
 
-//** A query to retrieve a README.md of a specified repository */
+/** 
+ * A query to retrieve a README.md of a specified repository 
+ * @param {string} repository
+ * @param {string} owner
+ * @param {string} filepath
+ */
 export const GET_FOLDER = gql`
     query getFolder($repository: String!, $owner: String!, $filepath: String!) {
         repository(name: $repository, owner: $owner) {
@@ -273,7 +290,10 @@ export const GET_FOLDER = gql`
     }
 `;
 
-//** A query to retrieve user data from a specified username */
+/** 
+ * A query to retrieve user data from a specified username 
+ * @param {string} username
+ */
 export const GET_USER = gql`
     query getUser($username: String!) {
         user(login: $username) {
@@ -282,7 +302,11 @@ export const GET_USER = gql`
     }
 `;
 
-//** A query to retrieve the collaborators from a specified repository */
+/** 
+ * A query to retrieve the collaborators from a specified repository 
+ * @param {string} owner
+ * @param {string} repository
+ */
 export const GET_COLLABORATORS = gql`
     query getCollaborators($owner:String!, $repository: String!) {
         repository(name: $repository, owner: $owner) {
@@ -296,7 +320,12 @@ export const GET_COLLABORATORS = gql`
     }
 `;
 
-//** A query to retrieve a specific release from a specified username and repository name*/
+/** 
+ * A query to retrieve a specific release from a specified username and repository name
+ * @param {string} tag
+ * @param {string} user
+ * @param {string} repository
+ */
 export const GET_RELEASE = gql`
     query getRelease($tag: String!, $user: String!, $repository: String!) {
         user(login: $user) {
