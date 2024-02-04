@@ -7,6 +7,7 @@ import RepositoriesPageSwitcher from "../../switchers/RepositoriesPageSwitcher.t
 import { Repository } from "../../../graphql/Query.ts";
 import RepositoryInfoModal from "./RepositoryInfoModal.tsx";
 import RepositoryCollaboratorViewer from "./RepositoryCollaboratorViewer.tsx";
+import RepositoryLatestReleaseViewer from "./RepositoryLatestReleaseViewer.tsx";
 
 /**
  * A subpage of RepositoryPage that displays the contents of the selected repository
@@ -68,7 +69,7 @@ function RepositoryViewer({ repo, parent } : { repo?:Repository, parent?:React.R
                     <RepositoryCollaboratorViewer repo={repo}/>
                     <br></br>
                     <h3>Releases</h3>
-                    
+                    <RepositoryLatestReleaseViewer repo={repo}></RepositoryLatestReleaseViewer>
                 </div>
             </div>
         </div>
