@@ -42,17 +42,19 @@ function RepositoryViewer({ repo, parent } : { repo?:Repository, parent?:React.R
 
     return (
         <>
-            <RepositoryInfoModal repo={repo}/>
+            <RepositoryInfoModal repo={repo} show={showInfo} onClose={() => setShowInfo(!showInfo)} />
             <div className="repo">
                 <div className="row">
-                    <div className="col-10">
+                    <div className="col-10" style={{display: "flex"}}>
                         <h1>{repo?.name}</h1>
-                        <p>{repo?.primaryLanguage?.name}</p>
+                        <button className="button-info" onClick={() => { setShowInfo(!showInfo) } }>i</button>
                     </div>
                     <div className="col">
-                        <button onClick={() => setShowInfo(!showInfo)}>i</button>
-                        <RepositoriesPageSwitcher title="<-- Grid" target="grid" />
+                        <RepositoriesPageSwitcher title="Back" target="grid" />
                     </div>
+                </div>
+                <div className="row">
+                    <p>{repo?.primaryLanguage?.name}</p>
                 </div>
                 <div className="row">
                     <div className="col-7">
