@@ -48,10 +48,10 @@ function RepositoryViewer({ repo, parent } : { repo?:Repository, parent?:React.R
             <RepositoryInfoModal repo={repo} show={showInfo} onClose={() => setShowInfo(!showInfo)} />
             
             <div className="row">
-                <RepositoriesPageSwitcher title="Back" target="grid" />
                 <div className="col-10 repository-title">
                     <h1>{repo?.name}</h1>
                     <button className="button-info" onClick={() => { setShowInfo(!showInfo) } }>i</button>
+                    <RepositoriesPageSwitcher title="Back" target="grid" />
                 </div>
             </div>
             <div className="row">
