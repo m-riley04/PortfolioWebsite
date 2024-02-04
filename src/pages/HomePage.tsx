@@ -15,7 +15,6 @@ function HomePage() {
 ;    return (
         <motion.div 
             id="home"
-            className="page-container"
             
             initial={{opacity: 0}}
             animate={{opacity: 1}}
