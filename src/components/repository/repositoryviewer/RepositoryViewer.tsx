@@ -49,7 +49,7 @@ function RepositoryViewer({ repo, parent } : { repo?:Repository, parent?:React.R
             
             <div className="row">
                 <RepositoriesPageSwitcher title="Back" target="grid" />
-                <div className="col-10" style={{display: "flex"}}>
+                <div className="col-10 repository-title">
                     <h1>{repo?.name}</h1>
                     <button className="button-info" onClick={() => { setShowInfo(!showInfo) } }>i</button>
                 </div>
