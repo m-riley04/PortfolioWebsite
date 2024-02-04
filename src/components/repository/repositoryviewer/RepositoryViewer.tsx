@@ -17,6 +17,8 @@ import RepositoryLatestReleaseViewer from "./RepositoryLatestReleaseViewer.tsx";
  */
 function RepositoryViewer({ repo, parent } : { repo?:Repository, parent?:React.RefObject<HTMLDivElement>}) {
     const navigate = useNavigate();
+    
+    //=== HOOKS
     const [showInfo, setShowInfo] = useState(false);
 
     // Override the back button to navigate to the repository grid
