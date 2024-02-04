@@ -21,7 +21,6 @@ function HomePage() {
             exit={{opacity: 0}}
         >
             <div id="banner" style={{background: `linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${bannerSrc})`}}>
-                <h1>Welcome to my page!</h1>
                 <NavigationGroup buttons={paths}></NavigationGroup>
             </div>
         </motion.div>
