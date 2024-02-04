@@ -327,15 +327,14 @@ a:hover {
 }
 
 .release {
+    display: inline-flex;
+    
     background-color: $button-bg;
+    width: 100%;
     height: 100%;
     transition-duration: $fade-duration;
     border-radius: 10px;
     align-items: center;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 5px;
-    margin-top: 5px;
 }
 
 .modal .modal-content {
