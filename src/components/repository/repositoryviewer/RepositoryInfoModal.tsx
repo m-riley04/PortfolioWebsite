@@ -11,7 +11,7 @@ function RepositoryInfoModal( { repo, show, onClose } : {repo?:Repository, show?
                 </Modal.Header>
 
                 <Modal.Body>
-                    <p>Owner: {repo?.owner?.login}</p>
+                    <p>Owner: <a href={`https://github.com/${repo?.owner?.login}`} target="_blank" rel="noreferrer">{repo?.owner?.login}</a></p>
                     <p>Date Created: {repo?.createdAt}</p>
                     <p>Date Updated: {repo?.updatedAt}</p>
                     <p>Date Pushed: {repo?.pushedAt}</p>
