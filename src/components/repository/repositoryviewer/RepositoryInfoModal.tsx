@@ -4,10 +4,10 @@ import { Repository } from '../../../graphql/Query';
 
 function RepositoryInfoModal( { repo, show, onClose } : {repo?:Repository, show?:boolean, onClose?:()=>void}) {
     return (
-        <div>
-            <Modal show={show} onHide={onClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Repository Info</Modal.Title>
+        <>
+            <Modal show={show} onHide={onClose} className="modal">
+                <Modal.Header>
+                    <Modal.Title>More Information</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
@@ -22,7 +22,7 @@ function RepositoryInfoModal( { repo, show, onClose } : {repo?:Repository, show?
                     <Button variant="primary" onClick={onClose}>Close</Button>
                 </Modal.Footer>
             </Modal>
-        </div>
+        </>
     );
 }
 
