@@ -52,7 +52,7 @@ function RepositoryLatestReleaseViewer( { repo } : { repo?:Repository }) {
         // Show on no releases
         return (
             <div className="latest-release-viewer">
-                <h2>There are no releases for this repository</h2>
+                <p>There are no releases for this repository</p>
             </div>
         );
     }
