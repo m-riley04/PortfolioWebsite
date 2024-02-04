@@ -33,7 +33,7 @@ function ComingSoonPage() {
 
     return (
         <motion.div 
-            className="page-container coming-soon"
+            className="coming-soon"
             
             initial={{opacity: 0}}
             animate={{opacity: 1}}
