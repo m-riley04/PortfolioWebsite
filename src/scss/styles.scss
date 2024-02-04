@@ -247,6 +247,11 @@ a:hover {
     overflow-x: hidden;
 }
 
+// Grid
+.repository-title {
+    display: flex;
+}
+
 .markdown-viewer {
     height: 70vh;
     overflow-y: auto;
@@ -531,6 +536,30 @@ a:hover {
 
     .list {
         display: none !important;
+    }
+    
+    // Home Page
+    .navigation-group {
+        display: block;
+        width: 100%;
+        height: 30vh;
+        margin: auto;
+    }
+
+    .navigation-group-button {
+        display: block;
+        color: $body-color;
+        background-color: rgba(0, 0, 0, 0.3);
+        border: white solid 2px;
+        text-shadow: white 0 0 1em;
+        margin: auto;
+        margin-bottom: 20px;
+        width: 45%;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 3vw;
     }
 
     // RepositoryViewer (ChatGPT helped... kinda. i found the issue was manual styling :P)
