@@ -217,11 +217,15 @@ const REPOSITORY_PROPS = `
     updatedAt
     pushedAt
     latestRelease {
-        ${RELEASE_PROPS}
+        id
+        tagName
+        name
     }
     releases(first: 100) {
         nodes {
-            ${RELEASE_PROPS}
+            id
+            tagName
+            name
         }
     }
     primaryLanguage {
