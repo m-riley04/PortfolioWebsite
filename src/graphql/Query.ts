@@ -32,6 +32,20 @@ export interface User {
     email: string
 }
 
+export interface ReleaseAsset {
+    url: string,
+    name: string,
+    size: number,
+    createdAt: string,
+    contentType: string,
+    downloadUrl: string
+}
+
+export interface ReleaseAssets {
+    totalCount: number,
+    nodes: ReleaseAsset[]
+}
+
 export interface Release {
     tagName: string,
     name: string,
@@ -42,7 +56,8 @@ export interface Release {
     isLatest: boolean,
     description: string,
     descriptionHTML: string,
-    resourcePath: string
+    resourcePath: string,
+    releaseAssets: ReleaseAssets
 }
 
 export interface Repository {
@@ -108,7 +123,8 @@ export const DefaultRelease : Release = {
     isLatest: false,
     description: "",
     descriptionHTML: "",
-    resourcePath: ""
+    resourcePath: "",
+    releaseAssets: { totalCount: 0, nodes: [] },
 };
 
 export const DefaultRepository : Repository = {
@@ -166,7 +182,17 @@ const RELEASE_PROPS = `
     isLatest
     description
     descriptionHTML
-    resourcePath
+    releaseAssets(first: 100) {
+        totalCount
+        nodes {
+            url
+            name
+            size
+            createdAt
+            contentType
+            downloadUrl
+        }
+    }
 `;
 
 const REPOSITORY_PROPS = `
