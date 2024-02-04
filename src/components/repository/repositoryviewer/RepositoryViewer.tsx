@@ -57,7 +57,7 @@ function RepositoryViewer({ repo, parent } : { repo?:Repository, parent?:React.R
             <div className="row">
                 <p>{repo?.primaryLanguage?.name}</p>
             </div>
-            <div className="row" style={{height: "60vh"}}>
+            <div className="row">
                 <div className="col-7">
                     <h3>README</h3>
                     <RepositoryMarkdownViewer repo={repo}/>
