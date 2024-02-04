@@ -247,6 +247,11 @@ a:hover {
     overflow-x: hidden;
 }
 
+// Grid
+.repository-title {
+    display: flex;
+}
+
 .markdown-viewer {
     height: 70vh;
     overflow-y: auto;
@@ -327,7 +332,7 @@ a:hover {
 }
 
 .release {
-    display: inline-flex;
+    display: block;
     
     background-color: $button-bg;
     width: 100%;
@@ -521,6 +526,7 @@ a:hover {
 }
 //#endregion NAVIGATION
 
+// Mobile Styling
 @media (max-width: 500px) {
     #coming-soon h1 {
         font-size: 15vw;
@@ -530,5 +536,79 @@ a:hover {
 
     .list {
         display: none !important;
+    }
+    
+    // Home Page
+
+    #banner {
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .navigation-group {
+        display: block;
+        margin: auto;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .navigation-group-button {
+        display: flex;
+        color: $body-color;
+        background-color: rgba(0, 0, 0, 0.3);
+        border: white solid 2px;
+        text-shadow: white 0 0 1em;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: 100%;
+        height: 10vh;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 5vw;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    // RepositoryViewer (ChatGPT helped... kinda. i found the issue was manual styling :P)
+    .repo {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        overflow-y: scroll;
+    }
+
+    // Stack .row elements vertically and allow them to fill their containers
+    .repo .row {
+        flex-direction: column;
+    }
+
+    // Override any min-width or fixed width on columns to allow them to fit mobile screens
+    .repo .col, .repo .col-7, .repo .col-5, .repo .col-10 {
+        width: 100% !important; // Use !important to ensure override
+        min-width: 0 !important; // Use !important to ensure override
+        max-width: 100% !important; // Use !important to ensure override
+    }
+
+    // Adjust any specific widgets that might have fixed sizes
+    .markdown-viewer, .media-viewer, .collaborator-viewer, .latest-release-viewer {
+        width: 100% !important; // Use !important to ensure override
+        height: auto; // Allow the height to grow as needed
+        overflow-y: auto; // Enable vertical scrolling if needed
+        aspect-ratio: auto; // Override any fixed aspect ratios
+    }
+
+    // Adjust the repository content container to handle long README content
+    .markdown-viewer {
+        max-height: 50vh; // Set a maximum height to prevent it from taking up too much vertical space
+        overflow-y: auto; // Allow scrolling within the README container
     }
 }

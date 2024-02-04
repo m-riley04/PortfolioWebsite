@@ -1,5 +1,4 @@
 import AnimatedRoutes from "./components/AnimatedRoutes";
-import Footer from "./components/Footer";
 import {
   BrowserRouter as Router,
 } from "react-router-dom";
@@ -12,7 +11,6 @@ function App() {
         <Router>
           <ScrollToTop/>
           <AnimatedRoutes/>
-          <Footer/>
         </Router>
     </div>
   );

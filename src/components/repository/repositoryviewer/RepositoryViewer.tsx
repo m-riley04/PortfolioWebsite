@@ -17,6 +17,8 @@ import RepositoryLatestReleaseViewer from "./RepositoryLatestReleaseViewer.tsx";
  */
 function RepositoryViewer({ repo, parent } : { repo?:Repository, parent?:React.RefObject<HTMLDivElement>}) {
     const navigate = useNavigate();
+    
+    //=== HOOKS
     const [showInfo, setShowInfo] = useState(false);
 
     // Override the back button to navigate to the repository grid
@@ -44,19 +46,18 @@ function RepositoryViewer({ repo, parent } : { repo?:Repository, parent?:React.R
     return (
         <div className="repo">
             <RepositoryInfoModal repo={repo} show={showInfo} onClose={() => setShowInfo(!showInfo)} />
+            
             <div className="row">
-                <div className="col-10" style={{display: "flex"}}>
+                <div className="col-10 repository-title">
                     <h1>{repo?.name}</h1>
                     <button className="button-info" onClick={() => { setShowInfo(!showInfo) } }>i</button>
-                </div>
-                <div className="col">
                     <RepositoriesPageSwitcher title="Back" target="grid" />
                 </div>
             </div>
             <div className="row">
                 <p>{repo?.primaryLanguage?.name}</p>
             </div>
-            <div className="row" style={{height: "60vh"}}>
+            <div className="row">
                 <div className="col-7">
                     <h3>README</h3>
                     <RepositoryMarkdownViewer repo={repo}/>

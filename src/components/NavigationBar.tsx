@@ -16,6 +16,7 @@ function NavigationBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={Link} to="repositories" className="navbar-option clickable">Repositories</Nav.Link>
+            <Nav.Link as={Link} to="about" className="navbar-option clickable">About</Nav.Link>
             <Nav.Link as={Link} to="tools" className="navbar-option clickable">Tools</Nav.Link>
             <Nav.Link as={Link} to="research" className="navbar-option clickable">Research</Nav.Link>
             <NavDropdown title="Links" id="basic-nav-dropdown" className="navbar-option navbar-dropdown clickable">
