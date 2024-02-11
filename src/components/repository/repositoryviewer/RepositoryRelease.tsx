@@ -1,11 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ReleaseAsset } from "../../../graphql/Query";
 import ReleaseAssetsModal from "./ReleaseAssetsModal";
 import { Col, Row } from "react-bootstrap";
 
-function RepositoryRelease( { tag, createdAt, size, assets } : { tag?:string, createdAt?:string, size?:number, assets?:ReleaseAsset[] }) {
+function RepositoryRelease( { tag, createdAt, assets } : { tag?:string, createdAt?:string, assets?:ReleaseAsset[] }) {
     const [show, setShow] = useState(false);
+    const [downloadSize, setDownloadSize] = useState(0);
     
+    useEffect(() => {
+        if (assets) {
+            setDownloadSize(assets[0].size);
+        }
+    }, [assets]);
+
     const handleDownload = () => {
         // Check if there's more than one asset in the release
         if (assets) {
@@ -40,12 +47,12 @@ function RepositoryRelease( { tag, createdAt, size, assets } : { tag?:string, cr
                         <h4>{tag}</h4>
                     </Col>
                     <Col md={3}>
-                        <p>{createdAt}</p>
+                        <p>{new Date(createdAt).getDate()}/{new Date(createdAt).getMonth()}/{new Date(createdAt).getFullYear()}</p>
                     </Col>
                     <Col md={3}>
-                        <p>{size}</p>
+                        <p>{Math.round(downloadSize * 10e-7)/100} gb</p>
                     </Col>
-                    <Col>
+                    <Col md={3}>
                         <button onClick={handleDownload}>Download</button>
                     </Col>
                 </Row>
