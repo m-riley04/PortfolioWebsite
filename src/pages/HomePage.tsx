@@ -20,7 +20,7 @@ function HomePage() {
             animate={{opacity: 1}}
             exit={{opacity: 0}}
         >
-            <div id="banner" style={{background: `linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${bannerSrc})`}}>
+            <div id="banner" style={{background: `linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${bannerSrc})`}}>
                 <NavigationGroup buttons={paths}></NavigationGroup>
             </div>
         </motion.div>
